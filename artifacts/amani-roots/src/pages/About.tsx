@@ -21,38 +21,52 @@ export default function About() {
   return (
     <div className="min-h-screen bg-bg text-text">
 
-      {/* ── HERO — text only ── */}
+      {/* ── HERO — text + logo ── */}
       <section className="relative w-full pt-[72px]" style={{ backgroundColor: "var(--bg-mist)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-          <div className="lg:col-span-12 flex flex-col items-center lg:items-start justify-center lg:justify-start px-6 md:px-12 lg:px-16 py-16 lg:py-24" style={{ backgroundColor: "var(--bg-mist)" }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.3 }}
-              className="text-center lg:text-left w-full lg:w-auto"
-            >
-              <p className={eyebrow} style={eyebrowStyle}>&mdash; THE GENESIS</p>
-              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-light tracking-widest leading-[1.1] mb-6">
-                The Story Behind<br /><span className="italic" style={{ color: "var(--forest)" }}>Amani Roots</span>
-              </h1>
-              <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm mx-auto lg:mx-0">
-                Amani Roots grew from a personal journey into something much bigger.
-              </p>
-              <div className="mt-12 flex justify-center lg:justify-start">
-                <img
-                  src={`${BASE}assets/logo.png`}
-                  alt="Amani Roots Oils Logo"
-                  className="h-12 w-auto"
-                  style={{ filter: "brightness(0) saturate(100%) invert(27%) sepia(29%) saturate(545%) hue-rotate(110deg) brightness(91%) contrast(91%)" }}
-                />
-              </div>
-            </motion.div>
-          </div>
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-16 lg:py-24 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+            className="text-center w-full lg:w-auto"
+          >
+            <p className={eyebrow + " text-center"} style={eyebrowStyle}>&mdash; THE GENESIS</p>
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-light tracking-widest leading-[1.1] mb-6">
+              The Story Behind<br /><span className="italic" style={{ color: "var(--forest)" }}>Amani Roots</span>
+            </h1>
+            <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm mx-auto">
+              Amani Roots grew from a personal journey into something much bigger.
+            </p>
+            {/* Logo — below text on mobile */}
+            <div className="mt-10 flex justify-center lg:hidden">
+              <img
+                src={`${BASE}assets/logo.png`}
+                alt="Amani Roots Oils Logo"
+                className="w-[252px] h-auto"
+                style={{ filter: "brightness(0) saturate(100%) invert(27%) sepia(29%) saturate(545%) hue-rotate(110deg) brightness(91%) contrast(91%)" }}
+              />
+            </div>
+          </motion.div>
+
+          {/* Logo — beside text on large screens */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="hidden lg:flex items-center justify-center flex-shrink-0"
+          >
+            <img
+              src={`${BASE}assets/logo.png`}
+              alt="Amani Roots Oils Logo"
+              className="w-[380px] xl:w-[460px] h-auto"
+              style={{ filter: "brightness(0) saturate(100%) invert(27%) sepia(29%) saturate(545%) hue-rotate(110deg) brightness(91%) contrast(91%)" }}
+            />
+          </motion.div>
         </div>
       </section>
 
       {/* ── STORY INTRO ── */}
-      <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)", borderTop: "2px solid var(--sage)" }}>
+      <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)" }}>
         <div className="max-w-[900px] mx-auto">
           <motion.div
             initial="hidden"
