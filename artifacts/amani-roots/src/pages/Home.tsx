@@ -74,41 +74,43 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── MOBILE: full-bleed video + solid text panel below ── */}
-        <div className="md:hidden flex flex-col" style={{ minHeight: "calc(100svh - 72px)" }}>
-          {/* Video fills most of viewport */}
-          <div className="relative flex-1 overflow-hidden" style={{ minHeight: "52vw" }}>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={`${BASE}assets/hero-model.png`}
-              className="absolute inset-0 w-full h-full object-cover"
+        {/* ── MOBILE: same side-by-side split as desktop ── */}
+        <div className="md:hidden flex flex-row" style={{ minHeight: "calc(100svh - 72px)" }}>
+
+          {/* Left: dark green text panel */}
+          <div className="flex flex-col justify-center px-5 py-10" style={{ flex: "0 0 52%", backgroundColor: HERO_GREEN }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: [0.2, 0, 0.2, 1] }}
             >
-              <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
-            </video>
+              <p className="font-light tracking-[0.18em] uppercase mb-3" style={{ fontSize: "8px", color: "rgba(214,232,220,0.65)" }}>
+                ARTISANAL BOTANICAL HAIR CARE
+              </p>
+              <div className="w-8 h-[1px] mb-5" style={{ backgroundColor: "rgba(122,158,135,0.5)" }} />
+              <h1 className="font-heading font-light leading-[1.1] mb-4 tracking-widest" style={{ color: "#F5F0E8", fontSize: "clamp(1.25rem, 6.5vw, 1.75rem)" }}>
+                Honoring the<br />Natural Strength<br />of Every Strand
+              </h1>
+              <p className="font-light leading-[1.8] tracking-wide mb-6" style={{ fontSize: "10px", color: "rgba(245,240,232,0.68)" }}>
+                Artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
+              </p>
+              <Link
+                href="/shop"
+                className="inline-block font-body font-light tracking-[0.12em] uppercase transition-all duration-300 hover:opacity-80"
+                style={{ backgroundColor: "var(--sage)", color: "#fff", fontSize: "9px", padding: "10px 16px" }}
+              >
+                Shop the Collection &rarr;
+              </Link>
+            </motion.div>
           </div>
 
-          {/* Solid dark green text panel — fully opaque, extremely legible */}
-          <div className="px-7 py-10" style={{ backgroundColor: HERO_GREEN }}>
-            <p className="text-[9px] font-light tracking-[0.22em] uppercase mb-3" style={{ color: "rgba(214,232,220,0.7)" }}>
-              ARTISANAL BOTANICAL HAIR CARE
-            </p>
-            <div className="w-10 h-[1px] mb-6" style={{ backgroundColor: "rgba(122,158,135,0.5)" }} />
-            <h1 className="font-heading font-light leading-[1.1] mb-5 tracking-widest text-[2rem]" style={{ color: "#F5F0E8" }}>
-              Honoring the<br />Natural Strength<br />of Every Strand
-            </h1>
-            <p className="text-xs font-light leading-[1.9] tracking-wide mb-7" style={{ color: "rgba(245,240,232,0.72)" }}>
-              Artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
-            </p>
-            <Link
-              href="/shop"
-              className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 hover:opacity-80"
-              style={{ backgroundColor: "var(--sage)", color: "#fff" }}
-            >
-              Shop Now &rarr;
-            </Link>
+          {/* Right: product image */}
+          <div className="relative overflow-hidden" style={{ flex: "0 0 48%" }}>
+            <img
+              src={`${BASE}assets/botanical-product.avif`}
+              alt="Amani Roots Botanical Hair Growth Oil"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
           </div>
         </div>
       </section>
