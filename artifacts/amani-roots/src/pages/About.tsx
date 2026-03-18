@@ -70,13 +70,13 @@ export default function About() {
 
       {/* ── MISSION ── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
+        <div className="max-w-[1400px] mx-auto flex flex-row lg:grid lg:grid-cols-12 gap-6 md:gap-14 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="lg:col-span-5"
+            className="lg:col-span-5 flex-shrink-0 w-[45%] lg:w-auto"
           >
             <div className="overflow-hidden" style={{ aspectRatio: "3/4", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}>
               <img
@@ -93,13 +93,13 @@ export default function About() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerContainer}
-            className="lg:col-span-7 lg:pl-8"
+            className="lg:col-span-7 lg:pl-8 flex-1 min-w-0"
           >
             <motion.p variants={fadeInUp} className={eyebrow} style={eyebrowStyle}>&mdash; OUR MISSION</motion.p>
-            <motion.h2 variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-light tracking-widest leading-[1.2] mb-10">
+            <motion.h2 variants={fadeInUp} className="font-heading text-xl md:text-5xl font-light tracking-widest leading-[1.2] mb-4 md:mb-10">
               Cherish Your Roots
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide">
+            <motion.p variants={fadeInUp} className="text-xs md:text-base text-text-muted font-light leading-[1.8] md:leading-[2] tracking-wide">
               Our mission is to replace the pressure to conform with the pride of heritage. Through education and artisanal botanical blends, we empower every woman to embrace her unique beauty. At Amani Roots, we believe that when you cherish your roots, you stand taller, rooted in the strength of exactly who you are meant to be.
             </motion.p>
           </motion.div>
