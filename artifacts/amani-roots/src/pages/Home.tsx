@@ -66,8 +66,7 @@ export default function Home() {
               muted
               loop
               playsInline
-              poster={`${BASE}assets/hero-model.png`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover pointer-events-none"
             >
               <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
             </video>
@@ -111,8 +110,7 @@ export default function Home() {
               muted
               loop
               playsInline
-              poster={`${BASE}assets/hero-model.png`}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             >
               <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
             </video>
