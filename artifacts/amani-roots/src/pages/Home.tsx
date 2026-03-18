@@ -29,7 +29,7 @@ export default function Home() {
     <div className="min-h-screen bg-bg text-text">
 
       {/* ── 1. HERO ────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative w-full bg-bg pt-[72px]">
+      <section ref={heroRef} className="relative w-full bg-bg pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
         {/* 16:9 video container */}
         <div className="relative w-full aspect-video overflow-hidden" style={{ maxHeight: "90vh" }}>
           <video
@@ -121,7 +121,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. PHILOSOPHY ──────────────────────────────────── */}
-      <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
+      <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)", borderTop: "2px solid var(--sage)" }}>
         <div className="max-w-[1400px] mx-auto">
           <p className={eyebrow} style={eyebrowStyle}>&mdash; 01 PHILOSOPHY</p>
 
