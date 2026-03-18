@@ -334,8 +334,8 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/shop"
-                  className="text-xs font-body font-light tracking-[0.1em] uppercase underline underline-offset-4 hover:underline-offset-8 transition-all py-3"
-                  style={{ color: "var(--forest)" }}
+                  className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
+                  style={{ backgroundColor: "transparent", color: "var(--forest)" }}
                 >
                   Shop 4oz &rarr;
                 </Link>
