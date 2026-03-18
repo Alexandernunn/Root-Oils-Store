@@ -58,55 +58,6 @@ export default function Home() {
               style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.60) 40%, rgba(0,0,0,0.65) 100%)" }}
             />
 
-            <div className="absolute inset-0 flex items-end pb-10 md:pb-14 px-6 md:px-10">
-              <div className="max-w-md">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.9, delay: 0.2, ease: [0.2, 0, 0.2, 1] }}
-                  className="mb-5"
-                >
-                  <p className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-3" style={{ color: "var(--mint)" }}>
-                    ARTISANAL BOTANICAL HAIR CARE
-                  </p>
-                  <div className="w-16 h-[1px]" style={{ backgroundColor: "var(--sage)" }} />
-                </motion.div>
-
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.9, delay: 0.5, ease: [0.2, 0, 0.2, 1] }}
-                  className="font-heading font-light leading-[1.1] mb-5 tracking-widest"
-                  style={{ color: "#fff", fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
-                >
-                  Honoring the<br />Natural Strength<br />of Every Strand
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.9, delay: 0.8, ease: [0.2, 0, 0.2, 1] }}
-                  className="text-xs md:text-sm font-light leading-[1.9] tracking-wide mb-8 max-w-[280px]"
-                  style={{ color: "rgba(255,255,255,0.78)" }}
-                >
-                  Amani Roots Oils empowers your natural hair journey with artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.9, delay: 1.1, ease: [0.2, 0, 0.2, 1] }}
-                >
-                  <Link
-                    href="/shop"
-                    className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 hover:opacity-85"
-                    style={{ backgroundColor: "var(--forest)", color: "#fff" }}
-                  >
-                    Shop the Collection &rarr;
-                  </Link>
-                </motion.div>
-              </div>
-            </div>
           </div>
 
           {/* Desktop side text next to 9:16 video */}
@@ -116,23 +67,22 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6, ease: [0.2, 0, 0.2, 1] }}
             >
-              <p className="text-[10px] font-light tracking-[0.2em] uppercase mb-6" style={{ color: "var(--sage)" }}>
-                &mdash; WELCOME
+              <p className="text-[10px] font-light tracking-[0.2em] uppercase mb-5" style={{ color: "var(--sage)" }}>
+                ARTISANAL BOTANICAL HAIR CARE
               </p>
-              <h2 className="font-heading text-4xl lg:text-5xl font-light tracking-widest leading-[1.15] mb-6" style={{ color: "var(--text)" }}>
-                Grow Longer.<br /><span className="italic" style={{ color: "var(--forest)" }}>Shine Brighter.</span>
-              </h2>
-              <p className="text-sm font-light leading-[1.9] tracking-wide text-text-muted mb-8 max-w-sm">
-                7 Herbs &middot; 3 Oils &middot; Botanical Hair Growth Oil. Cold-infused over weeks, never rushed. Crafted with intention for your roots.
+              <div className="w-16 h-[1px] mb-8" style={{ backgroundColor: "var(--sage)" }} />
+              <h1 className="font-heading font-light leading-[1.1] mb-6 tracking-widest" style={{ color: "var(--text)", fontSize: "clamp(2rem, 3.5vw, 4rem)" }}>
+                Honoring the<br />Natural Strength<br />of Every Strand
+              </h1>
+              <p className="text-sm font-light leading-[1.9] tracking-wide text-text-muted mb-10 max-w-sm">
+                Amani Roots Oils empowers your natural hair journey with artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
               </p>
               <Link
-                href="/about"
-                className="text-xs font-body font-light tracking-[0.1em] transition-colors"
-                style={{ color: "var(--sage)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")}
-                onMouseLeave={e => (e.currentTarget.style.color = "var(--sage)")}
+                href="/shop"
+                className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 hover:opacity-85"
+                style={{ backgroundColor: "var(--forest)", color: "#fff" }}
               >
-                &rarr; Our Story
+                Shop the Collection &rarr;
               </Link>
             </motion.div>
           </div>
