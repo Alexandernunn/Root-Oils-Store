@@ -29,16 +29,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-bg text-text">
 
-      {/* ── 1. HERO ─ full-bleed mobile, off-center framed desktop ── */}
+      {/* ── 1. HERO ─ full-bleed mobile, 9:16 portrait framed desktop ── */}
       <section ref={heroRef} className="relative w-full bg-bg pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
-        {/* Mobile: full viewport. Desktop: inset with breathing room */}
         <div className="relative w-full md:px-12 lg:px-20">
           <div
             className="relative w-full overflow-hidden"
             style={{ height: "calc(100svh - 72px)" }}
             data-hero-container
           >
-            <style>{`@media (min-width: 768px) { [data-hero-container] { height: auto; aspect-ratio: 16/9; max-height: 82vh; } }`}</style>
+            <style>{`@media (min-width: 768px) { [data-hero-container] { height: auto; aspect-ratio: 9/16; max-height: 82vh; max-width: 460px; } }`}</style>
             <video
               autoPlay
               muted
@@ -52,22 +51,22 @@ export default function Home() {
 
             <div
               className="absolute inset-0 hidden md:block"
-              style={{ background: "linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.05) 100%)" }}
+              style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.60) 100%)" }}
             />
             <div
               className="absolute inset-0 md:hidden"
               style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.60) 40%, rgba(0,0,0,0.65) 100%)" }}
             />
 
-            <div className="absolute inset-0 flex items-center px-6 md:px-16 lg:px-20">
-              <div className="max-w-xl">
+            <div className="absolute inset-0 flex items-end pb-10 md:pb-14 px-6 md:px-10">
+              <div className="max-w-md">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.2, ease: [0.2, 0, 0.2, 1] }}
-                  className="mb-6"
+                  className="mb-5"
                 >
-                  <p className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-4" style={{ color: "var(--mint)" }}>
+                  <p className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-3" style={{ color: "var(--mint)" }}>
                     ARTISANAL BOTANICAL HAIR CARE
                   </p>
                   <div className="w-16 h-[1px]" style={{ backgroundColor: "var(--sage)" }} />
@@ -77,8 +76,8 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.5, ease: [0.2, 0, 0.2, 1] }}
-                  className="font-heading font-light leading-[1.1] mb-6 tracking-widest"
-                  style={{ color: "#fff", fontSize: "clamp(2.2rem, 5vw, 4.5rem)" }}
+                  className="font-heading font-light leading-[1.1] mb-5 tracking-widest"
+                  style={{ color: "#fff", fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
                 >
                   Honoring the<br />Natural Strength<br />of Every Strand
                 </motion.h1>
@@ -87,7 +86,7 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.9, delay: 0.8, ease: [0.2, 0, 0.2, 1] }}
-                  className="text-sm font-light leading-[1.9] tracking-wide mb-10 max-w-[300px]"
+                  className="text-xs md:text-sm font-light leading-[1.9] tracking-wide mb-8 max-w-[280px]"
                   style={{ color: "rgba(255,255,255,0.78)" }}
                 >
                   Amani Roots Oils empowers your natural hair journey with artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
@@ -108,28 +107,39 @@ export default function Home() {
                 </motion.div>
               </div>
             </div>
+          </div>
 
+          {/* Desktop side text next to 9:16 video */}
+          <div className="hidden md:flex absolute top-[72px] right-20 lg:right-24 bottom-0 items-center" style={{ maxWidth: "480px", width: "40%" }}>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6, duration: 1 }}
-              className="absolute bottom-8 right-8 hidden md:flex flex-col items-center gap-3"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6, ease: [0.2, 0, 0.2, 1] }}
             >
-              <span className="text-[9px] uppercase tracking-[0.2em] rotate-90 origin-center" style={{ color: "rgba(255,255,255,0.5)" }}>Scroll</span>
-              <div className="w-[1px] h-10 overflow-hidden" style={{ backgroundColor: "rgba(255,255,255,0.2)" }}>
-                <motion.div
-                  animate={{ y: ["-100%", "100%"] }}
-                  transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                  className="w-full h-full"
-                  style={{ backgroundColor: "var(--mint)" }}
-                />
-              </div>
+              <p className="text-[10px] font-light tracking-[0.2em] uppercase mb-6" style={{ color: "var(--sage)" }}>
+                &mdash; WELCOME
+              </p>
+              <h2 className="font-heading text-4xl lg:text-5xl font-light tracking-widest leading-[1.15] mb-6" style={{ color: "var(--text)" }}>
+                Grow Longer.<br /><span className="italic" style={{ color: "var(--forest)" }}>Shine Brighter.</span>
+              </h2>
+              <p className="text-sm font-light leading-[1.9] tracking-wide text-text-muted mb-8 max-w-sm">
+                7 Herbs &middot; 3 Oils &middot; Botanical Hair Growth Oil. Cold-infused over weeks, never rushed. Crafted with intention for your roots.
+              </p>
+              <Link
+                href="/about"
+                className="text-xs font-body font-light tracking-[0.1em] transition-colors"
+                style={{ color: "var(--sage)" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")}
+                onMouseLeave={e => (e.currentTarget.style.color = "var(--sage)")}
+              >
+                &rarr; Our Story
+              </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── 2. PHILOSOPHY — with applying-oil image ────────────── */}
+      {/* ── 2. PHILOSOPHY ────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)", borderTop: "2px solid var(--sage)" }}>
         <div className="max-w-[1400px] mx-auto">
           <p className={eyebrow} style={eyebrowStyle}>&mdash; OUR PHILOSOPHY</p>
@@ -142,10 +152,7 @@ export default function Home() {
               transition={{ duration: 1 }}
               className="lg:col-span-5"
             >
-              <div
-                className="w-full overflow-hidden"
-                style={{ aspectRatio: "3/4", maxHeight: "55vh", boxShadow: "var(--shadow-green)" }}
-              >
+              <div className="w-full overflow-hidden" style={{ aspectRatio: "3/4", boxShadow: "var(--shadow-green)" }}>
                 <img
                   src={`${BASE}assets/applying-oil.png`}
                   alt="Applying Amani Roots oil to natural hair"
@@ -181,7 +188,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3. THREE PILLARS — with bottle-herbs image ─────────── */}
+      {/* ── 3. THREE PILLARS — 7 Herbs · 3 Oils · Healthy Roots ── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
           <motion.div
@@ -189,7 +196,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="mb-20 md:mb-28"
+            className="mb-16 md:mb-24"
           >
             <p className={eyebrow} style={eyebrowStyle}>&mdash; BOTANICAL FORMULA</p>
             <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-text font-light tracking-widest leading-[1.1]">
@@ -197,51 +204,65 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-start">
-            {/* Bottle image — offset left */}
+          {/* Two botanical images side by side */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
-              className="lg:col-span-4 hidden lg:block"
+              className="overflow-hidden"
+              style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
             >
-              <div className="overflow-hidden" style={{ maxHeight: "50vh", boxShadow: "var(--shadow-green)" }}>
-                <img
-                  src={`${BASE}assets/bottle-herbs.png`}
-                  alt="Amani Roots oil bottle with botanicals"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
+              <img src={`${BASE}assets/herbs-grid-1.png`} alt="Botanical herbs illustration" className="w-full h-full object-cover" loading="lazy" />
             </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.15 }}
+              className="overflow-hidden"
+              style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
+            >
+              <img src={`${BASE}assets/herbs-grid-2.png`} alt="Botanical oils illustration" className="w-full h-full object-cover" loading="lazy" />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="overflow-hidden col-span-2 md:col-span-1"
+              style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
+            >
+              <img src={`${BASE}assets/bottle-herbs.png`} alt="Amani Roots oil with botanicals" className="w-full h-full object-cover" loading="lazy" />
+            </motion.div>
+          </div>
 
-            {/* Three columns */}
-            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
-              {[
-                { num: "01", title: "7 Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to help nourish the scalp and support healthier, stronger hair." },
-                { num: "02", title: "3 Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils help nourish your strands without leaving heavy buildup." },
-                { num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
-              ].map((pillar, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.9, delay: i * 0.1 }}
-                  className="md:px-8 lg:px-10 first:pl-0 last:pr-0"
-                >
-                  <div className="text-[10px] uppercase tracking-[0.2em] mb-6 font-light" style={{ color: "var(--sage)" }}>{pillar.num}</div>
-                  <h3 className="font-heading text-2xl md:text-3xl mb-5 font-light tracking-widest">{pillar.title}</h3>
-                  <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide">{pillar.desc}</p>
-                </motion.div>
-              ))}
-            </div>
+          {/* Three columns */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
+            {[
+              { num: "01", title: "7 Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to help nourish the scalp and support healthier, stronger hair." },
+              { num: "02", title: "3 Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils help nourish your strands without leaving heavy buildup." },
+              { num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
+            ].map((pillar, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: i * 0.1 }}
+                className="md:px-8 lg:px-14 first:pl-0 last:pr-0"
+              >
+                <div className="text-[10px] uppercase tracking-[0.2em] mb-6 font-light" style={{ color: "var(--sage)" }}>{pillar.num}</div>
+                <h3 className="font-heading text-2xl md:text-3xl mb-5 font-light tracking-widest">{pillar.title}</h3>
+                <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide">{pillar.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 4. SCIENCE — with holding-bottle image ─────────────── */}
+      {/* ── 4. SCIENCE ─────────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
@@ -268,10 +289,7 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-6"
             >
-              <div
-                className="overflow-hidden ml-auto"
-                style={{ aspectRatio: "3/4", maxHeight: "55vh", maxWidth: "420px", boxShadow: "var(--shadow-green)" }}
-              >
+              <div className="overflow-hidden ml-auto" style={{ aspectRatio: "3/4", maxWidth: "420px", boxShadow: "var(--shadow-green)" }}>
                 <img
                   src={`${BASE}assets/holding-bottle.png`}
                   alt="Woman holding Amani Roots oil"
@@ -284,11 +302,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. PRODUCT SPOTLIGHT — with bottle-flatlay image ──── */}
+      {/* ── 5. PRODUCT SPOTLIGHT ──────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
-            {/* Text side */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -298,7 +315,7 @@ export default function Home() {
             >
               <p className={eyebrow} style={eyebrowStyle}>&mdash; SIGNATURE FORMULA</p>
               <motion.h2 variants={fadeInUp} className="font-heading text-4xl md:text-6xl mb-6 font-light tracking-widest">
-                Botanical Hair Growth Oil
+                Botanical Hair<br />Growth Oil
               </motion.h2>
               <motion.p variants={fadeInUp} className="text-text-muted text-sm md:text-base font-light leading-[1.9] tracking-wide mb-12">
                 A lightweight botanical oil designed to nourish the scalp, strengthen hair strands, and support natural growth.
@@ -322,7 +339,6 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Image side — bottle flatlay */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -330,10 +346,7 @@ export default function Home() {
               transition={{ duration: 1 }}
               className="lg:col-span-6 order-1 lg:order-2"
             >
-              <div
-                className="overflow-hidden mx-auto"
-                style={{ aspectRatio: "3/4", maxHeight: "55vh", maxWidth: "460px", boxShadow: "var(--shadow-green)" }}
-              >
+              <div className="overflow-hidden mx-auto" style={{ aspectRatio: "3/4", maxWidth: "460px", boxShadow: "var(--shadow-green)" }}>
                 <img
                   src={`${BASE}assets/bottle-flatlay.png`}
                   alt="Amani Roots oil with herbs and botanicals"
@@ -358,11 +371,11 @@ export default function Home() {
             <p className={eyebrow} style={eyebrowStyle}>&mdash; SUCCESS STORIES</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-12">
             {[
-              { name: "Priscilla T.", text: "My curls have never felt more hydrated. Amani Roots is a game-changer for my transition journey. Thank you so much!" },
-              { name: "Naomi T.", text: "The thickness and shine I've gained are incredible. I finally feel confident with my natural texture." },
-              { name: "Catarina V.", text: "It's more than just oil; it's a ritual of self-love. My hair is flourishing like never before." },
+              { name: "Priscilla T.", text: "My curls have never felt more hydrated. Amani Roots is a game-changer for my transition journey. Thank you so much!", img: `${BASE}assets/testimonial-1.jpg` },
+              { name: "Naomi T.", text: "The thickness and shine I've gained are incredible. I finally feel confident with my natural texture.", img: `${BASE}assets/testimonial-2.jpg` },
+              { name: "Catarina V.", text: "It's more than just oil; it's a ritual of self-love. My hair is flourishing like never before.", img: `${BASE}assets/testimonial-3.jpg` },
             ].map((review, i) => (
               <motion.div
                 key={i}
@@ -370,13 +383,16 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.2, duration: 0.9 }}
-                className="flex flex-col relative"
+                className="flex flex-col"
               >
-                <div className="font-heading leading-none absolute -top-12 -left-3 select-none opacity-30" style={{ fontSize: "7rem", color: "var(--sage)" }}>&ldquo;</div>
-                <p className="text-text text-xl md:text-2xl font-heading italic font-light leading-relaxed mb-6 relative z-10">
-                  {review.text}
-                </p>
-                <div className="mt-auto relative z-10">
+                <div className="overflow-hidden mb-8" style={{ aspectRatio: "4/5", boxShadow: "var(--shadow-green)" }}>
+                  <img src={review.img} alt={review.name} className="w-full h-full object-cover" loading="lazy" />
+                </div>
+                <div className="relative">
+                  <div className="font-heading leading-none absolute -top-10 -left-2 select-none opacity-25" style={{ fontSize: "5rem", color: "var(--sage)" }}>&ldquo;</div>
+                  <p className="text-text text-lg md:text-xl font-heading italic font-light leading-relaxed mb-5 relative z-10">
+                    {review.text}
+                  </p>
                   <div className="w-6 h-[1px] mb-3" style={{ backgroundColor: "var(--sage)" }} />
                   <p className="font-body font-light text-[10px] uppercase tracking-[0.2em] text-text-muted">{review.name}</p>
                 </div>
@@ -386,7 +402,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 7. SCALP — with bottle-mint image ──────────────────── */}
+      {/* ── 7. SCALP ───────────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
           <motion.div
@@ -411,10 +427,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="lg:col-span-6"
           >
-            <div
-              className="overflow-hidden ml-auto"
-              style={{ aspectRatio: "3/4", maxHeight: "55vh", maxWidth: "420px", boxShadow: "var(--shadow-green)" }}
-            >
+            <div className="overflow-hidden ml-auto" style={{ aspectRatio: "3/4", maxWidth: "420px", boxShadow: "var(--shadow-green)" }}>
               <img
                 src={`${BASE}assets/bottle-mint.png`}
                 alt="Amani Roots oil bottle with mint and herbs"
@@ -426,10 +439,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 8. FLOATING BOTTLE — editorial full-width moment ──── */}
+      {/* ── 8. FLOATING BOTTLE ─────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
-          {/* Image — floating bottle */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -437,10 +449,7 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="lg:col-span-5"
           >
-            <div
-              className="overflow-hidden mx-auto"
-              style={{ aspectRatio: "3/4", maxHeight: "55vh", maxWidth: "380px" }}
-            >
+            <div className="overflow-hidden mx-auto" style={{ aspectRatio: "3/4", maxWidth: "380px" }}>
               <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
@@ -457,7 +466,6 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Text */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -497,37 +505,12 @@ export default function Home() {
 
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none"
-                  style={{ borderColor: "rgba(47,95,72,0.25)" }}
-                  onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")}
-                  onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")}
-                />
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none"
-                  style={{ borderColor: "rgba(47,95,72,0.25)" }}
-                  onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")}
-                  onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")}
-                />
+                <input type="text" placeholder="First Name" className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none" style={{ borderColor: "rgba(47,95,72,0.25)" }} onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")} onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")} />
+                <input type="text" placeholder="Last Name" className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none" style={{ borderColor: "rgba(47,95,72,0.25)" }} onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")} onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")} />
               </div>
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none"
-                style={{ borderColor: "rgba(47,95,72,0.25)" }}
-                onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")}
-                onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")}
-              />
+              <input type="email" placeholder="Email Address" className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none" style={{ borderColor: "rgba(47,95,72,0.25)" }} onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")} onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")} />
               <div className="pt-6">
-                <button
-                  type="submit"
-                  className="w-full text-xs font-body font-light tracking-[0.15em] uppercase py-4 transition-all duration-300 hover:opacity-80"
-                  style={{ backgroundColor: "var(--forest)", color: "#fff" }}
-                >
+                <button type="submit" className="w-full text-xs font-body font-light tracking-[0.15em] uppercase py-4 transition-all duration-300 hover:opacity-80" style={{ backgroundColor: "var(--forest)", color: "#fff" }}>
                   Subscribe
                 </button>
               </div>
@@ -559,17 +542,13 @@ export default function Home() {
               {[
                 { q: "What makes your oil different from others on the market?", a: "Our formula is cold-infused over several weeks, allowing the herbs to slowly release their potent properties into the carrier oils without heat damage. We also use a very specific ratio of lightweight and heavy oils to ensure penetration without buildup." },
                 { q: "How often should I use the Botanical Hair Growth Oil?", a: "For best results, we recommend applying to the scalp 2-3 times a week, massaging gently for 5 minutes. You can also use a few drops daily on the ends of your hair to seal in moisture." },
-                { q: "Is this suitable for all hair types?", a: "Yes! While formulated with textured and natural hair in mind, our oil's balanced molecular weight makes it effective for straight, wavy, curly, and coily hair types. If you have very fine straight hair, we recommend using it primarily as a pre-shampoo scalp treatment." },
+                { q: "Is this suitable for all hair types?", a: "Yes! While formulated with textured and natural hair in mind, our oil's balanced molecular weight makes it effective for straight, wavy, curly, and coily hair types." },
                 { q: "When will I start seeing results?", a: "Most of our community notices increased softness and reduced shedding within the first 2-3 weeks. Noticeable thickness and new growth typically appear between 8-12 weeks of consistent use, as this aligns with the natural hair growth cycle." },
                 { q: "Is it safe for a sensitive scalp?", a: "Our ingredients are 100% natural and chosen for their soothing properties. However, as with any potent botanical product, we recommend doing a patch test on your inner arm 24 hours before full scalp application." },
                 { q: "Can I use this while wearing protective styles?", a: "Absolutely. The pointed applicator nozzle makes it incredibly easy to reach your scalp while wearing braids, locs, or weaves, keeping your roots nourished and preventing tension breakage." },
               ].map((faq, i) => (
                 <AccordionItem key={i} value={`item-${i}`} className="border-b py-2" style={{ borderColor: "var(--border)" }}>
-                  <AccordionTrigger className="text-base md:text-lg font-body font-light text-text py-6 hover:no-underline transition-colors"
-                    style={{ color: "var(--text)" }}
-                    onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")}
-                    onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}
-                  >
+                  <AccordionTrigger className="text-base md:text-lg font-body font-light text-text py-6 hover:no-underline transition-colors" style={{ color: "var(--text)" }} onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")} onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}>
                     {faq.q}
                   </AccordionTrigger>
                   <AccordionContent className="font-light leading-[1.9] tracking-wide pb-6 pr-10 text-sm" style={{ color: "var(--text-muted)" }}>

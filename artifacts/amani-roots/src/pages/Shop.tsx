@@ -1,6 +1,8 @@
 import React from "react"
 import { motion } from "framer-motion"
 
+const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
+
 const products = [
   {
     name: "Amani Roots 4oz Oil",
@@ -56,30 +58,40 @@ const stagger = {
 
 export default function Shop() {
   return (
-    <div className="min-h-screen bg-bg text-text pt-[72px]">
-      {/* Header */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-bg-mist border-b border-black/8">
-        <div className="max-w-[1400px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.2, 0, 0.2, 1] }}
-          >
-            <p className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-6" style={{ color: 'var(--sage)' }}>
-              &mdash; THE COLLECTION
-            </p>
-            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-light tracking-widest leading-[1.1]" style={{ color: 'var(--text)' }}>
-              Shop All Products
-            </h1>
-            <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide mt-8 max-w-md">
-              Artisanal botanical blends and hair care essentials — crafted to nurture, protect, and celebrate your natural heritage.
-            </p>
-          </motion.div>
+    <div className="min-h-screen bg-bg text-text">
+
+      {/* Hero image header */}
+      <section className="relative w-full pt-[72px] overflow-hidden" style={{ backgroundColor: "var(--bg-cream)" }}>
+        <div className="w-full overflow-hidden" style={{ aspectRatio: "21/9", maxHeight: "50vh" }}>
+          <img
+            src={`${BASE}assets/philosophy-wide.png`}
+            alt="Amani Roots botanical collection"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="px-6 md:px-12 py-16 md:py-24">
+          <div className="max-w-[1400px] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: [0.2, 0, 0.2, 1] }}
+            >
+              <p className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-6" style={{ color: 'var(--sage)' }}>
+                &mdash; THE COLLECTION
+              </p>
+              <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl font-light tracking-widest leading-[1.1]" style={{ color: 'var(--text)' }}>
+                Shop All Products
+              </h1>
+              <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide mt-8 max-w-md">
+                Artisanal botanical blends and hair care essentials — crafted to nurture, protect, and celebrate your natural heritage.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Product Grid */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-bg">
+      <section className="py-24 md:py-40 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
           <motion.div
             initial="hidden"
@@ -93,7 +105,6 @@ export default function Shop() {
                 variants={fadeInUp}
                 className="group flex flex-col"
               >
-                {/* Image */}
                 <a
                   href={product.link}
                   target="_blank"
@@ -101,7 +112,6 @@ export default function Shop() {
                   className="block relative overflow-hidden bg-bg-cream mb-5"
                   style={{ boxShadow: 'var(--shadow-green)' }}
                 >
-                  {/* Badge */}
                   {product.badge && (
                     <span
                       className="absolute top-3 left-3 z-10 text-[9px] uppercase tracking-[0.15em] font-light px-2 py-1"
@@ -123,7 +133,6 @@ export default function Shop() {
                   </div>
                 </a>
 
-                {/* Info */}
                 <div className="flex flex-col flex-grow">
                   <h3 className="font-heading text-xl md:text-2xl font-light tracking-wide leading-snug mb-2" style={{ color: 'var(--text)' }}>
                     {product.name}
@@ -153,7 +162,7 @@ export default function Shop() {
       </section>
 
       {/* Bottom accent */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-bg-mist border-t border-black/8 text-center">
+      <section className="py-24 md:py-40 px-6 md:px-12 border-t text-center" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
         <div className="max-w-[600px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
