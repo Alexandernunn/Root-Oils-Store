@@ -24,7 +24,7 @@ export default function About() {
       {/* ── HERO — founder image ── */}
       <section className="relative w-full pt-[72px]" style={{ backgroundColor: "var(--bg-mist)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-          <div className="lg:col-span-7 overflow-hidden" style={{ aspectRatio: "4/3", maxHeight: "60vw" }}>
+          <div className="lg:col-span-7 overflow-hidden" style={{ aspectRatio: "4/3", maxHeight: "60vw", boxShadow: "var(--shadow-green)" }}>
             <img
               src={`${BASE}assets/founder.jpg`}
               alt="Sifa Mondika, Founder of Amani Roots Oils"
