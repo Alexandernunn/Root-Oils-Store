@@ -23,6 +23,12 @@ export function Navbar() {
     { name: "FAQ", href: "/faq" },
   ]
 
+  const handleNavClick = () => {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, 0)
+  }
+
   return (
     <>
       <header
@@ -55,6 +61,7 @@ export function Navbar() {
                     style={{ color: 'var(--text)' }}
                     onMouseEnter={e => (e.currentTarget.style.color = 'var(--sage)')}
                     onMouseLeave={e => (e.currentTarget.style.color = 'var(--text)')}
+                    onClick={handleNavClick}
                   >
                     {link.name}
                   </Link>
@@ -105,7 +112,10 @@ export function Navbar() {
                   style={{ color: '#fff' }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--sage)')}
                   onMouseLeave={e => (e.currentTarget.style.color = '#fff')}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    handleNavClick()
+                  }}
                 >
                   {link.name}
                 </Link>
