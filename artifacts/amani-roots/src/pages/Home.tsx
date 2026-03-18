@@ -190,11 +190,11 @@ export default function Home() {
           </motion.div>
 
           {/* Botanical image grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
+          <div className="grid grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
             {[
               { src: "herbs-grid-1.png", alt: "Botanical herbs" },
               { src: "herbs-grid-2.png", alt: "Botanical oils" },
-              { src: "bottle-herbs.png", alt: "Amani Roots oil with botanicals", span: "col-span-2 md:col-span-1" },
+              { src: "bottle-herbs.png", alt: "Amani Roots oil with botanicals" },
             ].map((img, i) => (
               <motion.div
                 key={i}
@@ -202,7 +202,7 @@ export default function Home() {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1, delay: i * 0.15 }}
-                className={`overflow-hidden ${img.span || ""}`}
+                className="overflow-hidden"
                 style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
               >
                 <img src={`${BASE}assets/${img.src}`} alt={img.alt} className="w-full h-full object-cover" loading="lazy" />
