@@ -185,12 +185,12 @@ export default function Home() {
           >
             <p className={eyebrow} style={eyebrowStyle}>&mdash; BOTANICAL FORMULA</p>
             <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-text font-light tracking-widest leading-[1.1]">
-              7 Herbs &middot; 3 Oils &middot; Healthy Roots
+              Healthy Roots
             </h2>
           </motion.div>
 
           {/* Botanical image grid */}
-          <div className="grid grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
             {[
               { src: "herbs-grid-1.png", alt: "Botanical herbs" },
               { src: "herbs-grid-2.png", alt: "Botanical oils" },
@@ -213,8 +213,8 @@ export default function Home() {
           {/* Three pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
             {[
-              { num: "01", title: "7 Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
-              { num: "02", title: "3 Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
+              { num: "01", title: "Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
+              { num: "02", title: "Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
               { num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
             ].map((pillar, i) => (
               <motion.div
