@@ -324,7 +324,7 @@ export default function Home() {
                 A lightweight botanical oil designed to nourish the scalp, strengthen hair strands, and support natural growth. Cold-infused over weeks, never rushed.
               </motion.p>
 
-              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-start gap-6">
+              <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-6 w-full">
                 <Link
                   href="/shop"
                   className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
@@ -335,7 +335,7 @@ export default function Home() {
                 <Link
                   href="/shop"
                   className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
-                  style={{ backgroundColor: "transparent", color: "var(--forest)" }}
+                  style={{ backgroundColor: "transparent", color: "var(--forest)", border: "2px solid var(--forest)" }}
                 >
                   Shop 4oz &rarr;
                 </Link>
