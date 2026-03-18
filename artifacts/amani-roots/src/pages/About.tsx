@@ -158,7 +158,7 @@ export default function About() {
 
       {/* ── FOUNDER SIGN-OFF ── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-center">
           <motion.div
             initial="hidden"
             whileInView="visible"
