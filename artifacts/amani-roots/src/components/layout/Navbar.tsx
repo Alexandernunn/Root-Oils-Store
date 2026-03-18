@@ -34,10 +34,13 @@ export function Navbar() {
       >
         <div className="w-full max-w-[1400px] mx-auto flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="z-50">
-            <span className="font-body text-xs font-light tracking-[0.25em] text-text uppercase cursor-pointer">
-              AMANI ROOTS
-            </span>
+          <Link href="/" className="z-50 flex items-center">
+            <img
+              src={`${import.meta.env.BASE_URL}assets/logo.png`}
+              alt="Amani Roots Oils"
+              className="h-9 w-auto object-contain"
+              style={{ filter: "brightness(0) saturate(100%) invert(26%) sepia(28%) saturate(600%) hue-rotate(110deg) brightness(90%) contrast(95%)" }}
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -45,9 +48,12 @@ export function Navbar() {
             <ul className="flex items-center gap-10">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
-                    href={link.href} 
-                    className="text-xs font-body font-light tracking-[0.15em] text-text hover:text-text-muted transition-colors uppercase"
+                  <Link
+                    href={link.href}
+                    className="text-xs font-body font-light tracking-[0.15em] text-text uppercase transition-colors"
+                    style={{ color: 'var(--text)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--sage)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--text)')}
                   >
                     {link.name}
                   </Link>
@@ -58,12 +64,13 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block z-50">
-            <a 
-              href="https://www.amanirootsoils.com/category/all-products"
-              className="text-xs font-body font-light tracking-[0.15em] text-text uppercase underline underline-offset-4 hover:underline-offset-8 transition-all"
+            <Link
+              href="/shop"
+              className="text-xs font-body font-light tracking-[0.15em] uppercase underline underline-offset-4 hover:underline-offset-8 transition-all"
+              style={{ color: 'var(--forest)' }}
             >
               Shop &rarr;
-            </a>
+            </Link>
           </div>
 
           {/* Mobile Toggle */}
@@ -85,26 +92,31 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[#1A1714] z-40 flex flex-col items-center justify-center"
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center"
+            style={{ backgroundColor: '#1A1714' }}
           >
             <nav className="flex flex-col items-center gap-8">
               {navLinks.map((link) => (
-                <Link 
+                <Link
                   key={link.name}
                   href={link.href}
-                  className="text-white font-heading text-4xl font-light tracking-widest uppercase hover:text-text-muted transition-colors"
+                  className="font-heading text-4xl font-light tracking-widest uppercase transition-colors"
+                  style={{ color: '#fff' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--sage)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#fff')}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
                 </Link>
               ))}
-              <a 
-                href="https://www.amanirootsoils.com/category/all-products"
-                className="mt-8 text-white font-body text-sm font-light tracking-[0.2em] uppercase underline underline-offset-8"
+              <Link
+                href="/shop"
+                className="mt-8 font-body text-sm font-light tracking-[0.2em] uppercase underline underline-offset-8 transition-colors"
+                style={{ color: 'var(--mint)' }}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Shop Collection &rarr;
-              </a>
+              </Link>
             </nav>
           </motion.div>
         )}

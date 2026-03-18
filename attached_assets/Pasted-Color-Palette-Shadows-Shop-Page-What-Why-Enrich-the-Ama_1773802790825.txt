@@ -1,0 +1,46 @@
+Color Palette, Shadows & Shop Page
+What & Why
+Enrich the Amani Roots Oils site with a beautiful, layered green-and-soft-tones color palette — expressed through subtle colored shadows, gentle tinted backgrounds, and tasteful accent touches throughout. Simultaneously build an internal Shop page that displays all 5 real products scraped from amanirootsoils.com/category/all-products, with the same refined visual language.
+
+Done looks like
+A refined CSS color palette is defined: forest green (#2F5F48), sage (#7A9E87), pale mint (#D6E8DC), warm cream (#F7F3ED), soft gold (#C9A96E), and mist (#EEF4F0).
+Product cards, section containers, and key UI elements use soft colored box-shadows (e.g., 0 4px 24px rgba(47, 95, 72, 0.10)) instead of flat grey shadows — giving depth with a botanical feel.
+Section backgrounds alternate tastefully between warm cream and pale mist tints — never harsh, always airy.
+Eyebrow labels, thin decorative dividers, icon strokes, and hover states use the brand greens.
+The /shop route shows all 5 products in a clean grid: real Wix CDN images, name, price, badge (New/Sale), and a green-toned "Shop Now" button linking to the external product page. Cards have soft green-tinted shadows.
+The navbar displays the real Amani Roots Oils logo (tree + text) instead of plain text.
+All "Shop" nav/footer links use the internal /shop route.
+The hero video fills a full 16:9 container with headline text overlaid — no side-by-side layout.
+Nowhere does color feel excessive — every touch is quiet and purposeful.
+Out of scope
+A real cart or checkout system
+About page content
+Any backend or API changes
+Dark mode
+Tasks
+Color system — Add CSS custom properties for the full palette (forest green, sage, pale mint, warm cream, soft gold, mist) in index.css. Define a reusable colored shadow utility (--shadow-green) using rgba of the primary green. Update Tailwind config to expose these tokens.
+
+Colored shadows & tinted backgrounds — Apply the green-tinted shadow to all card components, product cards, and CTA blocks. Alternate section backgrounds between --bg (off-white) and the pale mist/cream tints. Add a thin sage-green top-border accent (border-t-2) to hero and philosophy sections.
+
+Eyebrow labels & accent touches — Color all section eyebrow labels and thin dividers with sage/forest green. Apply green hover states to nav links, footer links, and icon strokes throughout Home.tsx.
+
+Logo in navbar — Copy attached_assets/logo.png to artifacts/amani-roots/public/assets/logo.png and replace the plain text brand name in Navbar.tsx with an <img> tag (~36px tall, auto width), linking to /.
+
+Hero video layout — Refactor the hero in Home.tsx to a full-width aspect-video container with text and CTA overlaid via absolute positioning, Framer Motion fade-ins preserved. Ensure muted loop autoPlay playsInline.
+
+Shop page — Create artifacts/amani-roots/src/pages/Shop.tsx displaying all 5 products in a 2-col mobile / 3-col desktop grid. Each card: Wix CDN image, name, price, badge, green-shadow card treatment, and a "Shop Now" button opening the external product URL. Register /shop in App.tsx and update all nav/footer links to use it.
+
+Product catalog (from amanirootsoils.com/category/all-products)
+Name	Price	Badge	Image CDN URL	External link
+Amani Roots 4oz oil	$10.00	New	https://static.wixstatic.com/media/50866c_c05dcfe7730f449eb0247e363678872f~mv2.png/v1/fill/w_856,h_856,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_c05dcfe7730f449eb0247e363678872f~mv2.png	https://www.amanirootsoils.com/product-page/nourish-growth-elixir
+Amani Roots 8oz oil	$14.00	New	https://static.wixstatic.com/media/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png/v1/fill/w_856,h_1283,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png	https://www.amanirootsoils.com/product-page/scalp-soothing-oil
+Satin Pillow Case	$10.00	New	https://static.wixstatic.com/media/50866c_46645de31f7f4672a01e3b086a692f2a~mv2.jpg/v1/fill/w_840,h_1120,al_c,q_85,enc_avif,quality_auto/50866c_46645de31f7f4672a01e3b086a692f2a~mv2.jpg	https://www.amanirootsoils.com/product-page/curl-styling-handbook
+Satin Scrunchy	$3.69	Sale	https://static.wixstatic.com/media/50866c_a739f5e90abc4152b773dee3814f43f9~mv2.jpg/v1/fill/w_796,h_796,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_a739f5e90abc4152b773dee3814f43f9~mv2.jpg	https://www.amanirootsoils.com/product-page/satin-lined-cap
+Silk Bonnet	$6.99	New	https://static.wixstatic.com/media/50866c_86b68c1031f047ada59d479fcd693eac~mv2.jpg/v1/fill/w_856,h_1283,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_86b68c1031f047ada59d479fcd693eac~mv2.jpg	https://www.amanirootsoils.com/product-page/curl-hydration-serum
+Relevant files
+artifacts/amani-roots/src/index.css
+artifacts/amani-roots/src/pages/Home.tsx
+artifacts/amani-roots/src/components/layout/Navbar.tsx
+artifacts/amani-roots/src/components/layout/Footer.tsx
+artifacts/amani-roots/src/App.tsx
+attached_assets/logo.png

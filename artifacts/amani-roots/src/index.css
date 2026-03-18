@@ -5,32 +5,51 @@
   --color-background: var(--bg);
   --color-foreground: var(--text);
   --color-border: var(--border);
-  
+
   --color-bg: var(--bg);
   --color-bg-alt: var(--bg-alt);
-  
+  --color-bg-mist: var(--bg-mist);
+  --color-bg-cream: var(--bg-cream);
+
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
   --color-text-light: var(--text-light);
   --color-accent: var(--accent);
 
+  --color-forest: var(--forest);
+  --color-sage: var(--sage);
+  --color-mint: var(--mint);
+  --color-gold: var(--gold);
+
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Nunito', sans-serif;
   --font-sans: 'Nunito', sans-serif;
-  
-  /* Animations */
+
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
 :root {
+  /* Base neutrals */
   --bg: #FAFAF8;
   --bg-alt: #F5F3EF;
+  --bg-mist: #EEF4F0;
+  --bg-cream: #F7F3ED;
   --text: #1A1714;
   --text-muted: #8A8580;
   --text-light: #C2BDB8;
   --accent: #9E8E7E;
   --border: rgba(26, 23, 20, 0.08);
+
+  /* Brand botanicals */
+  --forest: #2F5F48;
+  --sage: #7A9E87;
+  --mint: #D6E8DC;
+  --gold: #C9A96E;
+
+  /* Shadows */
+  --shadow-green: 0 4px 24px rgba(47, 95, 72, 0.10);
+  --shadow-green-lg: 0 8px 48px rgba(47, 95, 72, 0.12);
 
   --background: var(--bg);
   --foreground: var(--text);
@@ -42,7 +61,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-bg text-text font-body antialiased selection:bg-accent selection:text-white overflow-x-hidden;
+    @apply bg-bg text-text font-body antialiased selection:bg-sage selection:text-white overflow-x-hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading font-light tracking-widest;
