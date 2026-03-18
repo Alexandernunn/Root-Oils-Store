@@ -411,13 +411,12 @@ export default function Home() {
 
       {/* ── 7. SCALP ───────────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
+        <div className="max-w-[900px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="lg:col-span-6"
           >
             <h2 className="font-heading text-5xl md:text-7xl leading-[1.1] font-light tracking-widest mb-10">
               It Starts<br />With the <span className="italic" style={{ color: "var(--forest)" }}>Scalp</span>
@@ -425,26 +424,6 @@ export default function Home() {
             <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide">
               Many hair problems begin at the scalp. Dryness, breakage, thinning, and slow growth are often signs that the scalp needs nourishment. Amani Roots focuses on creating a healthy foundation so your hair can grow stronger and longer naturally.
             </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="lg:col-span-6"
-          >
-            <div
-              className="overflow-hidden ml-auto"
-              style={{ aspectRatio: "3/4", maxWidth: "420px", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
-            >
-              <img
-                src={`${BASE}assets/bottle-mint.png`}
-                alt="Amani Roots oil bottle with mint and herbs"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
           </motion.div>
         </div>
       </section>
