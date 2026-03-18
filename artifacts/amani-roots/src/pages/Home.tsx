@@ -30,8 +30,10 @@ export default function Home() {
 
       {/* ── 1. HERO ────────────────────────────────────────── */}
       <section ref={heroRef} className="relative w-full bg-bg pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
-        {/* 16:9 video container */}
-        <div className="relative w-full aspect-video overflow-hidden" style={{ maxHeight: "90vh" }}>
+        {/* Full-height on mobile, 16:9 on desktop */}
+        <div className="relative w-full overflow-hidden" style={{ height: "calc(100svh - 72px)" }} data-hero-container>
+          {/* On md+, switch to 16:9 aspect ratio capped at 90vh */}
+          <style>{`@media (min-width: 768px) { [data-hero-container] { height: auto; aspect-ratio: 16/9; max-height: 90vh; } }`}</style>
           <video
             autoPlay
             muted
@@ -43,10 +45,14 @@ export default function Home() {
             <source src={`${import.meta.env.BASE_URL}assets/hero.mp4`} type="video/mp4" />
           </video>
 
-          {/* Dark gradient overlay so text reads clearly */}
+          {/* Dark gradient overlay — stronger on mobile for readability */}
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 hidden md:block"
             style={{ background: "linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.05) 100%)" }}
+          />
+          <div
+            className="absolute inset-0 md:hidden"
+            style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.60) 40%, rgba(0,0,0,0.65) 100%)" }}
           />
 
           {/* Overlaid text */}
