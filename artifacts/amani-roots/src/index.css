@@ -1,23 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Nunito:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: hsl(var(--brand-bg));
-  --color-foreground: hsl(var(--brand-text));
-  --color-border: hsl(var(--brand-border));
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  --color-border: var(--border);
   
-  --color-brand-bg: hsl(var(--brand-bg));
-  --color-brand-bg-2: hsl(var(--brand-bg-2));
-  --color-brand-bg-3: hsl(var(--brand-bg-3));
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
   
-  --color-brand-accent-1: hsl(var(--brand-accent-1));
-  --color-brand-accent-2: hsl(var(--brand-accent-2));
-  --color-brand-accent-3: hsl(var(--brand-accent-3));
-  
-  --color-brand-rose: hsl(var(--brand-rose));
-  --color-brand-text: hsl(var(--brand-text));
-  --color-brand-text-soft: hsl(var(--brand-text-soft));
-  --color-brand-border: hsl(var(--brand-border));
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-light: var(--text-light);
+  --color-accent: var(--accent);
 
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Nunito', sans-serif;
@@ -29,36 +24,28 @@
 }
 
 :root {
-  /* Amani Roots Color Palette in HSL */
-  --brand-bg: 34 50% 98%;        /* #FDFAF6 - warm parchment white */
-  --brand-bg-2: 270 33% 95%;     /* #F3EEF8 - pale lavender blush */
-  --brand-bg-3: 146 25% 95%;     /* #EEF5F1 - soft sage mist */
-  
-  --brand-accent-1: 261 46% 82%; /* #C9B8E8 - muted lavender */
-  --brand-accent-2: 143 23% 72%; /* #A8C8B4 - sage green */
-  --brand-accent-3: 54 73% 85%;  /* #F5F0C0 - pale butter yellow */
-  
-  --brand-rose: 318 36% 75%;     /* #D4A8C7 - dusty rose */
-  --brand-text: 262 12% 19%;     /* #2E2A35 - deep plum-black */
-  --brand-text-soft: 271 11% 48%;/* #7A6E85 - muted mauve-gray */
-  --brand-border: 270 36% 91%;   /* #E8E0F0 - ultra light lavender border */
+  --bg: #FAFAF8;
+  --bg-alt: #F5F3EF;
+  --text: #1A1714;
+  --text-muted: #8A8580;
+  --text-light: #C2BDB8;
+  --accent: #9E8E7E;
+  --border: rgba(26, 23, 20, 0.08);
 
-  /* Map to standard variables for generic components if needed */
-  --background: var(--brand-bg);
-  --foreground: var(--brand-text);
-  --border: var(--brand-border);
-  --radius: 0.5rem;
+  --background: var(--bg);
+  --foreground: var(--text);
+  --radius: 0;
 }
 
 @layer base {
   * {
-    @apply border-brand-border;
+    @apply border-border;
   }
   body {
-    @apply bg-brand-bg text-brand-text font-body antialiased selection:bg-brand-accent-1 selection:text-brand-text overflow-x-hidden;
+    @apply bg-bg text-text font-body antialiased selection:bg-accent selection:text-white overflow-x-hidden;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading tracking-tight;
+    @apply font-heading font-light tracking-widest;
     color: inherit;
   }
 }

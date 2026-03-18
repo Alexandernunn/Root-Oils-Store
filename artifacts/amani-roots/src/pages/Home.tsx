@@ -1,9 +1,6 @@
 import React, { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { ChevronDown, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { cn } from "@/lib/utils"
 import {
   Accordion,
   AccordionContent,
@@ -12,8 +9,8 @@ import {
 } from "@/components/ui/accordion"
 
 const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.4, 0, 0.2, 1] } }
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } }
 }
 
 const staggerContainer = {
@@ -21,194 +18,194 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15
+      staggerChildren: 0.2
     }
   }
 }
 
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  })
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
-
+  
   return (
-    <div className="min-h-screen bg-brand-bg">
+    <div className="min-h-screen bg-bg text-text">
       {/* 2. HERO SECTION */}
-      <section ref={heroRef} className="relative h-[100svh] w-full overflow-hidden flex items-center justify-center pt-20">
-        <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline 
-            poster={`${import.meta.env.BASE_URL}assets/hero-model.png`}
-            className="w-full h-full object-cover scale-[1.02] animate-[kenburns_20s_ease-in-out_infinite_alternate]"
-          >
-            <source src={`${import.meta.env.BASE_URL}assets/hero.mp4`} type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#2D2A35]/30 via-[#2D2A35]/40 to-[#2D2A35]/65" />
-        </motion.div>
+      <section ref={heroRef} className="relative h-[100svh] w-full flex items-center justify-center overflow-hidden bg-bg pt-[72px]">
+        <div className="w-full max-w-[1400px] h-full relative flex items-center px-6 md:px-12">
+          
+          {/* Framed Video */}
+          <div className="absolute right-0 md:right-12 lg:right-24 top-1/2 -translate-y-1/2 w-full md:w-[60%] h-[60%] md:h-[75%] shadow-[0_20px_80px_rgba(0,0,0,0.12)] z-0">
+            <video 
+              autoPlay 
+              muted 
+              loop 
+              playsInline 
+              poster={`${import.meta.env.BASE_URL}assets/hero-model.png`}
+              className="w-full h-full object-cover"
+            >
+              <source src={`${import.meta.env.BASE_URL}assets/hero.mp4`} type="video/mp4" />
+            </video>
+          </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white flex flex-col items-center">
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="text-xs md:text-sm font-medium tracking-[0.2em] mb-6 text-brand-bg-2"
+          {/* Hero Text */}
+          <div className="relative z-10 max-w-xl">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2, ease: [0.2, 0, 0.2, 1] }}
+              className="mb-8"
+            >
+              <p className="text-[10px] md:text-xs font-light tracking-[0.2em] text-text-muted uppercase mb-4">
+                ARTISANAL BOTANICAL HAIR CARE
+              </p>
+              <div className="w-20 h-[1px] bg-text/20" />
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.5, ease: [0.2, 0, 0.2, 1] }}
+              className="font-heading text-[clamp(3rem,6vw,6rem)] leading-[1.1] mb-8 tracking-widest font-light"
+              style={{ color: '#1A1714' }}
+            >
+              Honoring the <br />Natural Strength <br />of Every Strand
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.8, ease: [0.2, 0, 0.2, 1] }}
+              className="text-sm text-text-muted mb-12 max-w-[280px] font-light leading-[1.9] tracking-wide"
+            >
+              Artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
+            </motion.p>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 1.1, ease: [0.2, 0, 0.2, 1] }}
+            >
+              <a 
+                href="https://www.amanirootsoils.com/category/all-products"
+                className="text-sm font-body font-light tracking-[0.1em] text-text underline underline-offset-4 hover:underline-offset-8 transition-all"
+              >
+                Shop the Collection &rarr;
+              </a>
+            </motion.div>
+          </div>
+
+          {/* Scroll Indicator */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.5, duration: 1 }}
+            className="absolute bottom-12 left-6 md:left-12 flex flex-col items-center gap-4 hidden md:flex"
           >
-            ARTISANAL BOTANICAL HAIR CARE
-          </motion.p>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl leading-tight mb-6 text-white"
-          >
-            Honoring the Natural Strength of Every Strand
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.8, ease: [0.4, 0, 0.2, 1] }}
-            className="text-lg md:text-xl text-brand-bg mb-10 max-w-2xl font-light leading-relaxed"
-          >
-            Artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
-          </motion.p>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.1, ease: [0.4, 0, 0.2, 1] }}
-          >
-            <Button size="lg" onClick={() => window.location.href = "https://www.amanirootsoils.com/category/all-products"}>
-              Shop the Collection
-            </Button>
+            <span className="text-[9px] uppercase tracking-[0.2em] text-text-muted rotate-90 origin-left translate-y-4">Scroll</span>
+            <div className="w-[1px] h-12 bg-text/20 overflow-hidden mt-6">
+              <motion.div 
+                animate={{ y: ["-100%", "100%"] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                className="w-full h-full bg-text"
+              />
+            </div>
           </motion.div>
         </div>
-
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 animate-bounce"
-        >
-          <ChevronDown className="w-6 h-6" />
-        </motion.div>
-        
-        <style dangerouslySetInnerHTML={{__html: `
-          @keyframes kenburns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
-          }
-        `}} />
       </section>
 
       {/* 3. PHILOSOPHY SECTION */}
-      <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-          <motion.div 
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
-            className="relative"
-          >
-            <div className="aspect-[4/5] overflow-hidden rounded-2xl md:-ml-12 lg:-ml-24 shadow-2xl shadow-brand-text/5">
-              <img 
-                src={`${import.meta.env.BASE_URL}assets/hero-model.png`} 
-                alt="Woman holding Amani Roots oil" 
-                className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-[2s] ease-out"
-              />
-            </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-brand-bg-2 rounded-full -z-10 blur-2xl opacity-70" />
-          </motion.div>
+      <section className="py-40 md:py-64 px-6 md:px-12 bg-bg border-t border-black/8 relative">
+        <div className="max-w-[1400px] mx-auto">
+          <p className="text-[10px] md:text-xs font-light tracking-[0.2em] text-text-muted uppercase mb-16 md:mb-32">
+            &mdash; 01 PHILOSOPHY
+          </p>
           
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="lg:mt-32 max-w-xl"
-          >
-            <motion.h2 variants={fadeInUp} className="font-heading text-4xl md:text-5xl lg:text-6xl mb-8 leading-tight">
-              Empowering the Natural Hair Journey
-            </motion.h2>
-            <motion.p variants={fadeInUp} className="text-brand-text-soft text-lg mb-6 leading-relaxed">
-              We believe that your natural texture is something to be celebrated, not hidden. Our journey began with a simple desire: to create a product that truly understands and nourishes complex hair types.
-            </motion.p>
-            <motion.p variants={fadeInUp} className="text-brand-text-soft text-lg mb-10 leading-relaxed">
-              Every drop is infused with intention, bringing together the purest botanical ingredients to transform your daily routine into a deeply restorative ritual of self-love.
-            </motion.p>
-            <motion.div variants={fadeInUp}>
-              <Button variant="outline" className="gap-2 group">
-                Discover Our Story 
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 1 }}
+              className="lg:col-span-5"
+            >
+              <div className="aspect-[3/4] shadow-[0_4px_40px_rgba(0,0,0,0.06)] bg-bg-alt">
+                <img 
+                  src={`${import.meta.env.BASE_URL}assets/hero-model.png`} 
+                  alt="Woman holding Amani Roots oil" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
             </motion.div>
-          </motion.div>
+            
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+              className="lg:col-span-7 lg:pl-16"
+            >
+              <motion.h2 variants={fadeInUp} className="font-heading text-5xl md:text-7xl mb-12 leading-[1.1] font-light tracking-widest">
+                Empowering the <br />Natural Hair Journey
+              </motion.h2>
+              <motion.p variants={fadeInUp} className="text-text-muted text-sm md:text-base font-light mb-16 leading-[1.9] tracking-wide max-w-lg">
+                We believe that your natural texture is something to be celebrated, not hidden. Every drop is infused with intention, bringing together the purest botanical ingredients to transform your daily routine into a deeply restorative ritual.
+              </motion.p>
+              <motion.div variants={fadeInUp}>
+                <a href="/about" className="text-xs font-body font-light tracking-[0.1em] text-text-muted hover:text-text transition-colors">
+                  &rarr; Read more
+                </a>
+              </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* 4. THREE PILLARS SECTION */}
-      <section className="py-24 md:py-32 bg-brand-bg-2 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-40 md:py-64 px-6 md:px-12 bg-bg border-t border-black/8">
+        <div className="max-w-[1400px] mx-auto">
           <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-            className="text-center mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            className="mb-24 md:mb-40"
           >
-            <motion.p variants={fadeInUp} className="text-sm font-bold tracking-widest text-brand-accent-1 mb-4 uppercase">The Foundation</motion.p>
-            <motion.h2 variants={fadeInUp} className="font-heading text-4xl md:text-5xl lg:text-6xl text-brand-text">
-              7 Herbs • 3 Oils • Healthy Roots
-            </motion.h2>
+            <p className="text-[10px] md:text-xs font-light tracking-[0.2em] text-text-muted uppercase mb-8">
+              &mdash; BOTANICAL FORMULA
+            </p>
+            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl text-text font-light tracking-widest leading-[1.1]">
+              7 Herbs &middot; 3 Oils &middot; Healthy Roots
+            </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-0 md:divide-x md:divide-black/8 border-t border-black/8 pt-12 md:pt-20">
             {[
               {
                 num: "01",
-                title: "7 Powerful Herbs",
-                desc: "A meticulous blend including rosemary, fenugreek, and mint, steeped slowly to extract maximum potency for stimulating dormant follicles and calming the scalp.",
-                delay: 0
+                title: "Powerful Herbs",
+                desc: "A meticulous blend including rosemary, fenugreek, and mint, steeped slowly to extract maximum potency for stimulating dormant follicles."
               },
               {
                 num: "02",
-                title: "3 Nourishing Oils",
-                desc: "The perfect synergy of lightweight grapeseed, moisturizing jojoba, and strengthening castor oil. Designed to penetrate deeply without weighing down your strands.",
-                delay: 0.15,
-                className: "md:mt-12"
+                title: "Nourishing Oils",
+                desc: "The synergy of lightweight grapeseed, moisturizing jojoba, and strengthening castor oil. Penetrates deeply without weighing down strands."
               },
               {
                 num: "03",
                 title: "Healthy Roots",
-                desc: "True growth begins beneath the surface. Our formula balances scalp microbiome, reduces inflammation, and creates the optimal environment for your hair to thrive.",
-                delay: 0.3,
-                className: "md:mt-24"
+                desc: "True growth begins beneath the surface. Our formula balances scalp microbiome, creating the optimal environment for your hair to thrive."
               }
             ].map((pillar, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: pillar.delay, ease: [0.4, 0, 0.2, 1] }}
-                className={cn("bg-brand-bg p-10 rounded-3xl relative overflow-hidden group hover:shadow-xl hover:shadow-brand-accent-1/10 transition-all duration-500", pillar.className)}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.9, delay: i * 0.1 }}
+                className="md:px-12 lg:px-16 first:pl-0 last:pr-0"
               >
-                <div className="text-8xl font-heading text-brand-bg-2 absolute -top-4 -right-4 font-light select-none pointer-events-none group-hover:scale-110 transition-transform duration-700">
-                  {pillar.num}
-                </div>
-                <div className="relative z-10 pt-8">
-                  <h3 className="font-heading text-2xl mb-4">{pillar.title}</h3>
-                  <p className="text-brand-text-soft leading-relaxed">{pillar.desc}</p>
-                </div>
+                <div className="text-[10px] text-text-muted uppercase tracking-[0.2em] mb-8">{pillar.num}</div>
+                <h3 className="font-heading text-3xl md:text-4xl mb-6 font-light tracking-widest">{pillar.title}</h3>
+                <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide">{pillar.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -216,30 +213,33 @@ export default function Home() {
       </section>
 
       {/* 5. SCIENCE SECTION */}
-      <section className="py-24 md:py-32 bg-brand-bg-3 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12 lg:gap-24">
+      <section className="py-40 md:py-64 bg-bg-alt px-6 md:px-12 border-t border-black/8">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-start md:items-center gap-16 lg:gap-32">
           <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
             className="flex-1"
           >
-            <h2 className="font-heading text-5xl md:text-6xl lg:text-7xl leading-tight">
-              Where Science <br/><span className="text-brand-accent-2 italic font-light">Meets</span> Hair Care
+            <p className="text-[10px] md:text-xs font-light tracking-[0.2em] text-text-muted uppercase mb-8">
+              &mdash; METHODOLOGY
+            </p>
+            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl leading-[1.1] font-light tracking-widest">
+              Where Science <br/><span className="italic">Meets</span> Hair Care
             </h2>
           </motion.div>
           <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex-1 bg-white/50 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-white/40 shadow-xl shadow-brand-text/5"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="flex-1 md:pl-16"
           >
-            <p className="text-lg text-brand-text-soft leading-relaxed mb-6">
+            <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide mb-8">
               Founded by a biology student, Amani Roots isn't just about mixing pleasant scents. It's about understanding the cellular structure of hair and the biochemistry of the scalp.
             </p>
-            <p className="text-lg text-brand-text-soft leading-relaxed">
+            <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide">
               Every ingredient is selected not just for its traditional uses, but for its clinically proven properties. We bridge the gap between ancestral apothecary wisdom and modern scientific methodology.
             </p>
           </motion.div>
@@ -247,44 +247,18 @@ export default function Home() {
       </section>
 
       {/* 6. PRODUCT SPOTLIGHT */}
-      <section className="py-32 px-6 md:px-12 bg-brand-bg relative overflow-hidden">
-        {/* Soft background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-bg-2 rounded-full blur-[100px] -z-10 opacity-60" />
-        
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16 inline-block"
-          >
-            <span className="bg-brand-bg-2 text-brand-rose px-4 py-1.5 rounded-full text-sm font-semibold tracking-wider uppercase">Hero Product</span>
-          </motion.div>
-
-          <div className="relative h-[400px] md:h-[600px] w-full mb-16 flex items-center justify-center">
-            {/* The main floating image */}
+      <section className="py-40 md:py-64 px-6 md:px-12 bg-bg border-t border-black/8 text-center relative">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="relative h-[600px] md:h-[800px] w-full mb-24 flex items-center justify-center">
             <motion.div 
-              animate={{ y: [0, -12, 0] }}
-              transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-              className="relative z-20 h-full w-full max-w-sm"
+              animate={{ y: [0, -15, 0] }}
+              transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              className="relative z-20 h-full w-full max-w-md"
             >
               <img 
                 src={`${import.meta.env.BASE_URL}assets/product-botanicals.png`} 
                 alt="Amani Roots Botanical Hair Growth Oil" 
                 className="w-full h-full object-contain filter drop-shadow-2xl"
-              />
-            </motion.div>
-            
-            {/* Secondary image drifting slowly in background */}
-            <motion.div 
-              animate={{ y: [0, 15, 0], rotate: [0, 2, 0] }}
-              transition={{ repeat: Infinity, duration: 8, ease: "easeInOut", delay: 1 }}
-              className="absolute z-10 top-1/2 -right-12 md:right-12 -translate-y-1/2 h-2/3 max-w-xs opacity-40 blur-[2px]"
-            >
-              <img 
-                src={`${import.meta.env.BASE_URL}assets/product-herbs.png`} 
-                alt="Herbs and botanicals" 
-                className="w-full h-full object-contain"
               />
             </motion.div>
           </div>
@@ -296,36 +270,43 @@ export default function Home() {
             variants={staggerContainer}
             className="max-w-2xl mx-auto"
           >
-            <motion.h2 variants={fadeInUp} className="font-heading text-4xl md:text-5xl mb-4">Botanical Hair Growth Oil</motion.h2>
-            <motion.p variants={fadeInUp} className="text-brand-text-soft text-lg mb-10">
+            <motion.h2 variants={fadeInUp} className="font-heading text-5xl md:text-7xl mb-8 font-light tracking-widest">
+              Botanical Hair Growth Oil
+            </motion.h2>
+            <motion.p variants={fadeInUp} className="text-text-muted text-sm md:text-base font-light leading-[1.9] tracking-wide mb-16">
               Our signature infusion. A potent, lightweight serum that awakens dormant follicles, soothes the scalp, and seals in essential moisture for visibly thicker, healthier hair.
             </motion.p>
             
-            <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4">
-              <Button variant="outline" size="lg" onClick={() => window.location.href = "https://www.amanirootsoils.com/category/all-products"}>
-                Shop 4oz — $24
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center gap-8">
+              <Button onClick={() => window.location.href = "https://www.amanirootsoils.com/category/all-products"}>
+                Shop 8oz &mdash; $42
               </Button>
-              <Button size="lg" onClick={() => window.location.href = "https://www.amanirootsoils.com/category/all-products"}>
-                Shop 8oz — $42
-              </Button>
+              <a 
+                href="https://www.amanirootsoils.com/category/all-products" 
+                className="text-xs font-body font-light tracking-[0.1em] text-text underline underline-offset-4 hover:underline-offset-8 transition-all uppercase"
+              >
+                Shop 4oz &rarr;
+              </a>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* 7. TESTIMONIALS */}
-      <section className="py-24 md:py-32 bg-brand-bg-2 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-40 md:py-64 bg-bg px-6 md:px-12 border-t border-black/8">
+        <div className="max-w-[1400px] mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="mb-24 md:mb-40"
           >
-            <h2 className="font-heading text-4xl md:text-5xl">Success Stories</h2>
+            <p className="text-[10px] md:text-xs font-light tracking-[0.2em] text-text-muted uppercase">
+              &mdash; SUCCESS STORIES
+            </p>
           </motion.div>
 
-          <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 pb-8 md:pb-0 snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 hide-scrollbar">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-24">
             {[
               {
                 name: "Priscilla T.",
@@ -345,15 +326,15 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="bg-white p-8 rounded-3xl min-w-[300px] md:min-w-0 snap-center border border-transparent hover:border-brand-accent-1 hover:-translate-y-2 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-brand-accent-1/10 flex flex-col"
+                transition={{ delay: i * 0.2, duration: 0.9 }}
+                className="flex flex-col relative"
               >
-                <div className="font-heading text-6xl text-brand-accent-1 leading-none mb-2">"</div>
-                <p className="text-brand-text flex-grow text-lg font-light leading-relaxed mb-8">
+                <div className="font-heading text-[8rem] text-text-light leading-none absolute -top-16 -left-4 select-none opacity-50">&ldquo;</div>
+                <p className="text-text text-xl md:text-2xl font-heading italic font-light leading-relaxed mb-8 relative z-10">
                   {review.text}
                 </p>
-                <div className="mt-auto">
-                  <p className="font-semibold text-sm uppercase tracking-wider">{review.name}</p>
+                <div className="mt-auto relative z-10">
+                  <p className="font-body font-light text-[10px] uppercase tracking-[0.2em] text-text-muted">{review.name}</p>
                 </div>
               </motion.div>
             ))}
@@ -362,29 +343,29 @@ export default function Home() {
       </section>
 
       {/* 8. SCALP SECTION */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-brand-bg border-b border-brand-bg-2">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="py-40 md:py-64 px-6 md:px-12 bg-bg border-t border-black/8">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.9 }}
           >
-            <h2 className="font-heading text-6xl md:text-7xl lg:text-8xl leading-none">
-              It Starts <br/>With the <span className="text-brand-accent-2 italic">Scalp</span>
+            <h2 className="font-heading text-6xl md:text-8xl leading-[1.1] font-light tracking-widest">
+              It Starts <br/>With the <span className="italic">Scalp</span>
             </h2>
           </motion.div>
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="pl-0 lg:pl-12 lg:border-l border-brand-border"
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="lg:pl-16"
           >
-            <p className="text-xl text-brand-text-soft leading-relaxed mb-6 font-light">
+            <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide mb-8">
               Think of your scalp as the soil in a garden. If the soil is dry, depleted, or inflamed, the plants cannot grow strong. 
             </p>
-            <p className="text-lg text-brand-text-soft leading-relaxed">
+            <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide">
               Our oil is formulated to penetrate the epidermis, delivering essential fatty acids and botanical compounds directly to the follicle. By restoring harmony at the root level, we create the perfect foundation for resilient, lustrous hair.
             </p>
           </motion.div>
@@ -392,50 +373,71 @@ export default function Home() {
       </section>
 
       {/* 9. EMAIL SIGNUP */}
-      <section className="py-32 px-6 bg-brand-accent-3/35 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-accent-3 rounded-full blur-3xl opacity-50 -z-10" />
-        <div className="max-w-[560px] mx-auto text-center">
+      <section className="py-40 md:py-64 px-6 bg-bg-alt border-t border-black/8">
+        <div className="max-w-[600px] mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
           >
-            <h2 className="font-heading text-4xl md:text-5xl mb-4">Stay Rooted</h2>
-            <p className="text-brand-text-soft mb-8">Join our community for exclusive access to new releases, hair care tips, and botanical wisdom.</p>
+            <p className="text-[10px] font-light tracking-[0.2em] text-text-muted uppercase mb-8">
+              STAY ROOTED
+            </p>
+            <h2 className="font-heading text-5xl md:text-7xl mb-12 font-light tracking-widest leading-[1.1]">Join the Ritual</h2>
             
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-2 gap-4">
-                <Input placeholder="First Name" className="bg-brand-bg border-white" />
-                <Input placeholder="Last Name" className="bg-brand-bg border-white" />
+            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <input 
+                  type="text"
+                  placeholder="First Name" 
+                  className="w-full bg-transparent border-0 border-b border-black/20 pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none focus:border-text transition-colors rounded-none" 
+                />
+                <input 
+                  type="text"
+                  placeholder="Last Name" 
+                  className="w-full bg-transparent border-0 border-b border-black/20 pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none focus:border-text transition-colors rounded-none" 
+                />
               </div>
-              <Input type="email" placeholder="Email Address" className="bg-brand-bg border-white" />
-              <Button type="submit" className="w-full h-12 text-base mt-2">
-                Subscribe to Newsletter
-              </Button>
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                className="w-full bg-transparent border-0 border-b border-black/20 pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none focus:border-text transition-colors rounded-none" 
+              />
+              <div className="pt-8">
+                <Button type="submit" className="w-full">
+                  Subscribe
+                </Button>
+              </div>
             </form>
           </motion.div>
         </div>
       </section>
 
       {/* 10. FAQ ACCORDION */}
-      <section className="py-24 md:py-32 px-6 md:px-12 bg-brand-bg">
-        <div className="max-w-3xl mx-auto">
-          <motion.h2 
+      <section className="py-40 md:py-64 px-6 md:px-12 bg-bg border-t border-black/8">
+        <div className="max-w-[1000px] mx-auto">
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-heading text-4xl md:text-5xl text-center mb-16"
+            className="mb-24 md:mb-40"
           >
-            Frequently Asked Questions
-          </motion.h2>
+            <p className="text-[10px] md:text-xs font-light tracking-[0.2em] text-text-muted uppercase mb-8">
+              &mdash; FAQ
+            </p>
+            <h2 className="font-heading text-5xl md:text-7xl font-light tracking-widest">
+              Questions & Answers
+            </h2>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.2, duration: 0.9 }}
           >
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full border-t border-black/8">
               {[
                 {
                   q: "What makes your oil different from others on the market?",
@@ -462,9 +464,13 @@ export default function Home() {
                   a: "Absolutely. The pointed applicator nozzle makes it incredibly easy to reach your scalp while wearing braids, locs, or weaves, keeping your roots nourished and preventing tension breakage."
                 }
               ].map((faq, i) => (
-                <AccordionItem key={i} value={`item-${i}`}>
-                  <AccordionTrigger className="text-base md:text-lg">{faq.q}</AccordionTrigger>
-                  <AccordionContent>{faq.a}</AccordionContent>
+                <AccordionItem key={i} value={`item-${i}`} className="border-b border-black/8 py-4">
+                  <AccordionTrigger className="text-base md:text-lg font-body font-light text-text hover:text-text-muted transition-colors py-6 data-[state=open]:text-text-muted [&[data-state=open]>svg]:rotate-45 hover:no-underline">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-text-muted font-light leading-[1.9] tracking-wide pb-8 pr-12">
+                    {faq.a}
+                  </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>

@@ -50,6 +50,19 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 
 ## Packages
 
+### `artifacts/amani-roots` (`@workspace/amani-roots`)
+
+Premium marketing website for Amani Roots Oils — a natural hair care brand.
+
+- **Aesthetic**: Quiet luxury / art gallery minimalism (Zara.com inspired)
+- **Color palette**: Near-monochromatic — `#FAFAF8` bg, `#1A1714` near-black, `#9E8E7E` taupe accent. Zero purple/lavender/rose.
+- **Typography**: Cormorant Garamond (headings, weight 300), Nunito (body, weight 300)
+- **Hero**: Framed/windowed video treatment (`/assets/hero.mp4`) — video sits as contained element ~60% width, text overlaps from left
+- **Sections**: Hero, Philosophy, Three Pillars, Science, Product Spotlight, Testimonials, Scalp, Email Signup, FAQ, Footer
+- **Assets**: All product images + hero.mp4 in `public/assets/`
+- **No backend** — purely static frontend marketing site
+- **Preview path**: `/`
+
 ### `artifacts/api-server` (`@workspace/api-server`)
 
 Express 5 API server. Routes live in `src/routes/` and use `@workspace/api-zod` for request and response validation and `@workspace/db` for persistence.
