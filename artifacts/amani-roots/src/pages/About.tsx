@@ -38,19 +38,14 @@ export default function About() {
               <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm mx-auto lg:mx-0">
                 Amani Roots grew from a personal journey into something much bigger.
               </p>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.9, delay: 0.6 }}
-                className="mt-10 flex justify-center lg:justify-start"
-              >
+              <div className="mt-12 flex justify-center lg:justify-start">
                 <img
                   src={`${BASE}assets/logo.png`}
                   alt="Amani Roots Oils Logo"
-                  className="h-10 w-auto"
-                  style={{ filter: "brightness(0) saturate(100%) invert(26%) sepia(28%) saturate(600%) hue-rotate(110deg) brightness(90%) contrast(95%)" }}
+                  className="h-12 w-auto"
+                  style={{ filter: "brightness(0) saturate(100%) invert(27%) sepia(29%) saturate(545%) hue-rotate(110deg) brightness(91%) contrast(91%)" }}
                 />
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>
