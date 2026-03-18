@@ -104,13 +104,18 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Right: product image */}
+          {/* Right: hero video */}
           <div className="relative overflow-hidden" style={{ flex: "0 0 48%" }}>
-            <img
-              src={`${BASE}assets/botanical-product.avif`}
-              alt="Amani Roots Botanical Hair Growth Oil"
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={`${BASE}assets/hero-model.png`}
               className="absolute inset-0 w-full h-full object-cover"
-            />
+            >
+              <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
