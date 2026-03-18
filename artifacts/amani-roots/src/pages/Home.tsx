@@ -24,7 +24,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-bg text-text">
-
       {/* ── 1. HERO ─────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative w-full pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
 
@@ -117,7 +116,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── 2. PHILOSOPHY ────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)", borderTop: "2px solid var(--sage)" }}>
         <div className="max-w-[1400px] mx-auto">
@@ -170,7 +168,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── 3. THREE PILLARS — 7 Herbs · 3 Oils · Healthy Roots ── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
@@ -248,7 +245,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── 4. SCIENCE ─────────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
@@ -304,7 +300,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── 5. PRODUCT SPOTLIGHT ──────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
@@ -336,9 +331,7 @@ export default function Home() {
                   href="/shop"
                   className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
                   style={{ backgroundColor: "transparent", color: "var(--forest)", border: "2px solid var(--forest)" }}
-                >
-                  Shop 4oz &rarr;
-                </Link>
+                >Shop 4oz </Link>
               </motion.div>
             </motion.div>
 
@@ -364,7 +357,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── 6. TESTIMONIALS ────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
@@ -408,7 +400,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* ── 7. SCALP ───────────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[900px] mx-auto">
@@ -427,7 +418,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
       {/* ── 8. THE RITUAL ──────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
@@ -482,7 +472,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
       {/* ── 9. EMAIL SIGNUP ────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 border-t bg-bg" style={{ borderColor: "var(--border)" }}>
         <div className="max-w-[560px] mx-auto text-center">
@@ -510,7 +499,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
       {/* ── 10. FAQ TEASER → link to /faq ─────────────────────── */}
       <section className="py-20 md:py-28 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
         <div className="max-w-[1000px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
@@ -527,7 +515,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
     </div>
-  )
+  );
 }
