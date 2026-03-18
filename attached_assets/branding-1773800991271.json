@@ -1,0 +1,115 @@
+{
+  "colorScheme": "light",
+  "fonts": [
+    {
+      "family": "Helvetica Now Text",
+      "role": "body"
+    },
+    {
+      "family": "Helvetica",
+      "role": "heading"
+    },
+    {
+      "family": "Arial",
+      "role": "unknown"
+    }
+  ],
+  "colors": {
+    "primary": "#000000",
+    "accent": "#EB4C4C",
+    "background": "#FFFFFF",
+    "textPrimary": "#000000",
+    "link": "#EB4C4C"
+  },
+  "typography": {
+    "fontFamilies": {
+      "primary": "Helvetica Now Text",
+      "heading": "Helvetica"
+    },
+    "fontStacks": {
+      "heading": [
+        "Helvetica Now Text",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ],
+      "body": [
+        "Helvetica Now Text",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ],
+      "paragraph": [
+        "Helvetica Now Text",
+        "Helvetica",
+        "Arial",
+        "sans-serif"
+      ]
+    },
+    "fontSizes": {
+      "h1": "15px",
+      "h2": "15px",
+      "body": "12px"
+    }
+  },
+  "spacing": {
+    "baseUnit": 4,
+    "borderRadius": "0px"
+  },
+  "components": {},
+  "images": {
+    "logo": "File saved at: attached_assets/logo.svg",
+    "favicon": "File saved at: attached_assets/favicon.png",
+    "ogImage": "File saved at: attached_assets/ogImage.png",
+    "logoHref": "https://www.zara.com/us/"
+  },
+  "__llm_logo_reasoning": {
+    "selectedIndex": 0,
+    "reasoning": "Selected #0 because it is the only candidate with a source URL resembling a logo and is located at the top of the page, linking to the homepage.",
+    "confidence": 0.8,
+    "source": "llm"
+  },
+  "__llm_button_reasoning": {
+    "primary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "The only button detected is 'Skip to main content', which is not a primary CTA. It serves as an accessibility feature rather than a call-to-action."
+    },
+    "secondary": {
+      "index": -1,
+      "text": "N/A",
+      "reasoning": "No secondary button is available as there is only one button detected, which is not suitable for primary or secondary classification."
+    },
+    "confidence": 0.9
+  },
+  "personality": {
+    "tone": "modern",
+    "energy": "medium",
+    "targetAudience": "fashion-conscious individuals"
+  },
+  "designSystem": {
+    "framework": "custom",
+    "componentLibrary": ""
+  },
+  "confidence": {
+    "buttons": 0.9,
+    "colors": 0.9,
+    "overall": 0.9
+  },
+  "__llm_metadata": {
+    "logoSelection": {
+      "llmCalled": true,
+      "llmSucceeded": true,
+      "finalSource": "llm",
+      "rawLogoSelection": {
+        "selectedLogoIndex": 0,
+        "selectedLogoReasoning": "Selected #0 because it is the only candidate with a source URL resembling a logo and is located at the top of the page, linking to the homepage.",
+        "confidence": 0.8
+      }
+    },
+    "buttonClassification": {
+      "llmCalled": true,
+      "llmSucceeded": true
+    }
+  }
+}
