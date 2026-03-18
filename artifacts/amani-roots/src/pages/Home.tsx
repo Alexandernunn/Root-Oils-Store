@@ -189,8 +189,8 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Botanical image grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
+          {/* Botanical pillars — image + text side-by-side on mobile */}
+          <div className="hidden md:grid md:grid-cols-3 gap-8 mb-20 md:mb-28">
             {[
               { src: "herbs-grid-1.png", alt: "Botanical herbs" },
               { src: "herbs-grid-2.png", alt: "Botanical oils" },
@@ -211,11 +211,11 @@ export default function Home() {
           </div>
 
           {/* Three pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
+          <div className="space-y-16 md:space-y-0 md:grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
             {[
-              { num: "01", title: "Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
-              { num: "02", title: "Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
-              { num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
+              { src: "herbs-grid-1.png", alt: "Botanical herbs", num: "01", title: "Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
+              { src: "herbs-grid-2.png", alt: "Botanical oils", num: "02", title: "Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
+              { src: "bottle-herbs.png", alt: "Amani Roots oil with botanicals", num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
             ].map((pillar, i) => (
               <motion.div
                 key={i}
@@ -223,11 +223,28 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.9, delay: i * 0.1 }}
-                className="md:px-8 lg:px-14 first:pl-0 last:pr-0"
+                className="md:px-8 lg:px-14 first:pl-0 last:pr-0 flex flex-col md:flex-row md:flex-col gap-6 md:gap-0"
               >
-                <div className="text-[10px] uppercase tracking-[0.2em] mb-6 font-light" style={{ color: "var(--sage)" }}>{pillar.num}</div>
-                <h3 className="font-heading text-2xl md:text-3xl mb-5 font-light tracking-widest">{pillar.title}</h3>
-                <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide">{pillar.desc}</p>
+                {/* Mobile: image + number side-by-side, text below */}
+                <div className="md:hidden flex gap-6 items-start">
+                  <div className="overflow-hidden shrink-0" style={{ width: "120px", height: "120px", aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}>
+                    <img src={`${BASE}assets/${pillar.src}`} alt={pillar.alt} className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <div className="text-[10px] uppercase tracking-[0.2em] mb-2 font-light" style={{ color: "var(--sage)" }}>{pillar.num}</div>
+                    <h3 className="font-heading text-lg font-light tracking-widest">{pillar.title}</h3>
+                  </div>
+                </div>
+                
+                {/* Mobile: description */}
+                <p className="md:hidden text-text-muted text-sm font-light leading-[1.9] tracking-wide">{pillar.desc}</p>
+
+                {/* Desktop: number, title, description stacked */}
+                <div className="hidden md:block">
+                  <div className="text-[10px] uppercase tracking-[0.2em] mb-6 font-light" style={{ color: "var(--sage)" }}>{pillar.num}</div>
+                  <h3 className="font-heading text-2xl md:text-3xl mb-5 font-light tracking-widest">{pillar.title}</h3>
+                  <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide">{pillar.desc}</p>
+                </div>
               </motion.div>
             ))}
           </div>
