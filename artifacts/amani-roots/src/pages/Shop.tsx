@@ -15,7 +15,7 @@ const products = [
     price: "$14.00",
     badge: "New",
     description: "Our 8oz bottle for your daily hair care ritual. Seven herbs and three nourishing oils — supports scalp health and stronger growth.",
-    image: "https://static.wixstatic.com/media/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png/v1/fill/w_856,h_856,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png",
+    image: "https://static.wixstatic.com/media/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png/v1/fill/w_856,h_1283,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png",
     link: "https://www.amanirootsoils.com/product-page/scalp-soothing-oil",
   },
   {
