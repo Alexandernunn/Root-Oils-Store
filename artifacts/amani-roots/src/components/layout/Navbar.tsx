@@ -45,7 +45,7 @@ export function Navbar() {
             <img
               src={`${import.meta.env.BASE_URL}assets/logo.png`}
               alt="Amani Roots Oils"
-              className="h-9 w-auto object-contain"
+              className="h-[50px] md:h-[72px] w-auto object-contain"
               style={{ filter: "brightness(0) saturate(100%) invert(26%) sepia(28%) saturate(600%) hue-rotate(110deg) brightness(90%) contrast(95%)" }}
             />
           </Link>
