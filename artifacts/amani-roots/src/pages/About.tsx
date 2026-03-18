@@ -21,17 +21,10 @@ export default function About() {
   return (
     <div className="min-h-screen bg-bg text-text">
 
-      {/* ── HERO — founder image ── */}
+      {/* ── HERO — text only ── */}
       <section className="relative w-full pt-[72px]" style={{ backgroundColor: "var(--bg-mist)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-          <div className="lg:col-span-7 overflow-hidden" style={{ aspectRatio: "4/3", maxHeight: "60vw", boxShadow: "var(--shadow-green)" }}>
-            <img
-              src={`${BASE}assets/founder.jpg`}
-              alt="Sifa Mondika, Founder of Amani Roots Oils"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="lg:col-span-5 flex items-center px-8 md:px-12 lg:px-16 py-16 lg:py-0" style={{ backgroundColor: "var(--bg-mist)" }}>
+          <div className="lg:col-span-12 flex items-center px-8 md:px-12 lg:px-16 py-16 lg:py-0" style={{ backgroundColor: "var(--bg-mist)" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -195,8 +188,8 @@ export default function About() {
           >
             <div className="overflow-hidden" style={{ aspectRatio: "4/3", maxWidth: "440px", boxShadow: "var(--shadow-green)" }}>
               <img
-                src={`${BASE}assets/herbs-grid-1.png`}
-                alt="Amani Roots botanical herbs"
+                src={`${BASE}assets/founder.jpg`}
+                alt="Sifa Mondika, Founder of Amani Roots Oils"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
