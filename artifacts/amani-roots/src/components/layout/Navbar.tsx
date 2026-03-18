@@ -109,14 +109,6 @@ export function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                href="/shop"
-                className="mt-8 font-body text-sm font-light tracking-[0.2em] uppercase underline underline-offset-8 transition-colors"
-                style={{ color: 'var(--mint)' }}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Shop Collection &rarr;
-              </Link>
             </nav>
           </motion.div>
         )}
