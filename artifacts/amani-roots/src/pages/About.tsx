@@ -24,19 +24,33 @@ export default function About() {
       {/* ── HERO — text only ── */}
       <section className="relative w-full pt-[72px]" style={{ backgroundColor: "var(--bg-mist)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-          <div className="lg:col-span-12 flex items-center px-8 md:px-12 lg:px-16 py-16 lg:py-0" style={{ backgroundColor: "var(--bg-mist)" }}>
+          <div className="lg:col-span-12 flex flex-col items-center lg:items-start justify-center lg:justify-start px-6 md:px-12 lg:px-16 py-16 lg:py-24" style={{ backgroundColor: "var(--bg-mist)" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3 }}
+              className="text-center lg:text-left w-full lg:w-auto"
             >
               <p className={eyebrow} style={eyebrowStyle}>&mdash; THE GENESIS</p>
               <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-light tracking-widest leading-[1.1] mb-6">
                 The Story Behind<br /><span className="italic" style={{ color: "var(--forest)" }}>Amani Roots</span>
               </h1>
-              <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm">
+              <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm mx-auto lg:mx-0">
                 Amani Roots grew from a personal journey into something much bigger.
               </p>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.9, delay: 0.6 }}
+                className="mt-10 flex justify-center lg:justify-start"
+              >
+                <img
+                  src={`${BASE}assets/logo.png`}
+                  alt="Amani Roots Oils Logo"
+                  className="h-10 w-auto"
+                  style={{ filter: "brightness(0) saturate(100%) invert(26%) sepia(28%) saturate(600%) hue-rotate(110deg) brightness(90%) contrast(95%)" }}
+                />
+              </motion.div>
             </motion.div>
           </div>
         </div>
