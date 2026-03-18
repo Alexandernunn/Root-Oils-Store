@@ -55,11 +55,15 @@ Every package extends `tsconfig.base.json` which sets `composite: true`. The roo
 Premium marketing website for Amani Roots Oils — a natural hair care brand.
 
 - **Aesthetic**: Quiet luxury / art gallery minimalism (Zara.com inspired)
-- **Color palette**: Near-monochromatic — `#FAFAF8` bg, `#1A1714` near-black, `#9E8E7E` taupe accent. Zero purple/lavender/rose.
+- **Color palette**: `--bg: #FAFAF8`, `--bg-alt: #F5F3EF`, `--bg-mist: #EEF4F0`, `--bg-cream: #F7F3ED`, `--text: #1A1714`, `--text-muted: #8A8580`, `--forest: #2F5F48`, `--sage: #7A9E87`, `--mint: #D6E8DC`, `--gold: #C9A96E`
 - **Typography**: Cormorant Garamond (headings, weight 300), Nunito (body, weight 300)
-- **Hero**: Framed/windowed video treatment (`/assets/hero.mp4`) — video sits as contained element ~60% width, text overlaps from left
-- **Sections**: Hero, Philosophy, Three Pillars, Science, Product Spotlight, Testimonials, Scalp, Email Signup, FAQ, Footer
-- **Assets**: All product images + hero.mp4 in `public/assets/`
+- **Hero**: 9:16 portrait video on desktop (left-aligned, side text right), full-bleed on mobile
+- **Pages**: Home (10 sections), Shop (hero image + product grid), About (founder story)
+- **Home sections**: Hero, Philosophy, Three Pillars (7 Herbs · 3 Oils · Healthy Roots), Science, Product Spotlight, Testimonials (with photos), Scalp, Floating Bottle, Email Signup, FAQ
+- **About page**: Founder photo hero, story intro, mission, founder's journey (verbatim from amanirootsoils.com/founder-story), sign-off
+- **Shop page**: Wide botanical hero image, product grid (5 products from Wix CDN), bottom accent
+- **Copy**: All text sourced verbatim from amanirootsoils.com
+- **Assets**: All product images, brand photos, hero.mp4 in `public/assets/`; some product images load directly from Wix CDN
 - **No backend** — purely static frontend marketing site
 - **Preview path**: `/`
 
