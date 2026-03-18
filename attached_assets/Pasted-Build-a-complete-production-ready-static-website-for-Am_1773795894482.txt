@@ -1,0 +1,413 @@
+Build a complete, production-ready static website for "Amani Roots Oils" — a 
+premium natural hair care brand founded by a biology and computational 
+neuroscience student who blends botanical tradition with modern hair science.
+
+This site must be deployable to Netlify as a static site. Structure it as:
+/index.html
+/shop.html (placeholder page)
+/about.html (placeholder page)
+/style.css
+/script.js
+/assets/ (folder for any local assets)
+
+No frameworks, no build tools, no package.json required. Pure HTML/CSS/JS only.
+Netlify will serve index.html as the root. Make sure all links are relative paths.
+
+=============================================================
+🎨 CREATIVE DIRECTION — READ THIS CAREFULLY
+=============================================================
+
+You have full creative freedom on layout and design decisions. Do NOT make a 
+generic template. This should feel like a premium independent beauty brand 
+that could sit next to Fenty Beauty or Ceremonia in a Sephora. 
+
+The reference aesthetic is ASOS/Zara-level editorial cleanliness — not busy, 
+not cluttered, not hectic. Think: generous white space, intentional typography, 
+restraint in decoration but BOLD in presence.
+
+The client's exact words: 
+"Soft colors like purple and greens... very soft and not too much brightness. 
+Not harsh. You still want relatively bright colors like white and pale yellows. 
+But no darkness. Just no harsh, hard colors."
+"Not too much wording. Like a minimum. Just plain, simple."
+"That's exactly the vibe I want — like ASOS, like Zara. Clean and sinful."
+"I like the movement. The homepage that has movement — it's appealing. 
+I would be very attracted to look more into the website."
+
+Be BOLD with your layout choices. Use asymmetry. Use overlapping elements. 
+Use massive typography. Use editorial section breaks. Surprise the eye — 
+but keep the softness. Every section should feel intentional and designed, 
+not templated.
+
+---
+
+COLOR PALETTE (soft girl botanical luxury — stay in this family):
+--color-bg:         #FDFAF6   (warm parchment white — main background)
+--color-bg-2:       #F3EEF8   (pale lavender blush — alternate sections)
+--color-bg-3:       #EEF5F1   (soft sage mist — accent sections)
+--color-accent-1:   #C9B8E8   (muted lavender — primary accent)
+--color-accent-2:   #A8C8B4   (sage green — secondary accent)
+--color-accent-3:   #F5F0C0   (pale butter yellow — highlight tone)
+--color-rose:       #D4A8C7   (dusty rose — CTAs, hover, buttons)
+--color-text:       #2E2A35   (deep plum-black — all body text)
+--color-text-soft:  #7A6E85   (muted mauve-gray — secondary text, captions)
+--color-border:     #E8E0F0   (ultra light lavender border)
+
+Rule: NO pure black. NO pure white. NO harsh contrast. 
+Everything breathes and feels like linen, botanicals, and morning light.
+
+---
+
+TYPOGRAPHY:
+Import from Google Fonts:
+- "Cormorant Garamond" (weights 300, 400, 600) — display, headings, hero
+- "Nunito" (weights 300, 400, 500) — body, nav, captions, buttons
+
+Heading style: large, airy, generous letter-spacing (0.04–0.08em)
+Body style: light weight (300–400), comfortable line-height (1.7–1.9)
+No font below 14px. Nothing cramped. Everything breathes.
+
+=============================================================
+📹 HERO SECTION — VIDEO AT THE TOP (MOST IMPORTANT SECTION)
+=============================================================
+
+The very first thing visitors see is a full-viewport-height VIDEO HERO.
+
+Use an HTML5 <video> tag with these attributes:
+- autoplay
+- muted  
+- loop
+- playsinline
+- poster="/assets/hero-poster.jpg" (fallback image placeholder)
+
+Source: <source src="/assets/hero.mp4" type="video/mp4">
+
+The video fills the full screen as a background (object-fit: cover, 
+position absolute, z-index 0).
+
+On top of the video, layer:
+1. A soft overlay gradient: 
+   linear-gradient(to bottom, rgba(45,42,53,0.25) 0%, rgba(45,42,53,0.5) 100%)
+   This softens the video without killing it — the motion stays visible.
+
+2. Centered text content (z-index 1, positioned over video):
+
+   Small eyebrow label (all caps, letter-spaced, soft white):
+   "ARTISANAL BOTANICAL HAIR CARE"
+
+   Hero headline (massive, Cormorant Garamond, white, elegant):
+   "Honoring the Natural Strength of Every Strand"
+
+   Subheadline (light weight, white, max-width 520px centered):
+   "Artisanal botanical blends designed to nurture, protect, and celebrate 
+   your unique heritage."
+
+   CTA Button:
+   "Shop the Collection"
+   Style: pill-shaped, background --color-rose (#D4A8C7), white text, 
+   no border, soft shadow, hover lifts up 3px + shadow deepens
+
+3. Animate the eyebrow, headline, and subheadline with staggered fade-up:
+   - Eyebrow: fadeUp 0.8s ease, delay 0.2s
+   - Headline: fadeUp 0.8s ease, delay 0.5s  
+   - Subheadline: fadeUp 0.8s ease, delay 0.8s
+   - Button: fadeUp 0.8s ease, delay 1.1s
+
+4. Subtle scroll indicator at bottom center: 
+   A small animated downward chevron or dot that pulses/bounces gently
+
+NOTE: Since this is a static site, the video file will be added by the client 
+later. Build the video element correctly so dropping in hero.mp4 and 
+hero-poster.jpg into /assets/ will make it work instantly with no code changes.
+
+---
+
+=============================================================
+🌿 SECTION BY SECTION CONTENT & LAYOUT
+=============================================================
+
+--- STICKY NAV ---
+Ultra-thin navigation bar.
+On load: fully transparent, white text (sitting over the video hero).
+On scroll (after 80px): transitions to frosted glass — 
+  background: rgba(253,250,246,0.92), backdrop-filter: blur(12px)
+  text color switches to --color-text
+Logo: "Amani Roots Oils" in Cormorant Garamond, elegant
+Nav links: Home | Shop | Book Online | Events | Founder's Story
+Mobile: collapse to a hamburger menu with smooth slide-down drawer
+CTA in nav (desktop only): "Shop Now" pill button in --color-rose
+
+---
+
+--- PHILOSOPHY SECTION ---
+Two-column layout. Large image left (rounded corners, slight shadow). 
+Text right, vertically centered.
+
+Creative direction: Let the image bleed slightly outside its column boundary 
+for visual tension. Offset the text block lower than the image starts — 
+create visual rhythm, not a boxy grid.
+
+Heading: "Empowering the Natural Hair Journey"
+Body:
+"At Amani Roots, our mission is to foster a deeper appreciation for the 
+beauty of natural texture. We provide the artisanal tools and empowerment 
+for every woman to embrace her authentic self with confidence, nourishment, 
+and care."
+
+Small botanical divider line (thin, --color-accent-1) between eyebrow and heading.
+
+Scroll animation: image slides in from left (translateX -40px → 0), 
+text fades up from below. Trigger on IntersectionObserver.
+
+---
+
+--- 3 PILLARS SECTION ---
+Background: --color-bg-2 (pale lavender blush)
+
+Heading (centered, large): "7 Herbs • 3 Oils • Healthy Roots"
+
+Three cards horizontal — creative card design:
+Use an asymmetric card style. Slightly different heights or offsets. 
+Add a large decorative number (01, 02, 03) in a very light 
+--color-accent-1 behind each card title as a ghost element.
+
+Card 1 — "7 Powerful Herbs"
+"Inspired by traditional botanicals and modern hair science, our formula 
+brings together seven powerful herbs known to support scalp health and 
+strengthen hair at the root. Each ingredient was carefully chosen."
+
+Card 2 — "3 Nourishing Oils"
+"A blend of grapeseed, jojoba, and castor oil works together to hydrate 
+the scalp, seal in moisture, and support stronger hair without heavy buildup."
+
+Card 3 — "Healthy Roots"
+"Healthy hair begins at the scalp. Amani Roots oils are designed to nourish 
+your roots, support scalp balance, and create the foundation for stronger, 
+thriving hair."
+
+Animation: staggered fade-up + scale (0.95 → 1), 0.15s between each card.
+
+---
+
+--- SCIENCE SECTION ---
+Full-width section. Background: --color-bg-3 (sage mist).
+
+Layout idea: Large bold heading on the left taking up 50% width. 
+Body text floats to the right, with a botanical illustration or image 
+placeholder overlapping the section boundary.
+
+Heading: "Where Science Meets Hair Care"
+Body:
+"Founded by a biology and computational neuroscience student, Amani Roots 
+blends scientific understanding with botanical traditions to support scalp 
+health and natural hair growth. Healthy roots create the environment where 
+hair can thrive."
+
+---
+
+--- PRODUCT SPOTLIGHT ---
+Background: --color-bg (warm parchment)
+
+ASOS-style product display. Ultra clean. Product image centered with 
+generous white space around it. Name and description minimal below.
+
+Product Name: "Botanical Hair Growth Oil"
+Description: "A lightweight botanical oil designed to nourish the scalp, 
+strengthen hair strands, and support natural growth."
+
+Two pill buttons side by side:
+- "Shop 4oz" — outlined, --color-accent-1 border + text
+- "Shop 8oz" — filled, --color-rose background, white text
+
+Product image/card: add a GENTLE float animation 
+(translateY: 0 → -8px → 0, 4s ease-in-out infinite loop)
+This is the only looping animation — keep everything else scroll-triggered.
+
+---
+
+--- TESTIMONIALS ---
+Background: --color-bg-2
+
+Heading (centered): "Success Stories"
+
+Three cards in a row — soft rounded rectangles, 
+background white with subtle --color-border shadow.
+
+Large decorative quotation mark in --color-accent-1 (very large, top left of card).
+
+Quote 1 (Priscilla T.):
+"My curls have never felt more hydrated. Amani Roots is a game-changer 
+for my transition journey."
+
+Quote 2 (Naomi T.):
+"The thickness and shine I've gained are incredible. I finally feel 
+confident with my natural texture."
+
+Quote 3 (Catarina V.):
+"It's more than just oil — it's a ritual of self-love. My hair is 
+flourishing like never before."
+
+On mobile: horizontal scroll snap carousel.
+
+---
+
+--- SCALP SECTION ---
+Split layout. Large bold stat or statement left. Body text right.
+
+Statement (huge, Cormorant Garamond): "It Starts With the Scalp"
+Body:
+"Many hair problems begin at the scalp. Dryness, breakage, thinning, and 
+slow growth are often signs that the scalp needs nourishment. Amani Roots 
+focuses on creating a healthy foundation so your hair can grow stronger 
+and longer naturally."
+
+---
+
+--- EMAIL SIGNUP ---
+Background: --color-accent-3 at 35% opacity (pale butter yellow section)
+Centered layout, max-width 560px.
+
+Heading: "Stay Rooted"
+Subtext: "Be the first to know about new products, hair growth tips, 
+and community events."
+
+Form fields inline on desktop, stacked on mobile:
+First Name | Last Name | Email | Submit Button
+Submit button: pill, --color-rose, white text
+
+---
+
+--- FAQ SECTION ---
+Background: --color-bg
+
+Heading (centered): "Frequently Asked Questions"
+Subtext: "Everything you need to know about your roots."
+
+Accordion — clean, minimal. Each item: 
+- Question text left, + / × icon right
+- On click: smooth height expand (max-height transition)
+- Chevron/icon rotates 45° on open
+- Subtle --color-border bottom line between items
+
+Questions & Answers:
+Q: What are the key ingredients in Amani Roots Oils?
+A: Our artisanal blend features 7 powerful herbs and 3 nourishing botanicals, 
+including Amla, peppermint, rosemary, pumpkin seed, and pure Grapeseed oil, 
+designed to nurture strength from within.
+
+Q: How should I apply the oil for the best results?
+A: Gently massage a few drops into your scalp and edges as part of your 
+self-care ritual. Focus on areas that need extra hydration to soothe and 
+protect your natural texture.
+
+Q: How often should I use Amani Roots Oil?
+A: We recommend applying the oil 2–3 times per week to maintain a balanced, 
+flourishing scalp and hydrated strands. Consistency is key to a thriving journey.
+
+Q: Which hair types does the oil work for?
+A: Our oils are crafted to honor all natural hair textures — whether wavy, 
+curly, or tightly coiled (3C to 4C), our formula provides essential nourishment.
+
+Q: How long will it take to see visible results?
+A: Most women notice improved scalp comfort and hair strength within 4–6 weeks 
+of consistent use.
+
+Q: Is the oil safe for sensitive scalps?
+A: Absolutely. Our formulas are free from harsh chemicals, making them ideal 
+for a gentle, soothing scalp routine.
+
+Q: Can I use it while wearing protective styles?
+A: Yes — Amani Roots is the perfect companion for braids, twists, or weaves. 
+Use it to prevent dryness and maintain scalp health throughout.
+
+---
+
+--- FOOTER ---
+Background: --color-text (#2E2A35 deep plum-black)
+Text: soft white / --color-bg
+
+Two-column layout: Logo + tagline left. Nav links right.
+Bottom row: copyright center. Social icons right.
+Social: Facebook, Instagram, YouTube, X, LinkedIn, TikTok (use SVG icons or 
+Unicode symbols — no external icon libraries)
+
+Copyright: "© 2026 Amani Roots Oil. All rights reserved."
+
+=============================================================
+⚡ ANIMATIONS MASTER LIST (soft, never jarring)
+=============================================================
+
+All animations should feel like petals falling — never like a bounce house.
+Easing: ease-in-out or cubic-bezier(0.4, 0, 0.2, 1) everywhere.
+Duration: 0.6s–1s for scroll animations. 4s for loops.
+
+1. HERO TEXT: staggered fadeUp (opacity 0→1, translateY 20px→0)
+   Eyebrow 0.2s delay → Headline 0.5s → Sub 0.8s → Button 1.1s
+
+2. HERO VIDEO: Ken Burns zoom (scale 1→1.08, 20s ease-in-out infinite)
+   Apply to the video element itself for a living, breathing feel
+
+3. NAV: smooth background + blur transition on scroll (0.3s ease)
+
+4. PHILOSOPHY: image translateX(-40px→0) + text fadeUp on scroll entry
+
+5. PILLAR CARDS: staggered scale(0.95→1) + fadeUp, 0.15s apart
+
+6. PRODUCT CARD: gentle float loop translateY(0 → -8px → 0), 4s infinite
+
+7. FAQ ACCORDION: max-height smooth expand + icon rotate(0→45deg)
+
+8. ALL SCROLL ANIMATIONS: use IntersectionObserver with threshold: 0.15
+   Add class "visible" to trigger CSS transitions
+   Default state: opacity: 0, transform: translateY(20px)
+   Visible state: opacity: 1, transform: translateY(0)
+   Transition: all 0.7s ease-in-out
+
+9. BUTTON HOVER: translateY(-3px) + box-shadow deepen (0.2s ease)
+
+10. TESTIMONIAL CARDS: on hover, subtle lift + border color shift to 
+    --color-accent-1
+
+=============================================================
+🛠️ NETLIFY DEPLOYMENT REQUIREMENTS
+=============================================================
+
+File structure (flat, Netlify-ready):
+/index.html         ← main homepage, all sections
+/shop.html          ← placeholder: "Coming Soon" in same style
+/about.html         ← placeholder: "Our Story Coming Soon" in same style
+/style.css          ← all styles, CSS variables at :root
+/script.js          ← nav scroll behavior, IntersectionObserver, FAQ accordion
+/assets/            ← empty folder with README.txt:
+                       "Drop hero.mp4 and hero-poster.jpg here"
+
+Rules:
+- All asset paths must be RELATIVE (./assets/hero.mp4, not /assets/hero.mp4)
+- No npm, no node_modules, no build step required
+- Netlify drag-and-drop of the entire folder should work instantly
+- Include a netlify.toml file at root:
+
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+- All internal links use relative .html paths
+- Meta tags in <head>: title, description, og:title, og:description, viewport
+- Add <link rel="preconnect"> for Google Fonts for performance
+
+=============================================================
+🌱 FINAL NOTE TO REPLIT
+=============================================================
+
+This is a real client website. Make design decisions a senior creative 
+director would make — not a template generator. The client wants to feel 
+like she's shopping on ASOS or Zara but wrapped in soft botanical luxury. 
+Every pixel should feel intentional. Use the color palette strictly but 
+express it creatively through gradients, soft shadows, layered backgrounds, 
+and spacing. The motion should make visitors pause and lean in — not dizzy. 
+The typography should feel like it belongs on a magazine editorial. 
+Make this site something the client will be proud to show.

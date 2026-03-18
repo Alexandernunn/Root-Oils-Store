@@ -1,0 +1,12 @@
+packages:
+  "framer-motion": "For smooth, elegant scroll animations, staggered fade-ups, and the continuous floating product animation requested."
+  "lucide-react": "For icons like the chevron in the hero, accordion plus/minus, and mobile menu hamburger."
+  "clsx": "Utility for constructing className strings conditionally."
+  "tailwind-merge": "Utility for cleanly merging tailwind classes without style conflicts."
+
+images: []
+
+notes:
+  - "Using Framer Motion for IntersectionObserver-based scroll reveals and loop animations as it provides more reliable and smoother execution in React than manual CSS classes."
+  - "The requested video fallback is implemented using the <video> poster attribute."
+  - "All assets are expected to be available at /assets/ based on the provided instructions."
