@@ -158,13 +158,13 @@ export default function About() {
 
       {/* ── FOUNDER SIGN-OFF ── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20 items-center">
+        <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-14 lg:gap-20 items-center lg:items-start">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerContainer}
-            className="lg:col-span-7 order-2 lg:order-1"
+            className="flex-1"
           >
             <motion.div variants={fadeInUp} className="w-8 h-[2px] mb-8" style={{ backgroundColor: "var(--sage)" }} />
             <motion.p variants={fadeInUp} className="font-heading text-3xl md:text-4xl font-light tracking-widest leading-[1.3] mb-4">
@@ -189,7 +189,7 @@ export default function About() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="lg:col-span-5 order-1 lg:order-2"
+            className="flex-1 flex justify-center lg:justify-end"
           >
             <div className="overflow-hidden" style={{ aspectRatio: "4/3", maxWidth: "440px", boxShadow: "var(--shadow-green)" }}>
               <img
