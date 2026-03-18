@@ -322,6 +322,7 @@ export default function Home() {
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-6 w-full">
                 <Link
                   href="/shop"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
                   style={{ backgroundColor: "var(--forest)", color: "#fff" }}
                 >
@@ -329,6 +330,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/shop"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                   className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
                   style={{ backgroundColor: "transparent", color: "var(--forest)", border: "2px solid var(--forest)" }}
                 >Shop 4oz </Link>
@@ -464,6 +466,7 @@ export default function Home() {
             </p>
             <Link
               href="/shop"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
               style={{ backgroundColor: "var(--forest)", color: "#fff" }}
             >
