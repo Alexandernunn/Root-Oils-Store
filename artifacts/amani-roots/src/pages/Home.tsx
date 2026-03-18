@@ -1,12 +1,6 @@
 import React, { useRef } from "react"
 import { motion } from "framer-motion"
 import { Link } from "wouter"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -23,21 +17,50 @@ const eyebrowStyle = { color: "var(--sage)" }
 
 const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
+const HERO_GREEN = "#243B2E"
+
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
 
   return (
     <div className="min-h-screen bg-bg text-text">
 
-      {/* ── 1. HERO ─ full-bleed mobile, 9:16 portrait framed desktop ── */}
-      <section ref={heroRef} className="relative w-full bg-bg pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
-        <div className="relative w-full md:px-12 lg:px-20">
-          <div
-            className="relative w-full overflow-hidden"
-            style={{ height: "calc(100svh - 72px)" }}
-            data-hero-container
-          >
-            <style>{`@media (min-width: 768px) { [data-hero-container] { height: auto; aspect-ratio: 9/16; max-height: 82vh; max-width: 460px; } }`}</style>
+      {/* ── 1. HERO ─────────────────────────────────────────────── */}
+      <section ref={heroRef} className="relative w-full pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
+
+        {/* ── DESKTOP: text LEFT, video RIGHT ── */}
+        <div className="hidden md:flex" style={{ minHeight: "calc(100svh - 72px)" }}>
+
+          {/* Left: text panel */}
+          <div className="flex items-center px-14 lg:px-20 xl:px-28" style={{ flex: "1 1 50%", backgroundColor: HERO_GREEN }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.4, ease: [0.2, 0, 0.2, 1] }}
+              className="max-w-md"
+            >
+              <p className="text-[10px] font-light tracking-[0.2em] uppercase mb-4" style={{ color: "rgba(214,232,220,0.7)" }}>
+                ARTISANAL BOTANICAL HAIR CARE
+              </p>
+              <div className="w-12 h-[1px] mb-8" style={{ backgroundColor: "rgba(122,158,135,0.6)" }} />
+              <h1 className="font-heading font-light leading-[1.08] mb-8 tracking-widest" style={{ color: "#F5F0E8", fontSize: "clamp(2.4rem, 4vw, 4.5rem)" }}>
+                Honoring the<br />Natural Strength<br />of Every Strand
+              </h1>
+              <p className="text-sm font-light leading-[1.95] tracking-wide mb-10" style={{ color: "rgba(245,240,232,0.72)", maxWidth: "340px" }}>
+                Amani Roots Oils empowers your natural hair journey with artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
+              </p>
+              <Link
+                href="/shop"
+                className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-7 py-3.5 transition-all duration-300 hover:opacity-80"
+                style={{ backgroundColor: "var(--sage)", color: "#fff" }}
+              >
+                Shop the Collection &rarr;
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Right: 9:16 video */}
+          <div className="relative overflow-hidden" style={{ flex: "0 0 46%", maxWidth: "520px" }}>
             <video
               autoPlay
               muted
@@ -48,43 +71,44 @@ export default function Home() {
             >
               <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
             </video>
+          </div>
+        </div>
 
-            <div
-              className="absolute inset-0 hidden md:block"
-              style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.60) 100%)" }}
-            />
-            <div
-              className="absolute inset-0 md:hidden"
-              style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.60) 40%, rgba(0,0,0,0.65) 100%)" }}
-            />
-
+        {/* ── MOBILE: full-bleed video + solid text panel below ── */}
+        <div className="md:hidden flex flex-col" style={{ minHeight: "calc(100svh - 72px)" }}>
+          {/* Video fills most of viewport */}
+          <div className="relative flex-1 overflow-hidden" style={{ minHeight: "52vw" }}>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={`${BASE}assets/hero-model.png`}
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
+            </video>
           </div>
 
-          {/* Desktop side text next to 9:16 video */}
-          <div className="hidden md:flex absolute top-[72px] right-20 lg:right-24 bottom-0 items-center" style={{ maxWidth: "480px", width: "40%" }}>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6, ease: [0.2, 0, 0.2, 1] }}
+          {/* Solid dark green text panel — fully opaque, extremely legible */}
+          <div className="px-7 py-10" style={{ backgroundColor: HERO_GREEN }}>
+            <p className="text-[9px] font-light tracking-[0.22em] uppercase mb-3" style={{ color: "rgba(214,232,220,0.7)" }}>
+              ARTISANAL BOTANICAL HAIR CARE
+            </p>
+            <div className="w-10 h-[1px] mb-6" style={{ backgroundColor: "rgba(122,158,135,0.5)" }} />
+            <h1 className="font-heading font-light leading-[1.1] mb-5 tracking-widest text-[2rem]" style={{ color: "#F5F0E8" }}>
+              Honoring the<br />Natural Strength<br />of Every Strand
+            </h1>
+            <p className="text-xs font-light leading-[1.9] tracking-wide mb-7" style={{ color: "rgba(245,240,232,0.72)" }}>
+              Artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
+            </p>
+            <Link
+              href="/shop"
+              className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 hover:opacity-80"
+              style={{ backgroundColor: "var(--sage)", color: "#fff" }}
             >
-              <p className="text-[10px] font-light tracking-[0.2em] uppercase mb-5" style={{ color: "var(--sage)" }}>
-                ARTISANAL BOTANICAL HAIR CARE
-              </p>
-              <div className="w-16 h-[1px] mb-8" style={{ backgroundColor: "var(--sage)" }} />
-              <h1 className="font-heading font-light leading-[1.1] mb-6 tracking-widest" style={{ color: "var(--text)", fontSize: "clamp(2rem, 3.5vw, 4rem)" }}>
-                Honoring the<br />Natural Strength<br />of Every Strand
-              </h1>
-              <p className="text-sm font-light leading-[1.9] tracking-wide text-text-muted mb-10 max-w-sm">
-                Amani Roots Oils empowers your natural hair journey with artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage.
-              </p>
-              <Link
-                href="/shop"
-                className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-6 py-3 transition-all duration-300 hover:opacity-85"
-                style={{ backgroundColor: "var(--forest)", color: "#fff" }}
-              >
-                Shop the Collection &rarr;
-              </Link>
-            </motion.div>
+              Shop Now &rarr;
+            </Link>
           </div>
         </div>
       </section>
@@ -102,10 +126,14 @@ export default function Home() {
               transition={{ duration: 1 }}
               className="lg:col-span-5"
             >
-              <div className="w-full overflow-hidden" style={{ aspectRatio: "3/4", boxShadow: "var(--shadow-green)" }}>
+              {/* constrain height on mobile so portrait image doesn't dominate small screens */}
+              <div
+                className="w-full overflow-hidden"
+                style={{ aspectRatio: "3/4", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
+              >
                 <img
-                  src={`${BASE}assets/applying-oil.png`}
-                  alt="Applying Amani Roots oil to natural hair"
+                  src={`${BASE}assets/botanical-product.avif`}
+                  alt="Amani Roots botanical hair oil product"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -154,45 +182,32 @@ export default function Home() {
             </h2>
           </motion.div>
 
-          {/* Two botanical images side by side */}
+          {/* Botanical image grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8 mb-20 md:mb-28">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1 }}
-              className="overflow-hidden"
-              style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
-            >
-              <img src={`${BASE}assets/herbs-grid-1.png`} alt="Botanical herbs illustration" className="w-full h-full object-cover" loading="lazy" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.15 }}
-              className="overflow-hidden"
-              style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
-            >
-              <img src={`${BASE}assets/herbs-grid-2.png`} alt="Botanical oils illustration" className="w-full h-full object-cover" loading="lazy" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="overflow-hidden col-span-2 md:col-span-1"
-              style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
-            >
-              <img src={`${BASE}assets/bottle-herbs.png`} alt="Amani Roots oil with botanicals" className="w-full h-full object-cover" loading="lazy" />
-            </motion.div>
+            {[
+              { src: "herbs-grid-1.png", alt: "Botanical herbs" },
+              { src: "herbs-grid-2.png", alt: "Botanical oils" },
+              { src: "bottle-herbs.png", alt: "Amani Roots oil with botanicals", span: "col-span-2 md:col-span-1" },
+            ].map((img, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: i * 0.15 }}
+                className={`overflow-hidden ${img.span || ""}`}
+                style={{ aspectRatio: "1/1", boxShadow: "var(--shadow-green)" }}
+              >
+                <img src={`${BASE}assets/${img.src}`} alt={img.alt} className="w-full h-full object-cover" loading="lazy" />
+              </motion.div>
+            ))}
           </div>
 
-          {/* Three columns */}
+          {/* Three pillars */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
             {[
-              { num: "01", title: "7 Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to help nourish the scalp and support healthier, stronger hair." },
-              { num: "02", title: "3 Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils help nourish your strands without leaving heavy buildup." },
+              { num: "01", title: "7 Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
+              { num: "02", title: "3 Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
               { num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
             ].map((pillar, i) => (
               <motion.div
@@ -239,10 +254,13 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-6"
             >
-              <div className="overflow-hidden ml-auto" style={{ aspectRatio: "3/4", maxWidth: "420px", boxShadow: "var(--shadow-green)" }}>
+              <div
+                className="overflow-hidden ml-auto"
+                style={{ aspectRatio: "3/4", maxWidth: "420px", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
+              >
                 <img
-                  src={`${BASE}assets/holding-bottle.png`}
-                  alt="Woman holding Amani Roots oil"
+                  src={`${BASE}assets/applying-oil.png`}
+                  alt="Applying Amani Roots oil to natural hair"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -268,7 +286,7 @@ export default function Home() {
                 Botanical Hair<br />Growth Oil
               </motion.h2>
               <motion.p variants={fadeInUp} className="text-text-muted text-sm md:text-base font-light leading-[1.9] tracking-wide mb-12">
-                A lightweight botanical oil designed to nourish the scalp, strengthen hair strands, and support natural growth.
+                A lightweight botanical oil designed to nourish the scalp, strengthen hair strands, and support natural growth. Cold-infused over weeks, never rushed.
               </motion.p>
 
               <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-start gap-6">
@@ -296,7 +314,10 @@ export default function Home() {
               transition={{ duration: 1 }}
               className="lg:col-span-6 order-1 lg:order-2"
             >
-              <div className="overflow-hidden mx-auto" style={{ aspectRatio: "3/4", maxWidth: "460px", boxShadow: "var(--shadow-green)" }}>
+              <div
+                className="overflow-hidden mx-auto"
+                style={{ aspectRatio: "3/4", maxWidth: "460px", maxHeight: "60vw", boxShadow: "var(--shadow-green)" }}
+              >
                 <img
                   src={`${BASE}assets/bottle-flatlay.png`}
                   alt="Amani Roots oil with herbs and botanicals"
@@ -319,6 +340,7 @@ export default function Home() {
             className="mb-20 md:mb-32"
           >
             <p className={eyebrow} style={eyebrowStyle}>&mdash; SUCCESS STORIES</p>
+            <h2 className="font-heading text-4xl md:text-5xl font-light tracking-widest leading-[1.1]">What Our Community Says</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-12">
@@ -377,7 +399,10 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.2 }}
             className="lg:col-span-6"
           >
-            <div className="overflow-hidden ml-auto" style={{ aspectRatio: "3/4", maxWidth: "420px", boxShadow: "var(--shadow-green)" }}>
+            <div
+              className="overflow-hidden ml-auto"
+              style={{ aspectRatio: "3/4", maxWidth: "420px", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
+            >
               <img
                 src={`${BASE}assets/bottle-mint.png`}
                 alt="Amani Roots oil bottle with mint and herbs"
@@ -389,7 +414,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 8. FLOATING BOTTLE ─────────────────────────────────── */}
+      {/* ── 8. THE RITUAL ──────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
           <motion.div
@@ -399,7 +424,7 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="lg:col-span-5"
           >
-            <div className="overflow-hidden mx-auto" style={{ aspectRatio: "3/4", maxWidth: "380px" }}>
+            <div className="overflow-hidden mx-auto" style={{ aspectRatio: "3/4", maxWidth: "380px", maxHeight: "55vw" }}>
               <motion.div
                 animate={{ y: [0, -12, 0] }}
                 transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
@@ -408,7 +433,7 @@ export default function Home() {
               >
                 <img
                   src={`${BASE}assets/bottle-floating.png`}
-                  alt="Amani Roots oil bottle with oil droplets and leaves"
+                  alt="Amani Roots oil bottle"
                   className="w-full h-full object-contain"
                   loading="lazy"
                 />
@@ -424,10 +449,13 @@ export default function Home() {
             className="lg:col-span-7"
           >
             <p className={eyebrow} style={eyebrowStyle}>&mdash; THE RITUAL</p>
-            <h2 className="font-heading text-4xl md:text-5xl leading-[1.1] font-light tracking-widest mb-6 italic" style={{ color: "var(--forest)" }}>
-              Grow Longer. Shine Brighter.
+            <h2 className="font-heading text-4xl md:text-5xl leading-[1.1] font-light tracking-widest mb-6">
+              Cold-Infused.<br /><span className="italic" style={{ color: "var(--forest)" }}>Never Rushed.</span>
             </h2>
-            <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide mb-10 max-w-lg">
+            <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide mb-4 max-w-lg">
+              Our formula is infused over several weeks, allowing each herb to slowly release its potent properties into the carrier oils without heat damage. Crafted with intention for your roots.
+            </p>
+            <p className="text-sm font-light tracking-wide mb-10" style={{ color: "var(--sage)" }}>
               7 Herbs &middot; 3 Oils &middot; Botanical Hair Growth Oil
             </p>
             <Link
@@ -469,47 +497,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 10. FAQ ────────────────────────────────────────────── */}
-      <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
-        <div className="max-w-[1000px] mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-20 md:mb-32"
+      {/* ── 10. FAQ TEASER → link to /faq ─────────────────────── */}
+      <section className="py-20 md:py-28 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
+        <div className="max-w-[1000px] mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div>
+            <p className={eyebrow} style={eyebrowStyle}>&mdash; HAVE QUESTIONS?</p>
+            <h2 className="font-heading text-3xl md:text-5xl font-light tracking-widest">Read Our FAQ</h2>
+          </div>
+          <Link
+            href="/faq"
+            className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3.5 transition-all duration-300 hover:opacity-80 shrink-0"
+            style={{ backgroundColor: "var(--forest)", color: "#fff" }}
           >
-            <p className={eyebrow} style={eyebrowStyle}>&mdash; FAQ</p>
-            <h2 className="font-heading text-4xl md:text-6xl font-light tracking-widest">Questions & Answers</h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.9 }}
-          >
-            <Accordion type="single" collapsible className="w-full border-t" style={{ borderColor: "var(--border)" }}>
-              {[
-                { q: "What makes your oil different from others on the market?", a: "Our formula is cold-infused over several weeks, allowing the herbs to slowly release their potent properties into the carrier oils without heat damage. We also use a very specific ratio of lightweight and heavy oils to ensure penetration without buildup." },
-                { q: "How often should I use the Botanical Hair Growth Oil?", a: "For best results, we recommend applying to the scalp 2-3 times a week, massaging gently for 5 minutes. You can also use a few drops daily on the ends of your hair to seal in moisture." },
-                { q: "Is this suitable for all hair types?", a: "Yes! While formulated with textured and natural hair in mind, our oil's balanced molecular weight makes it effective for straight, wavy, curly, and coily hair types." },
-                { q: "When will I start seeing results?", a: "Most of our community notices increased softness and reduced shedding within the first 2-3 weeks. Noticeable thickness and new growth typically appear between 8-12 weeks of consistent use, as this aligns with the natural hair growth cycle." },
-                { q: "Is it safe for a sensitive scalp?", a: "Our ingredients are 100% natural and chosen for their soothing properties. However, as with any potent botanical product, we recommend doing a patch test on your inner arm 24 hours before full scalp application." },
-                { q: "Can I use this while wearing protective styles?", a: "Absolutely. The pointed applicator nozzle makes it incredibly easy to reach your scalp while wearing braids, locs, or weaves, keeping your roots nourished and preventing tension breakage." },
-              ].map((faq, i) => (
-                <AccordionItem key={i} value={`item-${i}`} className="border-b py-2" style={{ borderColor: "var(--border)" }}>
-                  <AccordionTrigger className="text-base md:text-lg font-body font-light text-text py-6 hover:no-underline transition-colors" style={{ color: "var(--text)" }} onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")} onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}>
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="font-light leading-[1.9] tracking-wide pb-6 pr-10 text-sm" style={{ color: "var(--text-muted)" }}>
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
+            View All Questions &rarr;
+          </Link>
         </div>
       </section>
+
     </div>
   )
 }

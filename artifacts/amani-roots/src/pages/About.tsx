@@ -24,7 +24,7 @@ export default function About() {
       {/* ── HERO — founder image ── */}
       <section className="relative w-full pt-[72px]" style={{ backgroundColor: "var(--bg-mist)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-          <div className="lg:col-span-7 overflow-hidden" style={{ aspectRatio: "4/3" }}>
+          <div className="lg:col-span-7 overflow-hidden" style={{ aspectRatio: "4/3", maxHeight: "60vw" }}>
             <img
               src={`${BASE}assets/founder.jpg`}
               alt="Sifa Mondika, Founder of Amani Roots Oils"
@@ -60,7 +60,7 @@ export default function About() {
           >
             <motion.p variants={fadeInUp} className={eyebrow} style={eyebrowStyle}>&mdash; OUR STORY</motion.p>
             <motion.h2 variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-light tracking-widest leading-[1.2] mb-10">
-              The Story Behind Amani Roots
+              From Curiosity to<br /><span className="italic" style={{ color: "var(--forest)" }}>Community</span>
             </motion.h2>
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               Amani Roots grew from a personal journey into something much bigger. What began as a quiet ritual of learning, experimenting, and understanding the science behind scalp health has evolved into a brand dedicated to helping women care for the foundation of their hair.
@@ -85,10 +85,10 @@ export default function About() {
             transition={{ duration: 1 }}
             className="lg:col-span-5"
           >
-            <div className="overflow-hidden" style={{ aspectRatio: "3/4", boxShadow: "var(--shadow-green)" }}>
+            <div className="overflow-hidden" style={{ aspectRatio: "3/4", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}>
               <img
-                src={`${BASE}assets/applying-oil.png`}
-                alt="Applying Amani Roots oil to natural hair"
+                src={`${BASE}assets/holding-bottle.png`}
+                alt="Woman holding Amani Roots oil"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
@@ -193,10 +193,10 @@ export default function About() {
             transition={{ duration: 1 }}
             className="lg:col-span-5 order-1 lg:order-2"
           >
-            <div className="overflow-hidden" style={{ aspectRatio: "1/1", maxWidth: "400px", boxShadow: "var(--shadow-green)" }}>
+            <div className="overflow-hidden" style={{ aspectRatio: "4/3", maxWidth: "440px", boxShadow: "var(--shadow-green)" }}>
               <img
-                src={`${BASE}assets/founder.jpg`}
-                alt="Sifa Mondika"
+                src={`${BASE}assets/herbs-grid-1.png`}
+                alt="Amani Roots botanical herbs"
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
