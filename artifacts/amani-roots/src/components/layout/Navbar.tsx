@@ -71,7 +71,7 @@ export function Navbar() {
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:block z-50">
+          <div className="hidden z-50">
             <Link
               href="/shop"
               className="text-xs font-body font-light tracking-[0.15em] uppercase underline underline-offset-4 hover:underline-offset-8 transition-all"
