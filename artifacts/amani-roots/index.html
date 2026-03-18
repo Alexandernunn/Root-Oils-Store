@@ -5,9 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>Amani Roots Oils</title>
     <link rel="icon" type="image/png" href="/assets/logo.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Preload above-the-fold assets -->
+    <link rel="preload" as="image" href="/assets/logo.png" />
+    <link rel="preload" as="image" href="/assets/hero-model.png" />
+    <link rel="preload" as="video" href="/assets/hero.mp4" type="video/mp4" />
+
+    <!-- Google Fonts: load early as <link>, not @import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Nunito:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap"
+    />
   </head>
   <body>
     <div id="root"></div>

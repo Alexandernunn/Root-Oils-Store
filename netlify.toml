@@ -1,0 +1,6 @@
+[build]
+  command   = "pnpm --filter @workspace/amani-roots run build"
+  publish   = "artifacts/amani-roots/dist"
+
+[build.environment]
+  NODE_VERSION = "20"
