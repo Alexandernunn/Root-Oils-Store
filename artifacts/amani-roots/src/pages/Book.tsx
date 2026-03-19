@@ -25,7 +25,7 @@ const services = [
     duration: "30 min",
     description:
       "A personalized 1-on-1 session to assess your scalp health and build a care routine tailored to your hair goals.",
-    tag: "Complimentary",
+    tag: "Reserve Your Spot",
   },
   {
     id: "course",
@@ -138,93 +138,76 @@ export default function Book() {
   return (
     <div className="min-h-screen bg-bg text-text">
 
-      {/* ── HERO ── */}
-      <section className="pt-[64px]" style={{ backgroundColor: "var(--bg-lavender)" }}>
-        <div className="max-w-[900px] mx-auto px-6 md:px-12 py-16 md:py-24 text-center">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{ visible: { transition: { staggerChildren: 0.15 } }, hidden: {} }}
-          >
-            <motion.p
-              variants={fadeInUp}
-              className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-6"
-              style={{ color: "var(--sage)" }}
-            >
-              &mdash; CONSULTATIONS &amp; SESSIONS
-            </motion.p>
-            <motion.h1
-              variants={fadeInUp}
-              className="font-heading text-4xl md:text-6xl font-light tracking-widest leading-[1.1] mb-6"
-            >
-              Book Online
-            </motion.h1>
-            <motion.p
-              variants={fadeInUp}
-              className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide max-w-md mx-auto"
-            >
-              Choose a session below to open the booking calendar.
-            </motion.p>
-          </motion.div>
-        </div>
-        <div className="h-[3px]" style={{ background: "linear-gradient(90deg, var(--lavender-deep), var(--lavender), var(--sage))" }} />
-      </section>
-
-      {/* ── SERVICE CARDS ── */}
-      <section className="py-20 md:py-32 px-4 md:px-8 lg:px-12 bg-bg">
-        <div className="max-w-[860px] mx-auto">
+      {/* ── CENTERED MAIN CONTENT ── */}
+      <section
+        className="pt-[64px] flex flex-col items-center justify-center px-4 md:px-8"
+        style={{ minHeight: "calc(100svh - 64px)", backgroundColor: "var(--bg-lavender)" }}
+      >
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{ visible: { transition: { staggerChildren: 0.12 } }, hidden: {} }}
+          className="w-full max-w-[900px] mx-auto text-center mb-8 md:mb-12"
+        >
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-12"
+            variants={fadeInUp}
+            className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-4"
             style={{ color: "var(--sage)" }}
           >
-            &mdash; SELECT A SESSION
+            &mdash; CONSULTATIONS &amp; SESSIONS
           </motion.p>
+          <motion.h1
+            variants={fadeInUp}
+            className="font-heading text-3xl md:text-5xl lg:text-6xl font-light tracking-widest leading-[1.1] mb-3"
+          >
+            Book Online
+          </motion.h1>
+          <motion.p
+            variants={fadeInUp}
+            className="text-xs md:text-sm text-text-muted font-light leading-[1.9] tracking-wide"
+          >
+            Choose a session to open the booking calendar.
+          </motion.p>
+        </motion.div>
 
-          <div className="flex flex-col gap-6">
-            {services.map((svc, i) => (
-              <motion.div
-                key={svc.id}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: i * 0.12 }}
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-7 md:p-10 border transition-colors duration-300"
-                style={{ borderColor: "var(--border)", backgroundColor: "var(--bg)" }}
+        {/* ── SERVICE CARDS — side by side on all screens ── */}
+        <div className="w-full max-w-[900px] mx-auto grid grid-cols-2 gap-3 md:gap-6">
+          {services.map((svc, i) => (
+            <motion.div
+              key={svc.id}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 + i * 0.12 }}
+              className="flex flex-col justify-between p-4 md:p-8 border"
+              style={{ borderColor: "var(--border)", backgroundColor: "var(--bg)" }}
+            >
+              <div className="mb-4 md:mb-6">
+                <span
+                  className="inline-block text-[7px] md:text-[9px] font-light tracking-[0.15em] uppercase px-2 py-1 mb-3 md:mb-4"
+                  style={{ backgroundColor: "var(--lavender)", color: "#fff" }}
+                >
+                  {svc.tag}
+                </span>
+                <h3 className="font-heading text-base sm:text-xl md:text-2xl font-light tracking-widest leading-[1.2] mb-1 md:mb-2">
+                  {svc.label}
+                </h3>
+                <p className="text-[8px] md:text-[10px] font-light tracking-[0.15em] uppercase mb-2 md:mb-4" style={{ color: "var(--sage)" }}>
+                  {svc.duration}
+                </p>
+                <p className="text-[10px] sm:text-xs md:text-sm font-light leading-[1.8] tracking-wide hidden sm:block" style={{ color: "var(--text-muted)" }}>
+                  {svc.description}
+                </p>
+              </div>
+
+              <button
+                onClick={() => setOpenService(svc)}
+                className="w-full text-[8px] md:text-xs font-body font-light tracking-[0.12em] uppercase px-3 py-2.5 md:px-6 md:py-3.5 transition-all duration-300 hover:opacity-80"
+                style={{ backgroundColor: "var(--forest)", color: "#fff" }}
               >
-                {/* Info */}
-                <div className="flex-1">
-                  <span
-                    className="inline-block text-[9px] font-light tracking-[0.18em] uppercase px-2.5 py-1 mb-4"
-                    style={{ backgroundColor: "var(--lavender)", color: "#fff" }}
-                  >
-                    {svc.tag}
-                  </span>
-                  <h3 className="font-heading text-2xl md:text-3xl font-light tracking-widest leading-[1.2] mb-2">
-                    {svc.label}
-                  </h3>
-                  <p className="text-[10px] font-light tracking-[0.15em] uppercase mb-4" style={{ color: "var(--sage)" }}>
-                    {svc.duration}
-                  </p>
-                  <p className="text-sm font-light leading-[1.9] tracking-wide max-w-sm" style={{ color: "var(--text-muted)" }}>
-                    {svc.description}
-                  </p>
-                </div>
-
-                {/* Book button */}
-                <div className="flex-shrink-0">
-                  <button
-                    onClick={() => setOpenService(svc)}
-                    className="w-full sm:w-auto text-xs font-body font-light tracking-[0.15em] uppercase px-10 py-4 transition-all duration-300 hover:opacity-80 whitespace-nowrap"
-                    style={{ backgroundColor: "var(--forest)", color: "#fff" }}
-                  >
-                    Book Now &rarr;
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                Book Now &rarr;
+              </button>
+            </motion.div>
+          ))}
         </div>
       </section>
 
