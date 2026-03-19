@@ -4,7 +4,7 @@ import { Link } from "wouter"
 
 export default function Events() {
   return (
-    <div className="min-h-screen bg-bg text-text flex flex-col items-center justify-center text-center px-6 pt-[64px]">
+    <div className="min-h-screen bg-bg text-text flex flex-col items-center justify-center text-center px-6 pt-[82px] sm:pt-[64px]">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}

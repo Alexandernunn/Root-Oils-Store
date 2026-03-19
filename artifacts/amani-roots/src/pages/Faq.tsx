@@ -52,7 +52,7 @@ export default function Faq() {
     <div className="min-h-screen bg-bg text-text">
 
       {/* ── HERO ── */}
-      <section className="pt-[64px] pb-20 md:pb-32 px-6 md:px-12 border-b" style={{ backgroundColor: "var(--bg-lavender)", borderColor: "var(--border)" }}>
+      <section className="pt-[82px] sm:pt-[64px] pb-20 md:pb-32 px-6 md:px-12 border-b" style={{ backgroundColor: "var(--bg-lavender)", borderColor: "var(--border)" }}>
         <div className="max-w-[1000px] mx-auto pt-16 md:pt-28">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

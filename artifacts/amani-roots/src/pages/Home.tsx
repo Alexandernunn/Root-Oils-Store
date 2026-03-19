@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-bg text-text">
       {/* ── 1. HERO ─────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative w-full pt-[64px]" style={{ borderTop: "2px solid var(--sage)" }}>
+      <section ref={heroRef} className="relative w-full pt-[82px] sm:pt-[64px]" style={{ borderTop: "2px solid var(--sage)" }}>
 
         {/* ── DESKTOP: text LEFT, video RIGHT ── */}
         <div className="hidden md:flex" style={{ minHeight: "calc(100svh - 64px)" }}>

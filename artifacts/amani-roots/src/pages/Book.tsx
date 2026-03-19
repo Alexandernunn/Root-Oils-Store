@@ -97,8 +97,8 @@ export default function Book() {
 
       {/* ── CENTERED MAIN CONTENT ── */}
       <section
-        className="pt-[64px] flex flex-col items-center justify-center px-4 md:px-8"
-        style={{ minHeight: "calc(100svh - 64px)", backgroundColor: "var(--bg-lavender)" }}
+        className="pt-[82px] sm:pt-[64px] flex flex-col items-center justify-center px-4 md:px-8 min-h-[100svh] sm:min-h-[calc(100svh-64px)]"
+        style={{ backgroundColor: "var(--bg-lavender)" }}
       >
         <motion.div
           initial="hidden"

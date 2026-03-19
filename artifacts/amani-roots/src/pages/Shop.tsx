@@ -61,7 +61,7 @@ export default function Shop() {
     <div className="min-h-screen bg-bg text-text">
 
       {/* Hero image header */}
-      <section className="relative w-full pt-[64px] overflow-hidden" style={{ backgroundColor: "var(--bg-cream)" }}>
+      <section className="relative w-full pt-[82px] sm:pt-[64px] overflow-hidden" style={{ backgroundColor: "var(--bg-cream)" }}>
         <div className="w-full overflow-hidden" style={{ aspectRatio: "21/9", maxHeight: "50vh" }}>
           <img
             src={`${BASE}assets/philosophy-wide.png`}

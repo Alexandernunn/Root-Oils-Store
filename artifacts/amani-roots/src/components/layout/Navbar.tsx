@@ -34,29 +34,55 @@ export function Navbar() {
           ? "bg-[#FAFAF8]/96 backdrop-blur-md border-b border-black/8"
           : "bg-[#FAFAF8]/92 backdrop-blur-sm border-b border-black/5"
       )}
-      style={{ minHeight: "64px" }}
     >
+      {/* ── Mobile: logo row + links row stacked ── */}
+      <div className="flex flex-col sm:hidden px-4 py-2">
+        <Link href="/" className="flex justify-center" onClick={handleNavClick}>
+          <img
+            src={`${BASE}assets/logo.png`}
+            alt="Amani Roots Oils"
+            className="h-[40px] w-auto object-contain"
+          />
+        </Link>
+        <nav>
+          <ul className="flex items-center justify-between pt-1 pb-0.5">
+            {navLinks.map((link) => (
+              <li key={link.name}>
+                <Link
+                  href={link.href}
+                  className="block text-[7px] font-body font-light tracking-[0.06em] uppercase transition-colors whitespace-nowrap py-1"
+                  style={{ color: "var(--text)" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--sage)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}
+                  onClick={handleNavClick}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      {/* ── Tablet+: single row side-by-side ── */}
       <div
-        className="w-full max-w-[1400px] mx-auto flex items-center gap-3 px-4 md:px-8"
+        className="hidden sm:flex w-full max-w-[1400px] mx-auto items-center gap-3 px-4 md:px-8"
         style={{ minHeight: "64px" }}
       >
-        {/* Logo */}
         <Link href="/" className="flex-shrink-0 flex items-center" onClick={handleNavClick}>
           <img
             src={`${BASE}assets/logo.png`}
             alt="Amani Roots Oils"
-            className="h-[52px] sm:h-[56px] md:h-[68px] w-auto object-contain"
+            className="h-[56px] md:h-[68px] w-auto object-contain"
           />
         </Link>
-
-        {/* Nav — always flat, scrollable on small screens, no hamburger */}
-        <nav className="flex-1 overflow-x-auto" style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}>
-          <ul className="flex items-center justify-end gap-3 sm:gap-5 md:gap-7 lg:gap-10 min-w-max ml-auto">
+        <nav className="flex-1">
+          <ul className="flex items-center justify-end gap-5 md:gap-7 lg:gap-10">
             {navLinks.map((link) => (
               <li key={link.name} className="flex-shrink-0">
                 <Link
                   href={link.href}
-                  className="block text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] font-body font-light tracking-[0.1em] md:tracking-[0.13em] uppercase transition-colors whitespace-nowrap py-1"
+                  className="block text-[9px] md:text-[10px] lg:text-[11px] font-body font-light tracking-[0.1em] md:tracking-[0.13em] uppercase transition-colors whitespace-nowrap py-1"
                   style={{ color: "var(--text)" }}
                   onMouseEnter={e => (e.currentTarget.style.color = "var(--sage)")}
                   onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}

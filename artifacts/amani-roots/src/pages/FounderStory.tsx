@@ -22,7 +22,7 @@ export default function FounderStory() {
     <div className="min-h-screen bg-bg text-text">
 
       {/* ── HERO — text + logo ── */}
-      <section className="relative w-full pt-[64px]" style={{ backgroundColor: "var(--bg-lavender)" }}>
+      <section className="relative w-full pt-[82px] sm:pt-[64px]" style={{ backgroundColor: "var(--bg-lavender)" }}>
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-16 lg:py-24 flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
