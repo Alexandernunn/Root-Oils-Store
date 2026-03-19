@@ -25,10 +25,10 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-bg text-text">
       {/* ── 1. HERO ─────────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative w-full pt-[72px]" style={{ borderTop: "2px solid var(--sage)" }}>
+      <section ref={heroRef} className="relative w-full pt-[64px]" style={{ borderTop: "2px solid var(--sage)" }}>
 
         {/* ── DESKTOP: text LEFT, video RIGHT ── */}
-        <div className="hidden md:flex" style={{ minHeight: "calc(100svh - 72px)" }}>
+        <div className="hidden md:flex" style={{ minHeight: "calc(100svh - 64px)" }}>
 
           {/* Left: text panel */}
           <div className="flex items-center px-14 lg:px-20 xl:px-28" style={{ flex: "1 1 50%", backgroundColor: HERO_GREEN }}>
@@ -73,7 +73,7 @@ export default function Home() {
         </div>
 
         {/* ── MOBILE: same side-by-side split as desktop ── */}
-        <div className="md:hidden flex flex-row" style={{ minHeight: "calc(100svh - 72px)" }}>
+        <div className="md:hidden flex flex-row" style={{ minHeight: "calc(100svh - 64px)" }}>
 
           {/* Left: dark green text panel */}
           <div className="flex flex-col justify-center px-5 py-10" style={{ flex: "0 0 52%", backgroundColor: HERO_GREEN }}>
@@ -157,11 +157,11 @@ export default function Home() {
                 At Amani Roots, our mission is to foster a deeper appreciation for the beauty of natural texture. We provide the artisanal tools and empowerment for every woman to embrace her authentic self with confidence, nourishment, and care.
               </motion.p>
               <motion.div variants={fadeInUp}>
-                <Link href="/about" className="text-xs font-body font-light tracking-[0.1em] transition-colors" style={{ color: "var(--sage)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--sage)")}
+                <Link href="/founder-story" className="text-xs font-body font-light tracking-[0.1em] transition-colors" style={{ color: "var(--lavender)" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--lavender-deep)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--lavender)")}
                 >
-                  &rarr; Read more
+                  &rarr; Read the Founder's Story
                 </Link>
               </motion.div>
             </motion.div>
@@ -180,7 +180,8 @@ export default function Home() {
           >
             <p className={eyebrow} style={eyebrowStyle}>&mdash; BOTANICAL FORMULA</p>
             <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-text font-light tracking-widest leading-[1.1]">
-              Healthy Roots
+              7 Herbs &middot; 3 Oils<br />
+              <span className="italic" style={{ color: "var(--forest)" }}>Healthy Roots</span>
             </h2>
           </motion.div>
 

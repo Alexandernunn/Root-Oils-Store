@@ -1,4 +1,4 @@
-import { Switch, Route, Router as WouterRouter } from "wouter"
+import { Switch, Route, Router as WouterRouter, Redirect } from "wouter"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Toaster } from "@/components/ui/toaster"
 import { TooltipProvider } from "@/components/ui/tooltip"
@@ -10,6 +10,10 @@ import Home from "@/pages/Home"
 import Shop from "@/pages/Shop"
 import About from "@/pages/About"
 import Faq from "@/pages/Faq"
+import FounderStory from "@/pages/FounderStory"
+import Book from "@/pages/Book"
+import Events from "@/pages/Events"
+import Groups from "@/pages/Groups"
 import NotFound from "@/pages/not-found"
 
 const queryClient = new QueryClient()
@@ -19,7 +23,13 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/shop" component={Shop} />
-      <Route path="/about" component={About} />
+      <Route path="/founder-story" component={FounderStory} />
+      <Route path="/book" component={Book} />
+      <Route path="/events" component={Events} />
+      <Route path="/groups" component={Groups} />
+      <Route path="/about">
+        <Redirect to="/founder-story" />
+      </Route>
       <Route path="/faq" component={Faq} />
       <Route component={NotFound} />
     </Switch>

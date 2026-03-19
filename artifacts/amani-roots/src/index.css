@@ -9,6 +9,7 @@
   --color-bg-alt: var(--bg-alt);
   --color-bg-mist: var(--bg-mist);
   --color-bg-cream: var(--bg-cream);
+  --color-bg-lavender: var(--bg-lavender);
 
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
@@ -19,6 +20,9 @@
   --color-sage: var(--sage);
   --color-mint: var(--mint);
   --color-gold: var(--gold);
+  --color-lavender: var(--lavender);
+  --color-lavender-light: var(--lavender-light);
+  --color-lavender-deep: var(--lavender-deep);
 
   --font-heading: 'Cormorant Garamond', serif;
   --font-body: 'Nunito', sans-serif;
@@ -34,6 +38,7 @@
   --bg-alt: #F5F3EF;
   --bg-mist: #EEF4F0;
   --bg-cream: #F7F3ED;
+  --bg-lavender: #F3EEF8;
   --text: #1A1714;
   --text-muted: #8A8580;
   --text-light: #C2BDB8;
@@ -46,9 +51,15 @@
   --mint: #D6E8DC;
   --gold: #C9A96E;
 
+  /* Lavender / purple accent — matches amanirootsoils.com */
+  --lavender: #9B72C8;
+  --lavender-light: #E8D5F5;
+  --lavender-deep: #6B4E9A;
+
   /* Shadows */
   --shadow-green: 0 4px 24px rgba(47, 95, 72, 0.10);
   --shadow-green-lg: 0 8px 48px rgba(47, 95, 72, 0.12);
+  --shadow-lavender: 0 4px 24px rgba(155, 114, 200, 0.15);
 
   --background: var(--bg);
   --foreground: var(--text);
@@ -60,7 +71,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-bg text-text font-body antialiased selection:bg-sage selection:text-white overflow-x-hidden;
+    @apply bg-bg text-text font-body antialiased selection:bg-lavender selection:text-white overflow-x-hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading font-light tracking-widest;
