@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { X } from "lucide-react"
 
 declare global {
   interface Window {
@@ -18,121 +19,121 @@ const fadeInUp = {
 
 const services = [
   {
-    id: "hair-scalp-consultation",
+    id: "consultation",
     calLink: "sifa-mondika-3a3k71/hair-scalp-consultation",
-    namespace: "hair-scalp-consultation",
     label: "Hair & Scalp Consultation",
     duration: "30 min",
     description:
       "A personalized 1-on-1 session to assess your scalp health and build a care routine tailored to your hair goals.",
     tag: "Complimentary",
-    available: true,
   },
   {
-    id: "growth-check-in",
-    calLink: null,
-    namespace: null,
-    label: "Growth Check-In",
-    duration: "15 min",
-    description:
-      "A quick follow-up to review your progress, adjust your routine, and answer any questions about your journey.",
-    tag: "Coming Soon",
-    available: false,
-  },
-  {
-    id: "group-workshop",
-    calLink: null,
-    namespace: null,
-    label: "Group Workshop",
+    id: "course",
+    calLink: "sifa-mondika-3a3k71/hair-care-course",
+    label: "Hair Care Course",
     duration: "60 min",
     description:
-      "An immersive group session covering scalp health fundamentals and botanical hair care rituals.",
-    tag: "Coming Soon",
-    available: false,
+      "An in-depth course covering scalp science, botanical ingredients, and building a lasting natural hair care ritual.",
+    tag: "Reserve Your Spot",
   },
 ]
 
-function loadCalScript(callback: () => void) {
-  if (typeof window === "undefined") return
-  ;(function (C: Window, A: string, L: string) {
-    const p = (a: Window["Cal"], ar: unknown[]) => a!.q!.push(ar)
-    const d = (C as unknown as { document: Document }).document
-    C.Cal =
-      C.Cal ||
-      function (...args: unknown[]) {
-        const cal = C.Cal!
-        if (!cal.loaded) {
-          cal.ns = {}
-          cal.q = cal.q || []
-          const s = d.createElement("script") as HTMLScriptElement
-          s.src = A
-          s.onload = callback
-          d.head.appendChild(s)
-          cal.loaded = true
-        }
-        if (args[0] === L) {
-          const api: Window["Cal"] = function (...a: unknown[]) { p(api, a) } as Window["Cal"]
-          api!.q = []
-          const namespace = args[1] as string
-          if (typeof namespace === "string") {
-            C.Cal!.ns![namespace] = C.Cal!.ns![namespace] || api!
-            p(C.Cal!.ns![namespace], args)
-            p(C.Cal!, ["initNamespace", namespace])
-          } else {
-            p(C.Cal!, args)
+function ensureCalScript(): Promise<void> {
+  return new Promise((resolve) => {
+    if (typeof window === "undefined") return
+    if (window.Cal?.loaded) { resolve(); return }
+
+    ;(function (C: Window, A: string, L: string) {
+      const p = (a: Window["Cal"], ar: unknown[]) => a!.q!.push(ar)
+      const d = (C as unknown as { document: Document }).document
+      C.Cal =
+        C.Cal ||
+        function (...args: unknown[]) {
+          const cal = C.Cal!
+          if (!cal.loaded) {
+            cal.ns = {}
+            cal.q = cal.q || []
+            const s = d.createElement("script") as HTMLScriptElement
+            s.src = A
+            s.onload = () => resolve()
+            d.head.appendChild(s)
+            cal.loaded = true
           }
-          return
+          if (args[0] === L) {
+            const api: Window["Cal"] = function (...a: unknown[]) { p(api, a) } as Window["Cal"]
+            api!.q = []
+            const namespace = args[1] as string
+            if (typeof namespace === "string") {
+              C.Cal!.ns![namespace] = C.Cal!.ns![namespace] || api!
+              p(C.Cal!.ns![namespace], args)
+              p(C.Cal!, ["initNamespace", namespace])
+            } else {
+              p(C.Cal!, args)
+            }
+            return
+          }
+          p(C.Cal!, args)
         }
-        p(C.Cal!, args)
-      }
-  })(window, "https://app.cal.com/embed/embed.js", "init")
+    })(window, "https://app.cal.com/embed/embed.js", "init")
+  })
 }
 
 export default function Book() {
-  const [selected, setSelected] = useState<string | null>(null)
-  const [calReady, setCalReady] = useState(false)
-  const calInitialized = useRef<Set<string>>(new Set())
-  const calSectionRef = useRef<HTMLDivElement>(null)
+  const [openService, setOpenService] = useState<(typeof services)[0] | null>(null)
+  const embedRef = useRef<HTMLDivElement>(null)
+  const nsRef = useRef<string | null>(null)
 
+  // Lock body scroll when modal is open
   useEffect(() => {
-    loadCalScript(() => setCalReady(true))
-    // If script already loaded
-    if (window.Cal?.loaded) setCalReady(true)
+    if (openService) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => { document.body.style.overflow = "" }
+  }, [openService])
+
+  // Close on Escape
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeModal() }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
   }, [])
 
+  // Mount Cal embed once modal + embed div are in the DOM
   useEffect(() => {
-    if (!selected || !calReady) return
+    if (!openService) return
 
-    const svc = services.find((s) => s.id === selected)
-    if (!svc?.calLink || !svc.namespace) return
-    if (calInitialized.current.has(selected)) return
+    // Give the modal a frame to fully mount, then init Cal
+    const timer = setTimeout(async () => {
+      if (!embedRef.current) return
 
-    calInitialized.current.add(selected)
+      await ensureCalScript()
 
-    const elementId = `cal-embed-${selected}`
+      // Use a unique namespace per open so Cal always re-initializes
+      const ns = `${openService.id}-${Date.now()}`
+      nsRef.current = ns
 
-    window.Cal!("init", svc.namespace, { origin: "https://app.cal.com" })
-    window.Cal!.ns![svc.namespace]("ui", {
-      cssVarsPerTheme: { light: { "cal-brand": "#9B72C8" }, dark: { "cal-brand": "#cf90ff" } },
-      hideEventTypeDetails: false,
-      layout: "month_view",
-    })
-    window.Cal!.ns![svc.namespace]("inline", {
-      elementOrSelector: `#${elementId}`,
-      calLink: svc.calLink,
-      layout: "month_view",
-    })
+      window.Cal!("init", ns, { origin: "https://app.cal.com" })
+      window.Cal!.ns![ns]("ui", {
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#9B72C8" },
+          dark: { "cal-brand": "#cf90ff" },
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      })
+      window.Cal!.ns![ns]("inline", {
+        elementOrSelector: embedRef.current,
+        calLink: openService.calLink,
+        layout: "month_view",
+      })
+    }, 80)
 
-    // Scroll to calendar
-    setTimeout(() => {
-      calSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-    }, 150)
-  }, [selected, calReady])
+    return () => clearTimeout(timer)
+  }, [openService])
 
-  const handleSelect = (id: string) => {
-    if (selected === id) return
-    setSelected(id)
-  }
+  const closeModal = useCallback(() => setOpenService(null), [])
 
   return (
     <div className="min-h-screen bg-bg text-text">
@@ -162,136 +163,139 @@ export default function Book() {
               variants={fadeInUp}
               className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide max-w-md mx-auto"
             >
-              Choose a session below, then select a date and time that works for you.
+              Choose a session below to open the booking calendar.
             </motion.p>
           </motion.div>
         </div>
         <div className="h-[3px]" style={{ background: "linear-gradient(90deg, var(--lavender-deep), var(--lavender), var(--sage))" }} />
       </section>
 
-      {/* ── SERVICE SELECTION ── */}
-      <section className="py-16 md:py-24 px-4 md:px-8 lg:px-12 bg-bg border-b" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1100px] mx-auto">
+      {/* ── SERVICE CARDS ── */}
+      <section className="py-20 md:py-32 px-4 md:px-8 lg:px-12 bg-bg">
+        <div className="max-w-[860px] mx-auto">
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
-            className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-10"
+            className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-12"
             style={{ color: "var(--sage)" }}
           >
             &mdash; SELECT A SESSION
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            {services.map((svc, i) => {
-              const isSelected = selected === svc.id
-              return (
-                <motion.button
-                  key={svc.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: i * 0.1 }}
-                  onClick={() => svc.available && handleSelect(svc.id)}
-                  disabled={!svc.available}
-                  className="text-left w-full p-6 md:p-8 transition-all duration-300 relative group"
-                  style={{
-                    border: isSelected
-                      ? "2px solid var(--lavender)"
-                      : "2px solid var(--border)",
-                    backgroundColor: isSelected
-                      ? "var(--bg-lavender)"
-                      : svc.available
-                      ? "var(--bg)"
-                      : "var(--bg-cream)",
-                    cursor: svc.available ? "pointer" : "default",
-                    opacity: svc.available ? 1 : 0.65,
-                  }}
-                >
-                  {/* Tag */}
+          <div className="flex flex-col gap-6">
+            {services.map((svc, i) => (
+              <motion.div
+                key={svc.id}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: i * 0.12 }}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-7 md:p-10 border transition-colors duration-300"
+                style={{ borderColor: "var(--border)", backgroundColor: "var(--bg)" }}
+              >
+                {/* Info */}
+                <div className="flex-1">
                   <span
-                    className="inline-block text-[9px] font-light tracking-[0.18em] uppercase px-2.5 py-1 mb-5"
-                    style={{
-                      backgroundColor: svc.available ? "var(--lavender)" : "var(--border)",
-                      color: svc.available ? "#fff" : "var(--text-muted)",
-                    }}
+                    className="inline-block text-[9px] font-light tracking-[0.18em] uppercase px-2.5 py-1 mb-4"
+                    style={{ backgroundColor: "var(--lavender)", color: "#fff" }}
                   >
                     {svc.tag}
                   </span>
-
-                  <div className="flex items-start justify-between gap-4 mb-4">
-                    <h3 className="font-heading text-xl md:text-2xl font-light tracking-widest leading-[1.2]">
-                      {svc.label}
-                    </h3>
-                    <span
-                      className="flex-shrink-0 w-5 h-5 rounded-full border-2 mt-1 transition-colors duration-300"
-                      style={{
-                        borderColor: isSelected ? "var(--lavender)" : "var(--border)",
-                        backgroundColor: isSelected ? "var(--lavender)" : "transparent",
-                      }}
-                    />
-                  </div>
-
+                  <h3 className="font-heading text-2xl md:text-3xl font-light tracking-widest leading-[1.2] mb-2">
+                    {svc.label}
+                  </h3>
                   <p className="text-[10px] font-light tracking-[0.15em] uppercase mb-4" style={{ color: "var(--sage)" }}>
                     {svc.duration}
                   </p>
-
-                  <p className="text-sm font-light leading-[1.8] tracking-wide" style={{ color: "var(--text-muted)" }}>
+                  <p className="text-sm font-light leading-[1.9] tracking-wide max-w-sm" style={{ color: "var(--text-muted)" }}>
                     {svc.description}
                   </p>
+                </div>
 
-                  {svc.available && (
-                    <p
-                      className="mt-6 text-[10px] font-light tracking-[0.15em] uppercase transition-colors duration-300"
-                      style={{ color: isSelected ? "var(--lavender)" : "var(--sage)" }}
-                    >
-                      {isSelected ? "Selected — see calendar below ↓" : "Click to select →"}
-                    </p>
-                  )}
-                </motion.button>
-              )
-            })}
+                {/* Book button */}
+                <div className="flex-shrink-0">
+                  <button
+                    onClick={() => setOpenService(svc)}
+                    className="w-full sm:w-auto text-xs font-body font-light tracking-[0.15em] uppercase px-10 py-4 transition-all duration-300 hover:opacity-80 whitespace-nowrap"
+                    style={{ backgroundColor: "var(--forest)", color: "#fff" }}
+                  >
+                    Book Now &rarr;
+                  </button>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── CAL EMBED — only visible after selection ── */}
+      {/* ── CALENDAR MODAL ── */}
       <AnimatePresence>
-        {selected && (
-          <motion.section
-            ref={calSectionRef}
-            key="cal-section"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
-            className="px-0 md:px-0 bg-bg"
-          >
-            {services.map((svc) =>
-              svc.id === selected && svc.available ? (
-                <div key={svc.id} style={{ width: "100%" }}>
-                  <div
-                    id={`cal-embed-${svc.id}`}
-                    style={{
-                      width: "100%",
-                      height: "clamp(600px, 85vh, 900px)",
-                      overflow: "hidden",
-                    }}
-                  />
+        {openService && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="fixed inset-0 z-[100]"
+              style={{ backgroundColor: "rgba(20,18,15,0.72)", backdropFilter: "blur(4px)" }}
+              onClick={closeModal}
+            />
+
+            {/* Modal panel */}
+            <motion.div
+              key="modal"
+              initial={{ opacity: 0, scale: 0.97, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: 16 }}
+              transition={{ duration: 0.3, ease: [0.2, 0, 0.2, 1] }}
+              className="fixed z-[101] flex flex-col"
+              style={{
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "min(96vw, 900px)",
+                height: "min(92vh, 820px)",
+                backgroundColor: "#fff",
+                boxShadow: "0 32px 80px rgba(0,0,0,0.28)",
+              }}
+            >
+              {/* Modal header */}
+              <div
+                className="flex items-center justify-between px-6 md:px-8 py-5 flex-shrink-0 border-b"
+                style={{ borderColor: "var(--border)" }}
+              >
+                <div>
+                  <p className="text-[9px] font-light tracking-[0.18em] uppercase mb-0.5" style={{ color: "var(--sage)" }}>
+                    Booking
+                  </p>
+                  <p className="font-heading text-lg md:text-xl font-light tracking-widest">
+                    {openService.label}
+                  </p>
                 </div>
-              ) : null
-            )}
-          </motion.section>
+                <button
+                  onClick={closeModal}
+                  className="flex items-center justify-center w-9 h-9 transition-opacity hover:opacity-60"
+                  aria-label="Close"
+                  style={{ color: "var(--text)" }}
+                >
+                  <X className="w-5 h-5 stroke-[1.5]" />
+                </button>
+              </div>
+
+              {/* Cal embed */}
+              <div className="flex-1 overflow-hidden">
+                <div
+                  ref={embedRef}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
-
-      {/* Prompt if nothing selected */}
-      {!selected && (
-        <div className="py-20 px-6 text-center">
-          <p className="text-sm font-light tracking-wide" style={{ color: "var(--text-muted)" }}>
-            Select a session above to view available times.
-          </p>
-        </div>
-      )}
     </div>
   )
 }
