@@ -1,4 +1,5 @@
-import { initializeApp } from "firebase/app"
+import { initializeApp, getApps, getApp } from "firebase/app"
+import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -6,12 +7,13 @@ import { getFirestore } from "firebase/firestore"
 // Find them at: https://console.firebase.google.com → Project Settings → General
 // ─────────────────────────────────────────────────────────────────────────────
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId:             "YOUR_APP_ID",
+  apiKey:            "AIzaSyDX9CwblPPuwdQzz3icBYxxyFg0H3-4jiw",
+  authDomain:        "hi12-f2ba1.firebaseapp.com",
+  projectId:         "hi12-f2ba1",
+  storageBucket:     "hi12-f2ba1.firebasestorage.app",
+  messagingSenderId: "105792097856",
+  appId:             "1:105792097856:web:9d34a35d3ad824811859a5",
+  measurementId:     "G-T9HVGXXJRQ",
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -27,5 +29,6 @@ const firebaseConfig = {
 // }
 // ─────────────────────────────────────────────────────────────────────────────
 
-const app = initializeApp(firebaseConfig)
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp()
+export const analytics = getAnalytics(app)
 export const db = getFirestore(app)
