@@ -3,17 +3,18 @@ import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
 
 // ─────────────────────────────────────────────────────────────────────────────
-// REPLACE these placeholder values with your own Firebase project credentials.
-// Find them at: https://console.firebase.google.com → Project Settings → General
+// Credentials are read from environment variables (VITE_FIREBASE_*).
+// For local dev: set them in artifacts/amani-roots/.env (git-ignored).
+// For Netlify:   add them under Site Settings → Environment Variables.
 // ─────────────────────────────────────────────────────────────────────────────
 const firebaseConfig = {
-  apiKey:            "AIzaSyDX9CwblPPuwdQzz3icBYxxyFg0H3-4jiw",
-  authDomain:        "hi12-f2ba1.firebaseapp.com",
-  projectId:         "hi12-f2ba1",
-  storageBucket:     "hi12-f2ba1.firebasestorage.app",
-  messagingSenderId: "105792097856",
-  appId:             "1:105792097856:web:9d34a35d3ad824811859a5",
-  measurementId:     "G-T9HVGXXJRQ",
+  apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId:         import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket:     import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId:             import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId:     import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
