@@ -1,0 +1,109 @@
+6:36:47 PM: Netlify Build                                                 
+6:36:47 PM: ────────────────────────────────────────────────────────────────
+6:36:47 PM: ​
+6:36:47 PM: ❯ Version
+6:36:47 PM:   @netlify/build 35.10.0
+6:36:47 PM: ​
+6:36:47 PM: ❯ Flags
+6:36:47 PM:   accountId: 6913f57327cb922a7f69306a
+6:36:47 PM:   baseRelDir: true
+6:36:47 PM:   buildId: 69bc88727afe2be92ceb4357
+6:36:47 PM:   deployId: 69bc88727afe2be92ceb4359
+6:36:47 PM:   packagePath: artifacts/amani-roots
+6:36:47 PM: ​
+6:36:47 PM: ❯ Current directory
+6:36:47 PM:   /opt/build/repo
+6:36:47 PM: ​
+6:36:47 PM: ❯ Config file
+6:36:47 PM:   /opt/build/repo/netlify.toml
+6:36:47 PM: ​
+6:36:47 PM: ❯ Context
+6:36:47 PM:   production
+6:36:47 PM: ​
+6:36:47 PM: build.command from netlify.toml                               
+6:36:47 PM: ────────────────────────────────────────────────────────────────
+6:36:47 PM: ​
+6:36:47 PM: $ pnpm --filter @workspace/amani-roots run build
+6:36:47 PM: > @workspace/amani-roots@0.0.0 build /opt/build/repo/artifacts/amani-roots
+6:36:47 PM: > vite build --config vite.config.ts
+6:36:48 PM: vite v7.3.1 building client environment for production...
+6:36:48 PM: transforming...
+6:36:51 PM: src/components/ui/tooltip.tsx (2:0): Error when using sourcemap for reporting an error: Can't resolve original location of error.
+✓ 2198 modules transformed.
+6:36:52 PM: rendering chunks...
+6:36:52 PM: computing gzip size...
+6:36:52 PM: dist/index.html                   1.16 kB │ gzip:   0.54 kB
+6:36:52 PM: dist/assets/index-t0Z0rhGb.css   84.30 kB │ gzip:  14.68 kB
+6:36:52 PM: dist/assets/index-BG8FXcK9.js   779.50 kB │ gzip: 244.57 kB
+6:36:52 PM: 
+6:36:52 PM: (!) Some chunks are larger than 500 kB after minification. Consider:
+6:36:52 PM: - Using dynamic import() to code-split the application
+6:36:52 PM: - Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+6:36:52 PM: - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+6:36:52 PM: ✓ built in 4.32s
+6:36:52 PM: ​
+6:36:52 PM: (build.command completed in 5s)
+6:36:54 PM: ​
+6:36:54 PM: Scanning for secrets in code and build output.                
+6:36:54 PM: ────────────────────────────────────────────────────────────────
+6:36:54 PM: ​
+6:36:54 PM: ​
+6:36:54 PM: ❯ Scanning complete. 326 file(s) scanned. Secrets scanning found 7 instance(s) of secrets and 1 instance(s) of likely secrets in build output or repo code.
+6:36:54 PM: ​
+6:36:54 PM: Secret env var "VITE_FIREBASE_APP_ID"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: Secret env var "VITE_FIREBASE_AUTH_DOMAIN"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: Secret env var "VITE_FIREBASE_MEASUREMENT_ID"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: Secret env var "VITE_FIREBASE_MESSAGING_SENDER_ID"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: Secret env var "VITE_FIREBASE_PROJECT_ID"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: Secret env var "VITE_FIREBASE_STORAGE_BUCKET"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: Secret env var "VITE_FIREBASE_API_KEY"'s value detected:
+  found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: ​
+6:36:54 PM: To prevent exposing secrets, the build will fail until these secret values are not found in build output or repo files.
+6:36:54 PM: ​
+6:36:54 PM: If these are expected, use SECRETS_SCAN_OMIT_PATHS, SECRETS_SCAN_OMIT_KEYS, or SECRETS_SCAN_ENABLED to prevent detecting.
+6:36:54 PM: ​
+6:36:54 PM: "AIza***" detected as a likely secret:
+6:36:54 PM:   found value at line 44 in artifacts/amani-roots/dist/assets/index-BG8FXcK9.js
+6:36:54 PM: ​
+6:36:54 PM: To prevent exposing secrets, the build will fail until these likely secret values are not found in build output or repo files.
+6:36:54 PM: ​
+6:36:54 PM: If these are expected, use SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES, or SECRETS_SCAN_SMART_DETECTION_ENABLED to prevent detecting.
+6:36:54 PM: ​
+6:36:54 PM: For more information on secrets scanning, see the Netlify Docs: https://ntl.fyi/configure-secrets-scanning
+6:36:54 PM: ​
+6:36:54 PM: Secrets scanning detected secrets in files during build.      
+6:36:54 PM: ────────────────────────────────────────────────────────────────
+6:36:54 PM: ​
+6:36:54 PM:   Error message
+6:36:54 PM:   Secrets scanning found secrets in build.
+6:36:54 PM: ​
+6:36:54 PM:   Resolved config
+6:36:54 PM:   build:
+6:36:54 PM:     command: pnpm --filter @workspace/amani-roots run build
+6:36:54 PM:     commandOrigin: config
+6:36:54 PM:     environment:
+6:36:54 PM:       - VITE_FIREBASE_API_KEY
+6:36:54 PM:       - VITE_FIREBASE_APP_ID
+6:36:54 PM:       - VITE_FIREBASE_AUTH_DOMAIN
+6:36:54 PM:       - VITE_FIREBASE_MEASUREMENT_ID
+6:36:54 PM:       - VITE_FIREBASE_MESSAGING_SENDER_ID
+6:36:54 PM:       - VITE_FIREBASE_PROJECT_ID
+6:36:54 PM:       - VITE_FIREBASE_STORAGE_BUCKET
+6:36:54 PM:       - NODE_VERSION
+6:36:54 PM:     publish: /opt/build/repo/artifacts/amani-roots/dist
+6:36:54 PM:     publishOrigin: config
+6:36:54 PM:   redirects:
+6:36:55 PM: Failed during stage 'building site': Build script returned non-zero exit code: 2 (https://ntl.fyi/exit-code-2)
+6:36:55 PM:     - from: /*
+      status: 200
+      to: /index.html
+6:36:55 PM: Build failed due to a user error: Build script returned non-zero exit code: 2
+6:36:55 PM: Failing build: Failed to build site
+6:36:55 PM: Finished processing build request in 22.647s
