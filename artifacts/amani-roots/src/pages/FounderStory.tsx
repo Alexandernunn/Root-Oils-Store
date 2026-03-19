@@ -58,29 +58,29 @@ export default function FounderStory() {
 
       {/* ── STORY INTRO — image interworked with text ── */}
       <section className="border-t overflow-hidden" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-[42%_58%] md:grid-cols-2">
 
-          {/* Image — slides in from left */}
+          {/* Image — slides in from left, always fills column */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.1, ease: [0.2, 0, 0.2, 1] }}
             className="relative overflow-hidden"
-            style={{ minHeight: "420px" }}
+            style={{ minHeight: "320px" }}
           >
             <img
               src={`${BASE}assets/founder-intro.avif`}
               alt="Sifa Mondika, Founder of Amani Roots"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-top"
               loading="lazy"
             />
-            {/* Subtle caption tag pinned to bottom */}
+            {/* Caption */}
             <div
-              className="absolute bottom-0 left-0 right-0 px-7 py-5"
-              style={{ background: "linear-gradient(to top, rgba(20,18,15,0.55) 0%, transparent 100%)" }}
+              className="absolute bottom-0 left-0 right-0 px-3 md:px-7 py-3 md:py-5"
+              style={{ background: "linear-gradient(to top, rgba(20,18,15,0.6) 0%, transparent 100%)" }}
             >
-              <p className="text-[9px] font-light tracking-[0.22em] uppercase" style={{ color: "rgba(255,255,255,0.75)" }}>
+              <p className="text-[7px] md:text-[9px] font-light tracking-[0.18em] uppercase" style={{ color: "rgba(255,255,255,0.8)" }}>
                 Sifa Mondika &mdash; Founder &amp; CEO
               </p>
             </div>
@@ -92,19 +92,19 @@ export default function FounderStory() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
-            className="flex flex-col justify-center px-8 md:px-14 lg:px-16 py-16 md:py-24"
+            className="flex flex-col justify-center px-4 py-8 md:px-14 md:py-20 lg:px-16 lg:py-24"
           >
-            <motion.p variants={fadeInUp} className={eyebrow} style={eyebrowStyle}>&mdash; OUR STORY</motion.p>
-            <motion.h2 variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-light tracking-widest leading-[1.2] mb-10">
+            <motion.p variants={fadeInUp} className="text-[8px] md:text-[10px] lg:text-xs font-light tracking-[0.2em] uppercase mb-3 md:mb-6" style={eyebrowStyle}>&mdash; OUR STORY</motion.p>
+            <motion.h2 variants={fadeInUp} className="font-heading text-lg sm:text-2xl md:text-4xl lg:text-5xl font-light tracking-widest leading-[1.2] mb-4 md:mb-10">
               From Curiosity to<br /><span className="italic" style={{ color: "var(--forest)" }}>Community</span>
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-7">
+            <motion.p variants={fadeInUp} className="text-[10px] sm:text-xs md:text-sm lg:text-base text-text-muted font-light leading-[1.8] tracking-wide mb-3 md:mb-7">
               Amani Roots grew from a personal journey into something much bigger. What began as a quiet ritual of learning, experimenting, and understanding the science behind scalp health has evolved into a brand dedicated to helping women care for the foundation of their hair.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-7">
+            <motion.p variants={fadeInUp} className="text-[10px] sm:text-xs md:text-sm lg:text-base text-text-muted font-light leading-[1.8] tracking-wide mb-3 md:mb-7">
               Along the way, I realized that healthy hair doesn&rsquo;t begin with styling products &mdash; it begins at the roots. When the scalp is nourished and supported with the right ingredients, hair has the environment it needs to grow.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide">
+            <motion.p variants={fadeInUp} className="text-[10px] sm:text-xs md:text-sm lg:text-base text-text-muted font-light leading-[1.8] tracking-wide">
               Amani Roots was born from the realization that healthy hair begins at the root. By blending science with powerful herbs and nourishing oils, Amani Roots focuses on creating the conditions where hair can truly thrive.
             </motion.p>
           </motion.div>
@@ -173,7 +173,7 @@ export default function FounderStory() {
 
       {/* ── FOUNDER SIGN-OFF — image interworked with text ── */}
       <section className="border-t overflow-hidden bg-bg" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-[58%_42%] md:grid-cols-2">
 
           {/* Text — slides in from left */}
           <motion.div
@@ -181,29 +181,29 @@ export default function FounderStory() {
             whileInView="visible"
             viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
-            className="flex flex-col justify-center px-8 md:px-14 lg:px-16 py-16 md:py-28 order-2 lg:order-1"
+            className="flex flex-col justify-center px-4 py-8 md:px-14 md:py-20 lg:px-16 lg:py-28"
           >
-            <motion.div variants={fadeInUp} className="w-8 h-[2px] mb-8" style={{ backgroundColor: "var(--sage)" }} />
-            <motion.p variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-light tracking-widest leading-[1.2] mb-3">
+            <motion.div variants={fadeInUp} className="w-6 h-[2px] mb-4 md:mb-8" style={{ backgroundColor: "var(--sage)" }} />
+            <motion.p variants={fadeInUp} className="font-heading text-lg sm:text-2xl md:text-4xl lg:text-5xl font-light tracking-widest leading-[1.2] mb-1 md:mb-3">
               Sifa Mondika
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-text-muted text-sm font-light tracking-[0.1em] uppercase mb-10">
+            <motion.p variants={fadeInUp} className="text-text-muted text-[9px] md:text-sm font-light tracking-[0.1em] uppercase mb-4 md:mb-10">
               Founder &amp; CEO
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-12 max-w-sm">
+            <motion.p variants={fadeInUp} className="text-[10px] sm:text-xs md:text-sm lg:text-base text-text-muted font-light leading-[1.8] tracking-wide mb-5 md:mb-12">
               From personal frustration to purposeful creation — Amani Roots was built to give every woman the knowledge and tools to truly understand her hair.
             </motion.p>
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row flex-wrap gap-2 md:gap-4">
               <Link
                 href="/shop"
-                className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
+                className="inline-block text-[9px] md:text-xs font-body font-light tracking-[0.15em] uppercase px-4 md:px-8 py-2.5 md:py-3 transition-all duration-300 hover:opacity-80"
                 style={{ backgroundColor: "var(--forest)", color: "#fff" }}
               >
                 Shop Our Blends &rarr;
               </Link>
               <Link
                 href="/book"
-                className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
+                className="inline-block text-[9px] md:text-xs font-body font-light tracking-[0.15em] uppercase px-4 md:px-8 py-2.5 md:py-3 transition-all duration-300 hover:opacity-80"
                 style={{ backgroundColor: "var(--lavender)", color: "#fff" }}
               >
                 Book a Consultation &rarr;
@@ -211,14 +211,14 @@ export default function FounderStory() {
             </motion.div>
           </motion.div>
 
-          {/* Image — slides in from right with a portrait crop */}
+          {/* Image — slides in from right */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.1, ease: [0.2, 0, 0.2, 1] }}
-            className="relative overflow-hidden order-1 lg:order-2"
-            style={{ minHeight: "420px" }}
+            className="relative overflow-hidden"
+            style={{ minHeight: "320px" }}
           >
             <img
               src={`${BASE}assets/founder.jpg`}
@@ -226,22 +226,22 @@ export default function FounderStory() {
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
-            {/* Floating quote tag pinned to bottom-left */}
+            {/* Floating quote */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="absolute bottom-6 left-6 right-6 md:left-8 md:bottom-8"
+              className="absolute bottom-3 left-3 md:bottom-8 md:left-6"
             >
               <div
-                className="inline-block px-5 py-4 max-w-[280px]"
+                className="inline-block px-3 py-2 md:px-5 md:py-4"
                 style={{ backgroundColor: "rgba(250,250,248,0.92)", backdropFilter: "blur(8px)" }}
               >
-                <p className="font-heading text-base md:text-lg italic font-light tracking-wide leading-[1.5]" style={{ color: "var(--forest)" }}>
+                <p className="font-heading text-[11px] md:text-base italic font-light tracking-wide leading-[1.5]" style={{ color: "var(--forest)" }}>
                   &ldquo;Healthy roots, thriving hair.&rdquo;
                 </p>
-                <p className="mt-2 text-[9px] font-light tracking-[0.18em] uppercase" style={{ color: "var(--sage)" }}>
+                <p className="mt-1 text-[7px] md:text-[9px] font-light tracking-[0.18em] uppercase" style={{ color: "var(--sage)" }}>
                   — Amani Roots
                 </p>
               </div>
