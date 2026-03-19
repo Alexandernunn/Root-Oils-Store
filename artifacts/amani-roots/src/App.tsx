@@ -14,6 +14,7 @@ import FounderStory from "@/pages/FounderStory"
 import Book from "@/pages/Book"
 import Events from "@/pages/Events"
 import Groups from "@/pages/Groups"
+import Blog from "@/pages/Blog"
 import NotFound from "@/pages/not-found"
 
 const queryClient = new QueryClient()
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/book" component={Book} />
       <Route path="/events" component={Events} />
       <Route path="/groups" component={Groups} />
+      <Route path="/blog" component={Blog} />
       <Route path="/about">
         <Redirect to="/founder-story" />
       </Route>
