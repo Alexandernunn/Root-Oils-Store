@@ -67,11 +67,12 @@ export default function FounderStory() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.1, ease: [0.2, 0, 0.2, 1] }}
             className="relative overflow-hidden"
+            style={{ minHeight: "320px" }}
           >
             <img
               src={`${BASE}assets/founder-intro.avif`}
               alt="Sifa Mondika, Founder of Amani Roots"
-              className="w-full h-auto block"
+              className="absolute inset-0 w-full h-full object-cover object-top"
               loading="lazy"
             />
             {/* Caption */}
