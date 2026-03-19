@@ -207,11 +207,10 @@ export default function Home() {
           </div>
 
           {/* Three pillars */}
-          <div className="space-y-16 md:space-y-0 md:grid md:grid-cols-3 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
+          <div className="space-y-16 md:space-y-0 md:grid md:grid-cols-2 gap-10 md:gap-0 md:divide-x border-t pt-10 md:pt-16" style={{ borderColor: "var(--border)" }}>
             {[
-              { src: "herbs-grid-1.png", alt: "Botanical herbs", num: "01", title: "Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
-              { src: "herbs-grid-2.png", alt: "Botanical oils", num: "02", title: "Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
-              { src: "bottle-herbs.png", alt: "Amani Roots oil with botanicals", num: "03", title: "Healthy Roots", desc: "Healthy hair begins at the scalp. Amani Roots oils are designed to nourish your roots, support scalp balance, and create the foundation for stronger, thriving hair." },
+              { src: "herbs-grid-1.png", alt: "Botanical herbs", num: "01", title: "7 Powerful Herbs", desc: "Inspired by both traditional botanicals and modern hair science, our formula brings together seven powerful herbs known to support scalp health and strengthen hair at the root. Each ingredient was carefully chosen to nourish the scalp and support healthier, stronger hair." },
+              { src: "herbs-grid-2.png", alt: "Botanical oils", num: "02", title: "3 Nourishing Oils", desc: "A blend of grapeseed, jojoba, and castor oil works together to hydrate the scalp, seal in moisture, and support stronger hair. These lightweight oils nourish your strands without leaving heavy buildup." },
             ].map((pillar, i) => (
               <motion.div
                 key={i}
