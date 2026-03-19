@@ -273,29 +273,16 @@ export default function Home() {
               transition={{ duration: 1, delay: 0.2 }}
               className="lg:col-span-6"
             >
-              <div className="flex gap-6 lg:gap-8 justify-end">
-                <div
-                  className="overflow-hidden"
-                  style={{ aspectRatio: "3/4", maxWidth: "280px", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
-                >
-                  <img
-                    src={`${BASE}assets/applying-oil.png`}
-                    alt="Applying Amani Roots oil to natural hair"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div
-                  className="overflow-hidden"
-                  style={{ aspectRatio: "3/4", maxWidth: "280px", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
-                >
-                  <img
-                    src={`${BASE}assets/bottle-spray.png`}
-                    alt="Amani Roots oil spray bottle"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
+              <div
+                className="overflow-hidden mx-auto"
+                style={{ aspectRatio: "4/5", maxWidth: "380px", maxHeight: "60vw", boxShadow: "var(--shadow-green)" }}
+              >
+                <img
+                  src={`${BASE}assets/science-image.avif`}
+                  alt="Where science meets hair care"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
             </motion.div>
           </div>
