@@ -45,7 +45,7 @@ export function Navbar() {
           <img
             src={`${BASE}assets/logo.png`}
             alt="Amani Roots Oils"
-            className="h-[40px] sm:h-[44px] md:h-[52px] w-auto object-contain"
+            className="h-[52px] sm:h-[56px] md:h-[68px] w-auto object-contain"
           />
         </Link>
 
