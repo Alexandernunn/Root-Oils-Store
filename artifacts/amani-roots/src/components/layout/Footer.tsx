@@ -73,7 +73,7 @@ export function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <a
-              href="https://www.instagram.com/amani_roots_oils/"
+              href="https://www.instagram.com/amaniroots_oils/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 transition-colors group"

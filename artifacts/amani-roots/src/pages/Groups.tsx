@@ -22,7 +22,7 @@ export default function Groups() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href="https://www.instagram.com/amani_roots_oils/"
+            href="https://www.instagram.com/amaniroots_oils/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
