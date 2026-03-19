@@ -1,51 +1,88 @@
 import React from "react"
 import { motion } from "framer-motion"
-import { Link } from "wouter"
+import BlogForm from "@/components/blog/BlogForm"
+import BlogFeed from "@/components/blog/BlogFeed"
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } },
+}
 
 export default function Groups() {
   return (
-    <div className="min-h-screen bg-bg text-text flex flex-col items-center justify-center text-center px-6 pt-[82px] sm:pt-[64px]">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, ease: [0.2, 0, 0.2, 1] }}
-        className="max-w-md"
+    <div className="min-h-screen bg-bg text-text">
+
+      {/* ── HERO ── */}
+      <section
+        className="pt-[82px] sm:pt-[64px]"
+        style={{ backgroundColor: "var(--bg-lavender)" }}
       >
-        <p className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-6" style={{ color: "var(--lavender)" }}>
-          &mdash; COMING SOON
-        </p>
-        <h1 className="font-heading text-4xl md:text-5xl font-light tracking-widest leading-[1.2] mb-8">
-          Community Groups
-        </h1>
-        <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide mb-12">
-          A space for the natural hair community to share journeys, progress photos, and support one another. The community is growing — stay tuned.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            href="/blog"
-            className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
-            style={{ backgroundColor: "var(--forest)", color: "#fff" }}
+        <div className="max-w-[900px] mx-auto px-6 md:px-12 py-14 md:py-20 text-center">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.13 } }, hidden: {} }}
           >
-            Visit the Blog &rarr;
-          </Link>
-          <a
-            href="https://www.instagram.com/amaniroots_oils/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
-            style={{ backgroundColor: "var(--lavender)", color: "#fff" }}
-          >
-            Follow on Instagram &rarr;
-          </a>
-          <Link
-            href="/"
-            className="inline-block text-xs font-body font-light tracking-[0.15em] uppercase px-8 py-3 transition-all duration-300 hover:opacity-80"
-            style={{ border: "1px solid var(--border)", color: "var(--text)" }}
-          >
-            Back to Home
-          </Link>
+            <motion.p
+              variants={fadeInUp}
+              className="text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-5"
+              style={{ color: "var(--sage)" }}
+            >
+              &mdash; COMMUNITY
+            </motion.p>
+            <motion.h1
+              variants={fadeInUp}
+              className="font-heading text-4xl md:text-6xl font-light tracking-widest leading-[1.1] mb-5"
+            >
+              Groups
+            </motion.h1>
+            <motion.p
+              variants={fadeInUp}
+              className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide max-w-md mx-auto"
+            >
+              A space to share hair care journeys, rituals, and wisdom with the Amani Roots community.
+            </motion.p>
+          </motion.div>
         </div>
-      </motion.div>
+        <div
+          className="h-[3px]"
+          style={{
+            background: "linear-gradient(90deg, var(--lavender-deep), var(--lavender), var(--sage))",
+          }}
+        />
+      </section>
+
+      {/* ── POST FORM ── */}
+      <section className="py-16 md:py-24 px-6 md:px-12 border-b" style={{ borderColor: "var(--border)" }}>
+        <div className="max-w-[900px] mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-[9px] md:text-[10px] font-light tracking-[0.2em] uppercase mb-10"
+            style={{ color: "var(--sage)" }}
+          >
+            &mdash; SHARE YOUR STORY
+          </motion.p>
+          <BlogForm />
+        </div>
+      </section>
+
+      {/* ── FEED ── */}
+      <section className="py-16 md:py-24 px-6 md:px-12">
+        <div className="max-w-[900px] mx-auto">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-[9px] md:text-[10px] font-light tracking-[0.2em] uppercase mb-10"
+            style={{ color: "var(--sage)" }}
+          >
+            &mdash; COMMUNITY POSTS
+          </motion.p>
+          <BlogFeed />
+        </div>
+      </section>
     </div>
   )
 }
