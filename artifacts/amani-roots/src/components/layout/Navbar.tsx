@@ -58,7 +58,7 @@ export function Navbar() {
                   href={link.href}
                   className="block text-[8px] sm:text-[9px] md:text-[10px] lg:text-[11px] font-body font-light tracking-[0.1em] md:tracking-[0.13em] uppercase transition-colors whitespace-nowrap py-1"
                   style={{ color: "var(--text)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--lavender)")}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--sage)")}
                   onMouseLeave={e => (e.currentTarget.style.color = "var(--text)")}
                   onClick={handleNavClick}
                 >

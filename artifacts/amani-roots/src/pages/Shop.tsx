@@ -91,7 +91,7 @@ export default function Shop() {
       </section>
 
       {/* Product Grid */}
-      <section className="py-24 md:py-40 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
+      <section className="py-24 md:py-40 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-lavender)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
           <motion.div
             initial="hidden"

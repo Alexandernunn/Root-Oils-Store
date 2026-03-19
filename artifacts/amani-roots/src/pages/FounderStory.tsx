@@ -13,7 +13,7 @@ const staggerContainer = {
 }
 
 const eyebrow = "text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-6"
-const eyebrowStyle = { color: "var(--lavender)" }
+const eyebrowStyle = { color: "var(--sage)" }
 
 const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
@@ -33,7 +33,7 @@ export default function FounderStory() {
             <p className={eyebrow + " text-center"} style={eyebrowStyle}>&mdash; THE GENESIS</p>
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-light tracking-widest leading-[1.1] mb-6">
               Founder&rsquo;s Story<br />
-              <span className="italic" style={{ color: "var(--lavender-deep)" }}>Sifa Mondika</span>
+              <span className="italic" style={{ color: "var(--forest)" }}>Sifa Mondika</span>
             </h1>
             <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm mx-auto">
               Amani Roots grew from a personal journey into something much bigger.
@@ -63,8 +63,8 @@ export default function FounderStory() {
           </motion.div>
         </div>
 
-        {/* Lavender accent bar */}
-        <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, var(--lavender-deep), var(--lavender), var(--sage))" }} />
+        {/* Accent bar */}
+        <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, var(--forest), var(--sage), var(--mint))" }} />
       </section>
 
       {/* ── STORY INTRO ── */}
@@ -151,7 +151,7 @@ export default function FounderStory() {
               Amani Roots Oils was created to help women reconnect with their natural hair and care for it with intention, knowledge, and confidence.
             </motion.p>
 
-            <motion.p variants={fadeInUp} className="font-heading text-2xl md:text-3xl italic font-light tracking-widest leading-[1.4]" style={{ color: "var(--lavender-deep)" }}>
+            <motion.p variants={fadeInUp} className="font-heading text-2xl md:text-3xl italic font-light tracking-widest leading-[1.4]" style={{ color: "var(--forest)" }}>
               Because healthy hair begins at the roots.
             </motion.p>
           </motion.div>
@@ -168,7 +168,7 @@ export default function FounderStory() {
             variants={staggerContainer}
             className="flex-1"
           >
-            <motion.div variants={fadeInUp} className="w-8 h-[2px] mb-8" style={{ backgroundColor: "var(--lavender)" }} />
+            <motion.div variants={fadeInUp} className="w-8 h-[2px] mb-8" style={{ backgroundColor: "var(--sage)" }} />
             <motion.p variants={fadeInUp} className="font-heading text-3xl md:text-4xl font-light tracking-widest leading-[1.3] mb-4">
               Sifa Mondika
             </motion.p>
@@ -200,7 +200,7 @@ export default function FounderStory() {
             transition={{ duration: 1 }}
             className="flex-1 flex justify-center lg:justify-end"
           >
-            <div className="overflow-hidden" style={{ aspectRatio: "4/3", maxWidth: "440px", boxShadow: "var(--shadow-lavender)" }}>
+            <div className="overflow-hidden" style={{ aspectRatio: "4/3", maxWidth: "440px", boxShadow: "var(--shadow-green)" }}>
               <img
                 src={`${BASE}assets/founder.jpg`}
                 alt="Sifa Mondika, Founder of Amani Roots Oils"

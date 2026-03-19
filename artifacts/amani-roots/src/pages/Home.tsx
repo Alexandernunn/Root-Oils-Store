@@ -157,9 +157,9 @@ export default function Home() {
                 At Amani Roots, our mission is to foster a deeper appreciation for the beauty of natural texture. We provide the artisanal tools and empowerment for every woman to embrace her authentic self with confidence, nourishment, and care.
               </motion.p>
               <motion.div variants={fadeInUp}>
-                <Link href="/founder-story" className="text-xs font-body font-light tracking-[0.1em] transition-colors" style={{ color: "var(--lavender)" }}
-                  onMouseEnter={e => (e.currentTarget.style.color = "var(--lavender-deep)")}
-                  onMouseLeave={e => (e.currentTarget.style.color = "var(--lavender)")}
+                <Link href="/founder-story" className="text-xs font-body font-light tracking-[0.1em] transition-colors" style={{ color: "var(--sage)" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "var(--forest)")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "var(--sage)")}
                 >
                   &rarr; Read the Founder's Story
                 </Link>
@@ -169,7 +169,7 @@ export default function Home() {
         </div>
       </section>
       {/* ── 3. THREE PILLARS — 7 Herbs · 3 Oils · Healthy Roots ── */}
-      <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
+      <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-lavender)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -409,7 +409,7 @@ export default function Home() {
         </div>
       </section>
       {/* ── 8. THE RITUAL ──────────────────────────────────────── */}
-      <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-mist)", borderColor: "var(--border)" }}>
+      <section className="py-28 md:py-48 px-6 md:px-12 border-t" style={{ backgroundColor: "var(--bg-lavender)", borderColor: "var(--border)" }}>
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-24 items-center">
           <motion.div
             initial={{ opacity: 0 }}
