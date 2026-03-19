@@ -9,7 +9,7 @@ const fadeInUp = {
 
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
+  visible: { opacity: 1, transition: { staggerChildren: 0.18 } },
 }
 
 const eyebrow = "text-[10px] md:text-xs font-light tracking-[0.2em] uppercase mb-6"
@@ -38,82 +38,74 @@ export default function FounderStory() {
             <p className="text-sm text-text-muted font-light leading-[1.9] tracking-wide max-w-sm mx-auto">
               Amani Roots grew from a personal journey into something much bigger.
             </p>
-            {/* Logo — below text on mobile */}
             <div className="mt-10 flex justify-center lg:hidden">
-              <img
-                src={`${BASE}assets/logo.png`}
-                alt="Amani Roots Oils Logo"
-                className="w-[200px] h-auto"
-              />
+              <img src={`${BASE}assets/logo.png`} alt="Amani Roots Oils Logo" className="w-[200px] h-auto" />
             </div>
           </motion.div>
 
-          {/* Logo — beside text on large screens */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.5 }}
             className="hidden lg:flex items-center justify-center flex-shrink-0"
           >
-            <img
-              src={`${BASE}assets/logo.png`}
-              alt="Amani Roots Oils Logo"
-              className="w-[320px] xl:w-[380px] h-auto"
-            />
+            <img src={`${BASE}assets/logo.png`} alt="Amani Roots Oils Logo" className="w-[320px] xl:w-[380px] h-auto" />
           </motion.div>
         </div>
 
-        {/* Accent bar */}
         <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, var(--forest), var(--sage), var(--mint))" }} />
       </section>
 
-      {/* ── FOUNDER IMAGE ── */}
-      <section className="py-12 md:py-20 px-4 md:px-8 lg:px-12" style={{ backgroundColor: "var(--bg-lavender)" }}>
-        <div className="max-w-[1400px] mx-auto">
+      {/* ── STORY INTRO — image interworked with text ── */}
+      <section className="border-t overflow-hidden" style={{ backgroundColor: "var(--bg-cream)", borderColor: "var(--border)" }}>
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2">
+
+          {/* Image — slides in from left */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9 }}
-            className="overflow-hidden rounded-none"
-            style={{
-              aspectRatio: "4/3",
-              maxWidth: "100%",
-              height: "auto",
-              boxShadow: "var(--shadow-green)",
-            }}
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1.1, ease: [0.2, 0, 0.2, 1] }}
+            className="relative overflow-hidden"
+            style={{ minHeight: "420px" }}
           >
             <img
               src={`${BASE}assets/founder-intro.avif`}
               alt="Sifa Mondika, Founder of Amani Roots"
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"
             />
+            {/* Subtle caption tag pinned to bottom */}
+            <div
+              className="absolute bottom-0 left-0 right-0 px-7 py-5"
+              style={{ background: "linear-gradient(to top, rgba(20,18,15,0.55) 0%, transparent 100%)" }}
+            >
+              <p className="text-[9px] font-light tracking-[0.22em] uppercase" style={{ color: "rgba(255,255,255,0.75)" }}>
+                Sifa Mondika &mdash; Founder &amp; CEO
+              </p>
+            </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* ── STORY INTRO ── */}
-      <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)" }}>
-        <div className="max-w-[900px] mx-auto">
+          {/* Text — staggers in from right */}
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
+            className="flex flex-col justify-center px-8 md:px-14 lg:px-16 py-16 md:py-24"
           >
             <motion.p variants={fadeInUp} className={eyebrow} style={eyebrowStyle}>&mdash; OUR STORY</motion.p>
             <motion.h2 variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-light tracking-widest leading-[1.2] mb-10">
               From Curiosity to<br /><span className="italic" style={{ color: "var(--forest)" }}>Community</span>
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
+            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-7">
               Amani Roots grew from a personal journey into something much bigger. What began as a quiet ritual of learning, experimenting, and understanding the science behind scalp health has evolved into a brand dedicated to helping women care for the foundation of their hair.
             </motion.p>
-            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
+            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-7">
               Along the way, I realized that healthy hair doesn&rsquo;t begin with styling products &mdash; it begins at the roots. When the scalp is nourished and supported with the right ingredients, hair has the environment it needs to grow.
             </motion.p>
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide">
-              Amani Roots was born from the realization that healthy hair begins at the root. What started as a personal journey to understand and care for the scalp has grown into a brand dedicated to helping women nurture the foundation of their hair through intentional education and botanical care. By blending science with powerful herbs and nourishing oils, Amani Roots focuses on creating the conditions where hair can truly thrive.
+              Amani Roots was born from the realization that healthy hair begins at the root. By blending science with powerful herbs and nourishing oils, Amani Roots focuses on creating the conditions where hair can truly thrive.
             </motion.p>
           </motion.div>
         </div>
@@ -156,23 +148,18 @@ export default function FounderStory() {
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               For years, my hair wouldn&rsquo;t grow the way I wanted it to.
             </motion.p>
-
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               I tried everything. I spent hours watching YouTube natural hair girlies, following routines, buying products everyone swore by, and hoping something would finally work for me. But even after all that, I still felt like I didn&rsquo;t understand my own hair&rsquo;s language. My hair would grow a little, then break. Some products made it dry. Others made it heavy. I kept asking myself the same question: why does everyone else seem to figure it out except me?
             </motion.p>
-
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               Eventually, that frustration turned into curiosity. As a biology and computational neuroscience student, I began to view hair care differently. Instead of just following trends, I began learning about the science behind the scalp, hair follicles, and plant nutrients. I realized that healthy hair doesn&rsquo;t start with styling products &mdash; it starts with a healthy scalp.
             </motion.p>
-
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               That&rsquo;s where the idea for Amani Roots Oils began.
             </motion.p>
-
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               I started researching herbs and botanical oils that have been used for generations and studying how they support scalp health and hair strength. By combining traditional botanical knowledge with scientific understanding, I created a formula with 7 herbs and 3 nourishing oils designed to support stronger, healthier hair from the roots.
             </motion.p>
-
             <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-8">
               Amani Roots Oils was created to help women reconnect with their natural hair and care for it with intention, knowledge, and confidence.
             </motion.p>
@@ -184,22 +171,27 @@ export default function FounderStory() {
         </div>
       </section>
 
-      {/* ── FOUNDER SIGN-OFF ── */}
-      <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-14 lg:gap-20 items-center lg:items-start">
+      {/* ── FOUNDER SIGN-OFF — image interworked with text ── */}
+      <section className="border-t overflow-hidden bg-bg" style={{ borderColor: "var(--border)" }}>
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2">
+
+          {/* Text — slides in from left */}
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-80px" }}
             variants={staggerContainer}
-            className="flex-1"
+            className="flex flex-col justify-center px-8 md:px-14 lg:px-16 py-16 md:py-28 order-2 lg:order-1"
           >
             <motion.div variants={fadeInUp} className="w-8 h-[2px] mb-8" style={{ backgroundColor: "var(--sage)" }} />
-            <motion.p variants={fadeInUp} className="font-heading text-3xl md:text-4xl font-light tracking-widest leading-[1.3] mb-4">
+            <motion.p variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-light tracking-widest leading-[1.2] mb-3">
               Sifa Mondika
             </motion.p>
             <motion.p variants={fadeInUp} className="text-text-muted text-sm font-light tracking-[0.1em] uppercase mb-10">
               Founder &amp; CEO
+            </motion.p>
+            <motion.p variants={fadeInUp} className="text-sm md:text-base text-text-muted font-light leading-[2] tracking-wide mb-12 max-w-sm">
+              From personal frustration to purposeful creation — Amani Roots was built to give every woman the knowledge and tools to truly understand her hair.
             </motion.p>
             <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
               <Link
@@ -219,21 +211,41 @@ export default function FounderStory() {
             </motion.div>
           </motion.div>
 
+          {/* Image — slides in from right with a portrait crop */}
           <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="flex-1 flex justify-center lg:justify-end"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1.1, ease: [0.2, 0, 0.2, 1] }}
+            className="relative overflow-hidden order-1 lg:order-2"
+            style={{ minHeight: "420px" }}
           >
-            <div className="overflow-hidden" style={{ aspectRatio: "4/3", maxWidth: "440px", boxShadow: "var(--shadow-green)" }}>
-              <img
-                src={`${BASE}assets/founder.jpg`}
-                alt="Sifa Mondika, Founder of Amani Roots Oils"
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-            </div>
+            <img
+              src={`${BASE}assets/founder.jpg`}
+              alt="Sifa Mondika, Founder of Amani Roots Oils"
+              className="absolute inset-0 w-full h-full object-cover"
+              loading="lazy"
+            />
+            {/* Floating quote tag pinned to bottom-left */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="absolute bottom-6 left-6 right-6 md:left-8 md:bottom-8"
+            >
+              <div
+                className="inline-block px-5 py-4 max-w-[280px]"
+                style={{ backgroundColor: "rgba(250,250,248,0.92)", backdropFilter: "blur(8px)" }}
+              >
+                <p className="font-heading text-base md:text-lg italic font-light tracking-wide leading-[1.5]" style={{ color: "var(--forest)" }}>
+                  &ldquo;Healthy roots, thriving hair.&rdquo;
+                </p>
+                <p className="mt-2 text-[9px] font-light tracking-[0.18em] uppercase" style={{ color: "var(--sage)" }}>
+                  — Amani Roots
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
