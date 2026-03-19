@@ -215,66 +215,64 @@ export default function Book() {
       <AnimatePresence>
         {openService && (
           <>
-            {/* Backdrop */}
+            {/* Backdrop — also acts as the flex centering wrapper */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[100]"
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4"
               style={{ backgroundColor: "rgba(20,18,15,0.72)", backdropFilter: "blur(4px)" }}
               onClick={closeModal}
-            />
-
-            {/* Modal panel */}
-            <motion.div
-              key="modal"
-              initial={{ opacity: 0, scale: 0.97, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97, y: 16 }}
-              transition={{ duration: 0.3, ease: [0.2, 0, 0.2, 1] }}
-              className="fixed z-[101] flex flex-col"
-              style={{
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "min(96vw, 900px)",
-                height: "min(92vh, 820px)",
-                backgroundColor: "#fff",
-                boxShadow: "0 32px 80px rgba(0,0,0,0.28)",
-              }}
             >
-              {/* Modal header */}
-              <div
-                className="flex items-center justify-between px-6 md:px-8 py-5 flex-shrink-0 border-b"
-                style={{ borderColor: "var(--border)" }}
+              {/* Modal panel — stop click propagation so backdrop click doesn't close from inside */}
+              <motion.div
+                key="modal"
+                initial={{ opacity: 0, scale: 0.97, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.97, y: 16 }}
+                transition={{ duration: 0.3, ease: [0.2, 0, 0.2, 1] }}
+                className="flex flex-col w-full"
+                style={{
+                  maxWidth: "900px",
+                  height: "min(92vh, 820px)",
+                  backgroundColor: "#fff",
+                  boxShadow: "0 32px 80px rgba(0,0,0,0.28)",
+                }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <div>
-                  <p className="text-[9px] font-light tracking-[0.18em] uppercase mb-0.5" style={{ color: "var(--sage)" }}>
-                    Booking
-                  </p>
-                  <p className="font-heading text-lg md:text-xl font-light tracking-widest">
-                    {openService.label}
-                  </p>
-                </div>
-                <button
-                  onClick={closeModal}
-                  className="flex items-center justify-center w-9 h-9 transition-opacity hover:opacity-60"
-                  aria-label="Close"
-                  style={{ color: "var(--text)" }}
-                >
-                  <X className="w-5 h-5 stroke-[1.5]" />
-                </button>
-              </div>
-
-              {/* Cal embed */}
-              <div className="flex-1 overflow-hidden">
+                {/* Modal header */}
                 <div
-                  ref={embedRef}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
+                  className="flex items-center justify-between px-6 md:px-8 py-5 flex-shrink-0 border-b"
+                  style={{ borderColor: "var(--border)" }}
+                >
+                  <div>
+                    <p className="text-[9px] font-light tracking-[0.18em] uppercase mb-0.5" style={{ color: "var(--sage)" }}>
+                      Booking
+                    </p>
+                    <p className="font-heading text-lg md:text-xl font-light tracking-widest">
+                      {openService.label}
+                    </p>
+                  </div>
+                  <button
+                    onClick={closeModal}
+                    className="flex items-center justify-center w-9 h-9 transition-opacity hover:opacity-60"
+                    aria-label="Close"
+                    style={{ color: "var(--text)" }}
+                  >
+                    <X className="w-5 h-5 stroke-[1.5]" />
+                  </button>
+                </div>
+
+                {/* Cal embed */}
+                <div className="flex-1 overflow-hidden">
+                  <div
+                    ref={embedRef}
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </div>
+              </motion.div>
             </motion.div>
           </>
         )}
