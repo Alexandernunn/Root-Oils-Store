@@ -67,6 +67,32 @@ export default function FounderStory() {
         <div className="h-[3px] w-full" style={{ background: "linear-gradient(90deg, var(--forest), var(--sage), var(--mint))" }} />
       </section>
 
+      {/* ── FOUNDER IMAGE ── */}
+      <section className="py-12 md:py-20 px-4 md:px-8 lg:px-12" style={{ backgroundColor: "var(--bg-lavender)" }}>
+        <div className="max-w-[1400px] mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+            className="overflow-hidden rounded-none"
+            style={{
+              aspectRatio: "4/3",
+              maxWidth: "100%",
+              height: "auto",
+              boxShadow: "var(--shadow-green)",
+            }}
+          >
+            <img
+              src={`${BASE}assets/founder-intro.avif`}
+              alt="Sifa Mondika, Founder of Amani Roots"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── STORY INTRO ── */}
       <section className="py-28 md:py-48 px-6 md:px-12" style={{ backgroundColor: "var(--bg-cream)" }}>
         <div className="max-w-[900px] mx-auto">
