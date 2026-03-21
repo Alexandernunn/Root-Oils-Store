@@ -360,11 +360,10 @@ export default function Home() {
             <h2 className="font-heading text-4xl md:text-5xl font-light tracking-widest leading-[1.1]">What Our Community Says</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-16 max-w-3xl mx-auto">
             {[
               { name: "Priscilla T.", text: "My curls have never felt more hydrated. Amani Roots is a game-changer for my transition journey. Thank you so much!", img: `${BASE}assets/testimonial-1.jpg` },
-              { name: "Naomi T.", text: "The thickness and shine I've gained are incredible. I finally feel confident with my natural texture.", img: `${BASE}assets/testimonial-2.jpg` },
-              { name: "Catarina V.", text: "It's more than just oil; it's a ritual of self-love. My hair is flourishing like never before.", img: `${BASE}assets/testimonial-3.jpg` },
+              { name: "Bernadette T.", text: "Put this oil on in the morning and my scalp is STILL moisturized hours later. Not greasy, smells fresh, and feels so natural. You can tell it's the real deal.", img: `${BASE}assets/testimonial-2.jpg` },
             ].map((review, i) => (
               <motion.div
                 key={i}
