@@ -10,7 +10,7 @@ const products = [
     badge: "New",
     description: "Our 4oz bottle crafted with seven powerful herbs and three nourishing oils. Perfect for consistent scalp care on the go.",
     image: "https://static.wixstatic.com/media/50866c_c05dcfe7730f449eb0247e363678872f~mv2.png/v1/fill/w_856,h_856,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_c05dcfe7730f449eb0247e363678872f~mv2.png",
-    link: "https://www.amanirootsoils.com/product-page/nourish-growth-elixir",
+    link: "https://buy.stripe.com/fZubJ16ARb9wasWbq7ao802",
   },
   {
     name: "Amani Roots 8oz Oil",
@@ -18,7 +18,7 @@ const products = [
     badge: "New",
     description: "Our 8oz bottle for your daily hair care ritual. Seven herbs and three nourishing oils — supports scalp health and stronger growth.",
     image: "https://static.wixstatic.com/media/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png/v1/fill/w_856,h_1283,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png",
-    link: "https://www.amanirootsoils.com/product-page/scalp-soothing-oil",
+    link: "https://buy.stripe.com/14A00jbVbdhEcB4eCjao803",
   },
   {
     name: "Satin Pillow Case",
