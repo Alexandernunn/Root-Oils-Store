@@ -427,7 +427,7 @@ export default function Home() {
       </section>
       {/* ── 7. SCALP ───────────────────────────────────────────── */}
       <section className="py-28 md:py-48 px-6 md:px-12 bg-bg border-t" style={{ borderColor: "var(--border)" }}>
-        <div className="max-w-[900px] mx-auto">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -440,6 +440,19 @@ export default function Home() {
             <p className="text-sm md:text-base text-text-muted font-light leading-[1.9] tracking-wide">
               Many hair problems begin at the scalp. Dryness, breakage, thinning, and slow growth are often signs that the scalp needs nourishment. Amani Roots focuses on creating a healthy foundation so your hair can grow stronger and longer naturally.
             </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.15 }}
+          >
+            <img
+              src={`${BASE}assets/scalp-ingredients.png`}
+              alt="Amani Roots 7 herbs and 3 oils — Rosemary, Black Seed, Peppermint, Ashwagandha, Pumpkin Seed, Amla Powder, Fenugreek"
+              className="w-full h-auto object-contain"
+              loading="lazy"
+            />
           </motion.div>
         </div>
       </section>
@@ -508,7 +521,7 @@ export default function Home() {
             transition={{ duration: 0.9 }}
           >
             <p className={eyebrow + " text-center"} style={eyebrowStyle}>STAY ROOTED</p>
-            <h2 className="font-heading text-4xl md:text-6xl mb-10 font-light tracking-widest leading-[1.1]">Join the Ritual</h2>
+            <h2 className="font-heading text-4xl md:text-6xl mb-10 font-light tracking-widest leading-[1.1]">Stay Rooted</h2>
 
             {formStatus === "success" ? (
               <p className="text-sm font-light leading-[1.9] tracking-wide mt-4" style={{ color: "var(--forest)" }}>
