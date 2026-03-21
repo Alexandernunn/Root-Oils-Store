@@ -363,7 +363,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-16 max-w-3xl mx-auto">
             {[
               { name: "Priscilla T.", text: "My curls have never felt more hydrated. Amani Roots is a game-changer for my transition journey. Thank you so much!", img: `${BASE}assets/testimonial-1.jpg` },
-              { name: "Bernadette T.", text: "Put this oil on in the morning and my scalp is STILL moisturized hours later. Not greasy, smells fresh, and feels so natural. You can tell it's the real deal.", img: `${BASE}assets/testimonial-2.jpg` },
+              { name: "Bernadette T.", text: "Put this oil on in the morning and my scalp is STILL moisturized hours later. Not greasy, smells fresh, and feels so natural. You can tell it's the real deal.", video: `${BASE}assets/testimonial-bernadette.mp4` },
             ].map((review, i) => (
               <motion.div
                 key={i}
@@ -374,7 +374,18 @@ export default function Home() {
                 className="flex flex-col"
               >
                 <div className="overflow-hidden mb-8" style={{ aspectRatio: "4/5", boxShadow: "var(--shadow-green)" }}>
-                  <img src={review.img} alt={review.name} className="w-full h-full object-cover" loading="lazy" />
+                  {"video" in review ? (
+                    <video
+                      src={(review as { video: string }).video}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  ) : (
+                    <img src={(review as { img: string }).img} alt={review.name} className="w-full h-full object-cover" loading="lazy" />
+                  )}
                 </div>
                 <div className="relative">
                   <div className="font-heading leading-none absolute -top-10 -left-2 select-none opacity-25" style={{ fontSize: "5rem", color: "var(--sage)" }}>&ldquo;</div>
