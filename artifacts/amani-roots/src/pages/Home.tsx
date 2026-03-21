@@ -356,8 +356,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="mb-20 md:mb-32"
           >
-            <p className={eyebrow} style={eyebrowStyle}>&mdash; SUCCESS STORIES</p>
-            <h2 className="font-heading text-4xl md:text-5xl font-light tracking-widest leading-[1.1]">What Our Community Says</h2>
+            <h2 className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold italic leading-[1.0] tracking-tight" style={{ color: "var(--forest)" }}>Success Stories</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-16 max-w-3xl mx-auto">
