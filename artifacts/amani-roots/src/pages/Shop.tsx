@@ -20,6 +20,30 @@ const products = [
     image: "https://static.wixstatic.com/media/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png/v1/fill/w_856,h_1283,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png",
     link: "https://www.amanirootsoils.com/product-page/scalp-soothing-oil",
   },
+  {
+    name: "Satin Pillow Case",
+    price: "$10.00",
+    badge: "New",
+    description: "Smooth satin fabric reduces friction, protects your strands, and maintains moisture overnight. Pair with your oil routine.",
+    image: "https://static.wixstatic.com/media/50866c_46645de31f7f4672a01e3b086a692f2a~mv2.jpg/v1/fill/w_840,h_1120,al_c,q_85,enc_avif,quality_auto/50866c_46645de31f7f4672a01e3b086a692f2a~mv2.jpg",
+    link: "https://www.amanirootsoils.com/product-page/curl-styling-handbook",
+  },
+  {
+    name: "Satin Scrunchy",
+    price: "$3.69",
+    badge: "Sale",
+    description: "Gentle on your hair, secure on your style. Satin fabric minimizes breakage and maintains natural moisture every day.",
+    image: "https://static.wixstatic.com/media/50866c_a739f5e90abc4152b773dee3814f43f9~mv2.jpg/v1/fill/w_796,h_796,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_a739f5e90abc4152b773dee3814f43f9~mv2.jpg",
+    link: "https://www.amanirootsoils.com/product-page/satin-lined-cap",
+  },
+  {
+    name: "Silk Bonnet",
+    price: "$6.99",
+    badge: "New",
+    description: "Soft silk fabric protects your strands and maintains moisture while you rest. A nightly ritual for healthier hair.",
+    image: "https://static.wixstatic.com/media/50866c_86b68c1031f047ada59d479fcd693eac~mv2.jpg/v1/fill/w_856,h_1283,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_86b68c1031f047ada59d479fcd693eac~mv2.jpg",
+    link: "https://www.amanirootsoils.com/product-page/curl-hydration-serum",
+  },
 ]
 
 const fadeInUp = {
