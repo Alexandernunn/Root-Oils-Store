@@ -388,11 +388,11 @@ export default function Home() {
                 </div>
                 <div className="relative">
                   <div className="font-heading leading-none absolute -top-10 -left-2 select-none opacity-25" style={{ fontSize: "5rem", color: "var(--sage)" }}>&ldquo;</div>
-                  <p className="text-text text-lg md:text-xl font-heading italic font-light leading-relaxed mb-5 relative z-10">
+                  <p className="text-text text-lg md:text-xl font-heading italic font-semibold leading-relaxed mb-5 relative z-10">
                     {review.text}
                   </p>
                   <div className="w-6 h-[1px] mb-3" style={{ backgroundColor: "var(--sage)" }} />
-                  <p className="font-body font-light text-[10px] uppercase tracking-[0.2em] text-text-muted">{review.name}</p>
+                  <p className="font-body font-semibold text-[10px] uppercase tracking-[0.2em] text-text-muted">{review.name}</p>
                 </div>
               </motion.div>
             ))}
