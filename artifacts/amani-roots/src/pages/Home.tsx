@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Link } from "wouter"
 
@@ -19,8 +19,34 @@ const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
 const HERO_GREEN = "#243B2E"
 
+const FORMSPREE = "https://formspree.io/f/xqeyoajk"
+
 export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName]   = useState("")
+  const [email, setEmail]         = useState("")
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setFormStatus("sending")
+    try {
+      const res = await fetch(FORMSPREE, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ firstName, lastName, email }),
+      })
+      if (res.ok) {
+        setFormStatus("success")
+        setFirstName(""); setLastName(""); setEmail("")
+      } else {
+        setFormStatus("error")
+      }
+    } catch {
+      setFormStatus("error")
+    }
+  }
 
   return (
     <div className="min-h-screen bg-bg text-text">
@@ -484,18 +510,53 @@ export default function Home() {
             <p className={eyebrow + " text-center"} style={eyebrowStyle}>STAY ROOTED</p>
             <h2 className="font-heading text-4xl md:text-6xl mb-10 font-light tracking-widest leading-[1.1]">Join the Ritual</h2>
 
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <input type="text" placeholder="First Name" className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none" style={{ borderColor: "rgba(47,95,72,0.25)" }} onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")} onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")} />
-                <input type="text" placeholder="Last Name" className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none" style={{ borderColor: "rgba(47,95,72,0.25)" }} onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")} onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")} />
-              </div>
-              <input type="email" placeholder="Email Address" className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none" style={{ borderColor: "rgba(47,95,72,0.25)" }} onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")} onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")} />
-              <div className="pt-6">
-                <button type="submit" className="w-full text-xs font-body font-light tracking-[0.15em] uppercase py-4 transition-all duration-300 hover:opacity-80" style={{ backgroundColor: "var(--forest)", color: "#fff" }}>
-                  Subscribe
-                </button>
-              </div>
-            </form>
+            {formStatus === "success" ? (
+              <p className="text-sm font-light leading-[1.9] tracking-wide mt-4" style={{ color: "var(--forest)" }}>
+                Thank you for joining the Amani Roots community. ✓
+              </p>
+            ) : (
+              <form className="space-y-6" onSubmit={handleSignup}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <input
+                    type="text" placeholder="First Name" required value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                    className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none"
+                    style={{ borderColor: "rgba(47,95,72,0.25)" }}
+                    onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")}
+                    onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")}
+                  />
+                  <input
+                    type="text" placeholder="Last Name" value={lastName}
+                    onChange={e => setLastName(e.target.value)}
+                    className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none"
+                    style={{ borderColor: "rgba(47,95,72,0.25)" }}
+                    onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")}
+                    onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")}
+                  />
+                </div>
+                <input
+                  type="email" placeholder="Email Address" required value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="w-full bg-transparent border-0 border-b pb-4 text-sm font-light text-text placeholder:text-text-light focus:outline-none transition-colors rounded-none"
+                  style={{ borderColor: "rgba(47,95,72,0.25)" }}
+                  onFocus={e => (e.currentTarget.style.borderColor = "var(--sage)")}
+                  onBlur={e => (e.currentTarget.style.borderColor = "rgba(47,95,72,0.25)")}
+                />
+                {formStatus === "error" && (
+                  <p className="text-xs font-light tracking-wide text-red-400">Something went wrong — please try again.</p>
+                )}
+                <div className="pt-6">
+                  <button
+                    type="submit"
+                    disabled={formStatus === "sending"}
+                    className="w-full text-xs font-body font-light tracking-[0.15em] uppercase py-4 transition-all duration-300 hover:opacity-80 disabled:opacity-50"
+                    style={{ backgroundColor: "var(--forest)", color: "#fff" }}
+                  >
+                    {formStatus === "sending" ? "Subscribing…" : "Subscribe"}
+                  </button>
+                </div>
+              </form>
+            )}
           </motion.div>
         </div>
       </section>
