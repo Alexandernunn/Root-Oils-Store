@@ -12,6 +12,10 @@ export default function BlogForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!authorName.trim() || !body.trim()) return
+    if (!db) {
+      setError("Blog is not configured yet.")
+      return
+    }
 
     setSubmitting(true)
     setError("")

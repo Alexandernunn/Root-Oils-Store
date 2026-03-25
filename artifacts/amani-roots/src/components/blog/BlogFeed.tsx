@@ -24,6 +24,10 @@ export default function BlogFeed() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    if (!db) {
+      setLoading(false)
+      return
+    }
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"))
     const unsub = onSnapshot(q, snapshot => {
       setPosts(
