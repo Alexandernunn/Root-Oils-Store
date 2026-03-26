@@ -91,7 +91,8 @@ export default function Home() {
               muted
               loop
               playsInline
-              className="w-full h-full object-cover pointer-events-none"
+              className="w-full object-cover pointer-events-none"
+              style={{ height: "114.3%", display: "block" }}
             >
               <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
             </video>
@@ -135,7 +136,8 @@ export default function Home() {
               muted
               loop
               playsInline
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              className="absolute top-0 left-0 w-full object-cover pointer-events-none"
+              style={{ height: "114.3%" }}
             >
               <source src={`${BASE}assets/hero.mp4`} type="video/mp4" />
             </video>
