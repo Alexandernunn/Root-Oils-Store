@@ -161,7 +161,7 @@ export default function Home() {
                 style={{ aspectRatio: "3/4", maxHeight: "55vw", boxShadow: "var(--shadow-green)" }}
               >
                 <img
-                  src={`${BASE}assets/botanical-product.avif`}
+                  src={`${BASE}assets/hero-product.png`}
                   alt="Amani Roots botanical hair oil product"
                   className="w-full h-full object-cover"
                   loading="lazy"
