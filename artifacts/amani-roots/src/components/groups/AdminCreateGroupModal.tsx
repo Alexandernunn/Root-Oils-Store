@@ -100,6 +100,15 @@ export default function AdminCreateGroupModal({ onClose }: Props) {
             <p className="text-xs font-light leading-relaxed mb-6" style={{ color: "var(--text-muted)" }}>
               Group creation is restricted to admins. Enter the admin password to continue.
             </p>
+            <p
+              className="text-[10px] font-light leading-relaxed mb-4 px-3 py-2"
+              style={{ backgroundColor: "var(--bg-mist)", color: "var(--text-muted)" }}
+            >
+              First time? Set your password in Firebase console at{" "}
+              <span style={{ color: "var(--sage)", fontFamily: "monospace" }}>
+                admin_config / auth → password
+              </span>
+            </p>
             <input
               type="password"
               value={password}

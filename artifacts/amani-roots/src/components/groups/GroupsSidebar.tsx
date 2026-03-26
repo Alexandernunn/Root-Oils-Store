@@ -12,6 +12,7 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
   const [search, setSearch] = useState("")
   const [joined, setJoined] = useState<Set<string>>(new Set())
   const [joiningId, setJoiningId] = useState<string | null>(null)
+  const [joinError, setJoinError] = useState<string | null>(null)
 
   useEffect(() => {
     const unsub = subscribeGroups(setGroups)
@@ -25,11 +26,12 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
   async function handleJoin(group: Group) {
     if (joined.has(group.id) || joiningId) return
     setJoiningId(group.id)
+    setJoinError(null)
     try {
       await incrementMemberCount(group.id)
       setJoined(prev => new Set(prev).add(group.id))
     } catch {
-      // silently ignore
+      setJoinError("Could not join group. Please try again.")
     } finally {
       setJoiningId(null)
     }
@@ -103,6 +105,12 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
         <p className="text-[9px] font-light tracking-[0.18em] uppercase mb-3" style={{ color: "var(--sage)" }}>
           Suggested Groups
         </p>
+
+        {joinError && (
+          <p className="text-[10px] font-light mb-3 px-2 py-1.5" style={{ color: "#c0392b", backgroundColor: "#fdf3f3" }}>
+            {joinError}
+          </p>
+        )}
 
         {!db ? (
           <p className="text-xs font-light italic" style={{ color: "var(--text-muted)" }}>
