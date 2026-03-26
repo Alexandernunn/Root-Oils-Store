@@ -467,9 +467,7 @@ export default function Home() {
             className="lg:col-span-5"
           >
             <div className="overflow-hidden mx-auto" style={{ aspectRatio: "3/4", maxWidth: "380px", maxHeight: "55vw" }}>
-              <motion.div
-                animate={{ y: [0, -12, 0] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+              <div
                 className="w-full h-full"
                 style={{ filter: "drop-shadow(0 16px 40px rgba(47,95,72,0.18))" }}
               >
@@ -479,7 +477,7 @@ export default function Home() {
                   className="w-full h-full object-contain"
                   loading="lazy"
                 />
-              </motion.div>
+              </div>
             </div>
           </motion.div>
 
