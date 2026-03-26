@@ -1,44 +1,55 @@
 import React from "react"
 import { motion } from "framer-motion"
+import { useCart } from "../context/CartContext"
 
 const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
 const products = [
   {
+    id: "amani-roots-4oz",
     name: "Amani Roots 4oz Oil",
-    price: "$10.00",
+    price: 10.00,
+    priceId: "",
     badge: "New",
     description: "Our 4oz bottle crafted with seven powerful herbs and three nourishing oils. Perfect for consistent scalp care on the go.",
     image: "https://static.wixstatic.com/media/50866c_c05dcfe7730f449eb0247e363678872f~mv2.png/v1/fill/w_856,h_856,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_c05dcfe7730f449eb0247e363678872f~mv2.png",
     link: "https://buy.stripe.com/fZubJ16ARb9wasWbq7ao802",
   },
   {
+    id: "amani-roots-8oz",
     name: "Amani Roots 8oz Oil",
-    price: "$14.00",
+    price: 14.00,
+    priceId: "",
     badge: "New",
     description: "Our 8oz bottle for your daily hair care ritual. Seven herbs and three nourishing oils — supports scalp health and stronger growth.",
     image: "https://static.wixstatic.com/media/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png/v1/fill/w_856,h_1283,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_569acf4c6d41404f86f955fe33956a05~mv2.png",
     link: "https://buy.stripe.com/14A00jbVbdhEcB4eCjao803",
   },
   {
+    id: "satin-pillow-case",
     name: "Satin Pillow Case",
-    price: "$10.00",
+    price: 10.00,
+    priceId: "",
     badge: "New",
     description: "Smooth satin fabric reduces friction, protects your strands, and maintains moisture overnight. Pair with your oil routine.",
     image: "https://static.wixstatic.com/media/50866c_46645de31f7f4672a01e3b086a692f2a~mv2.jpg/v1/fill/w_840,h_1120,al_c,q_85,enc_avif,quality_auto/50866c_46645de31f7f4672a01e3b086a692f2a~mv2.jpg",
     link: "https://buy.stripe.com/aFa4gz1gx2D08kO65Nao805",
   },
   {
+    id: "satin-scrunchy",
     name: "Satin Scrunchy",
-    price: "$3.69",
+    price: 3.69,
+    priceId: "",
     badge: "Sale",
     description: "Gentle on your hair, secure on your style. Satin fabric minimizes breakage and maintains natural moisture every day.",
     image: "https://static.wixstatic.com/media/50866c_a739f5e90abc4152b773dee3814f43f9~mv2.jpg/v1/fill/w_796,h_796,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_a739f5e90abc4152b773dee3814f43f9~mv2.jpg",
     link: "https://buy.stripe.com/4gMaEX8IZ0uSdF8eCjao804",
   },
   {
+    id: "silk-bonnet",
     name: "Silk Bonnet",
-    price: "$6.99",
+    price: 6.99,
+    priceId: "",
     badge: "New",
     description: "Soft silk fabric protects your strands and maintains moisture while you rest. A nightly ritual for healthier hair.",
     image: "https://static.wixstatic.com/media/50866c_86b68c1031f047ada59d479fcd693eac~mv2.jpg/v1/fill/w_856,h_1283,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/50866c_86b68c1031f047ada59d479fcd693eac~mv2.jpg",
@@ -57,6 +68,8 @@ const stagger = {
 }
 
 export default function Shop() {
+  const { addToCart } = useCart()
+
   return (
     <div className="min-h-screen bg-bg text-text">
 
@@ -142,17 +155,21 @@ export default function Shop() {
                   </p>
                   <div className="flex items-center justify-between mt-auto pt-2">
                     <span className="font-body font-light text-sm tracking-wide" style={{ color: 'var(--forest)' }}>
-                      {product.price}
+                      ${product.price.toFixed(2)}
                     </span>
-                    <a
-                      href={product.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-[10px] uppercase tracking-[0.15em] font-light px-4 py-2 transition-all duration-300 hover:opacity-80"
+                    <button
+                      onClick={() => addToCart({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        priceId: product.priceId,
+                        image: product.image,
+                      })}
+                      className="text-[10px] uppercase tracking-[0.15em] font-light px-4 py-2 transition-all duration-300 hover:opacity-80 cursor-pointer"
                       style={{ backgroundColor: 'var(--forest)', color: '#fff' }}
                     >
-                      Shop Now
-                    </a>
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
               </motion.div>
