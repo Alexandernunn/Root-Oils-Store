@@ -172,7 +172,7 @@ export default function Shop() {
           >
             <div className="w-8 h-[2px] mx-auto mb-8" style={{ backgroundColor: 'var(--sage)' }} />
             <p className="font-heading text-3xl md:text-4xl font-light tracking-widest leading-[1.3]" style={{ color: 'var(--forest)' }}>
-              Every bottle is a ritual.
+              STAY ROOTED !
             </p>
             <p className="text-text-muted text-sm font-light leading-[1.9] tracking-wide mt-6 max-w-sm mx-auto">
               Cold-infused over weeks, never rushed. Crafted with intention for your roots.
