@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react"
 import { X, Minus, Plus, ShoppingBag } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 
-const BASE_URL = import.meta.env.BASE_URL ?? "/"
-
 function formatPrice(cents: number): string {
   return `$${cents.toFixed(2)}`
 }
@@ -33,8 +31,7 @@ export function CartDrawer() {
 
     setCheckoutLoading(true)
     try {
-      const apiBase = BASE_URL.replace(/\/$/, "")
-      const res = await fetch(`${apiBase}/api/checkout`, {
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -43,16 +40,23 @@ export function CartDrawer() {
       })
 
       if (!res.ok) {
-        const body = await res.json().catch(() => ({}))
-        throw new Error(body?.error ?? `Server error ${res.status}`)
+        const body: unknown = await res.json().catch(() => ({}))
+        const message = body && typeof body === "object" && "error" in body && typeof (body as Record<string, unknown>).error === "string"
+          ? (body as Record<string, unknown>).error as string
+          : `Server error ${res.status}`
+        throw new Error(message)
       }
 
-      const { url } = await res.json()
+      const data: unknown = await res.json()
+      const url = data && typeof data === "object" && "url" in data && typeof (data as Record<string, unknown>).url === "string"
+        ? (data as Record<string, unknown>).url as string
+        : null
       if (!url) throw new Error("No checkout URL returned.")
       clearCart()
       window.location.href = url
-    } catch (err: any) {
-      setCheckoutError(err?.message ?? "Checkout failed. Please try again.")
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Checkout failed. Please try again."
+      setCheckoutError(message)
     } finally {
       setCheckoutLoading(false)
     }
