@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { X } from "lucide-react"
 import { checkAdminPassword, createGroup } from "@/lib/groups"
+import { db } from "@/lib/firebase"
 
 interface Props {
   onClose: () => void
@@ -76,7 +77,19 @@ export default function AdminCreateGroupModal({ onClose }: Props) {
           <X size={16} style={{ color: "var(--text-muted)" }} />
         </button>
 
-        {step === "password" ? (
+        {!db ? (
+          <div>
+            <p className="text-[9px] font-light tracking-[0.2em] uppercase mb-2" style={{ color: "var(--sage)" }}>
+              — Not Available
+            </p>
+            <h2 className="font-heading text-2xl font-light tracking-wider mb-4" style={{ color: "var(--text)" }}>
+              Firebase Not Configured
+            </h2>
+            <p className="text-xs font-light leading-relaxed" style={{ color: "var(--text-muted)" }}>
+              Group creation requires Firebase. Please add your Firebase environment variables to enable this feature.
+            </p>
+          </div>
+        ) : step === "password" ? (
           <form onSubmit={handlePasswordSubmit}>
             <p className="text-[9px] font-light tracking-[0.2em] uppercase mb-2" style={{ color: "var(--sage)" }}>
               — Admin Access
