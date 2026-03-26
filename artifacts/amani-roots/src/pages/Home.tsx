@@ -304,8 +304,8 @@ export default function Home() {
                 style={{ aspectRatio: "4/5", maxWidth: "380px", maxHeight: "60vw", boxShadow: "var(--shadow-green)" }}
               >
                 <img
-                  src={`${BASE}assets/bottle-flatlay.png`}
-                  alt="Amani Roots oil with herbs and botanicals"
+                  src={`${BASE}assets/science-image.avif`}
+                  alt="Where science meets hair care"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -363,8 +363,8 @@ export default function Home() {
                 style={{ aspectRatio: "3/4", maxWidth: "460px", maxHeight: "60vw", boxShadow: "var(--shadow-green)" }}
               >
                 <img
-                  src={`${BASE}assets/science-image.avif`}
-                  alt="Where science meets hair care"
+                  src={`${BASE}assets/bottle-flatlay.png`}
+                  alt="Amani Roots oil with herbs and botanicals"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
