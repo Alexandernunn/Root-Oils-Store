@@ -63,6 +63,9 @@ router.post("/checkout", async (req: Request, res: Response) => {
       price: item.priceId,
       quantity: item.quantity ?? 1,
     })),
+    shipping_options: [
+      { shipping_rate: "shr_1TFGmCE8MLgkmP6cq8iJ1OTp" },
+    ],
     success_url: successUrl,
     cancel_url: cancelUrl,
   });
