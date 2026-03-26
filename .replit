@@ -50,6 +50,7 @@ timeoutMs = 20000
 
 [userenv.shared]
 PORT = "5173"
+VITE_STRIPE_PUBLISHABLE_KEY = "pk_live_51TCVKwE8MLgkmP6cZsmlOf1IJ956yOfQshmnvz655Mt3SkfQfpVGLCrGbv5eH3rUmTGZfKUBoCotdjRiATspAD6A00ad7bIR7p"
 
 [nix]
 channel = "stable-25_05"
