@@ -387,11 +387,12 @@ export default function Home() {
             <h2 className="font-heading text-6xl md:text-8xl lg:text-9xl font-bold italic leading-[1.0] tracking-tight" style={{ color: "var(--forest)" }}>Success Stories</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-14 md:gap-16 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-8">
             {[
               { name: "Priscilla T.", text: "My curls have never felt more hydrated. Amani Roots is a game-changer for my transition journey. Thank you so much!", img: `${BASE}assets/testimonial-1.jpg` },
               { name: "Bernadette T.", text: "Put this oil on in the morning and my scalp is STILL moisturized hours later. Not greasy, smells fresh, and feels so natural. You can tell it's the real deal.", video: `${BASE}assets/testimonial-bernadette.mp4` },
               { name: "Catarina V.", text: "Before trying it, I struggled with a lot of dandruff and an unhealthy scalp. After using the oil consistently, I noticed a big improvement—my scalp feels much cleaner and healthier now. The dandruff has significantly reduced, and my overall hair condition has improved as well. I'm really happy with the results and would definitely recommend it to anyone dealing with similar issues.", img: `${BASE}assets/testimonial-catarina.jpg` },
+              { name: "Claudia V.", text: "One month in with Amani Roots Oil and the moisture?? insane 😍 My hair feels softer, healthier, and just overall better. Definitely seeing the difference. Thank you!!", img: `${BASE}assets/testimonial-claudia.jpg` },
             ].map((review, i) => (
               <motion.div
                 key={i}
