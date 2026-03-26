@@ -1,0 +1,86 @@
+Here's how the full system flows:
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+VvisualizeVvisualize show_widgetNow here's the full written plan broken into phases:
+
+The Architecture
+The trick is Netlify Functions — they're serverless Node.js functions that deploy alongside your site but run on Netlify's servers. Your secret key lives in Netlify's environment variables and only touches the Function. The browser only ever sees your publishable key (which is meant to be public).
+
+Phase 1 — Stripe Setup
+
+Create a Stripe account if you don't have one
+In the Stripe Dashboard, go to Developers → API Keys and grab:
+
+pk_live_... → your publishable key (goes in your frontend code, totally fine to expose)
+sk_live_... → your secret key (goes ONLY in Netlify env vars, never in code)
+
+
+Create your products in the Stripe Dashboard under Products — each product gets a Price ID (price_...) which you'll reference in your checkout session
+
+
+Phase 2 — Netlify Environment Variables
+In your Netlify Dashboard → Site → Environment Variables, add:
+STRIPE_SECRET_KEY = sk_live_xxxxxxxxxxxxx
+That's it. Netlify injects this into your function at runtime. It never appears in your deployed code or git repo.
+
+Phase 3 — Netlify Function (The Backend)
+Create the file netlify/functions/create-checkout-session.js in your project root:
+jsconst stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+exports.handler = async (event) => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
+
+  const { cartItems } = JSON.parse(event.body);
+
+  // cartItems = [{ priceId: 'price_xxx', quantity: 2 }, ...]
+  const lineItems = cartItems.map(item => ({
+    price: item.priceId,
+    quantity: item.quantity,
+  }));
+
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: 'https://amanirootsoils.com/success',
+      cancel_url: 'https://amanirootsoils.com/cart',
+    });
+
+    return {
+      statusCode: 200,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: session.url }),
+    };
+  } catch (err) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: err.message }),
+    };
+  }
+};
+Then install the Stripe package:
+bashnpm install stripe
+
+Phase 4 — Frontend Cart
+Your cart UI calls the Netlify function (no secret key involved at all):
+jsasync function handleCheckout(cartItems) {
+  const res = await fetch('/.netlify/functions/create-checkout-session', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cartItems }),
+  });
+
+  const { url } = await res.json();
+  window.location.href = url; // redirect to Stripe's hosted checkout
+}
+Your publishable key is only needed if you want to use Stripe.js for things like displaying prices or card element previews — and it's safe to hardcode in frontend JS.
+
+Phase 5 — Deploy
+Your netlify.toml (or Netlify's auto-detection) will pick up the netlify/functions/ folder automatically. Deploy as normal — push to GitHub → Netlify builds → function is live at /.netlify/functions/create-checkout-session.
