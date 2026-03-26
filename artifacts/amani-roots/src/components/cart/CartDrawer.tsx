@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import { X, Minus, Plus, ShoppingBag } from "lucide-react"
 import { useCart } from "@/context/CartContext"
 
-function formatPrice(cents: number): string {
-  return `$${cents.toFixed(2)}`
+function formatPrice(amount: number): string {
+  return `$${amount.toFixed(2)}`
 }
 
 export function CartDrawer() {
