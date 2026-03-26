@@ -3,6 +3,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { Toaster } from "@/components/ui/toaster"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
+import { CartProvider } from "@/context/CartContext"
+import { CartDrawer } from "@/components/cart/CartDrawer"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 
@@ -42,16 +44,19 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <Router />
-            </main>
-            <Footer />
-          </div>
-        </WouterRouter>
-        <Toaster />
+        <CartProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow">
+                <Router />
+              </main>
+              <Footer />
+            </div>
+            <CartDrawer />
+          </WouterRouter>
+          <Toaster />
+        </CartProvider>
       </TooltipProvider>
     </QueryClientProvider>
   )

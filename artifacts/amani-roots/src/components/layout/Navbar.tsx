@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "wouter"
+import { ShoppingBag } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useCart } from "@/context/CartContext"
 
 const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { cartCount, openCart } = useCart()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -35,15 +38,33 @@ export function Navbar() {
           : "bg-[#FAFAF8]/92 backdrop-blur-sm border-b border-black/5"
       )}
     >
-      {/* ── Mobile: logo row + links row stacked ── */}
+      {/* ── Mobile: logo row + links row + cart icon stacked ── */}
       <div className="flex flex-col sm:hidden px-4 py-2">
-        <Link href="/" className="flex justify-center" onClick={handleNavClick}>
-          <img
-            src={`${BASE}assets/logo.png`}
-            alt="Amani Roots Oils"
-            className="h-[40px] w-auto object-contain"
-          />
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex-1 flex justify-center" onClick={handleNavClick}>
+            <img
+              src={`${BASE}assets/logo.png`}
+              alt="Amani Roots Oils"
+              className="h-[40px] w-auto object-contain"
+            />
+          </Link>
+          {/* Cart icon — mobile */}
+          <button
+            onClick={openCart}
+            className="relative flex items-center justify-center p-1.5 transition-opacity hover:opacity-70"
+            aria-label={`Open cart${cartCount > 0 ? `, ${cartCount} items` : ""}`}
+          >
+            <ShoppingBag size={18} style={{ color: "var(--forest)" }} />
+            {cartCount > 0 && (
+              <span
+                className="absolute -top-1 -right-1 min-w-[16px] h-4 flex items-center justify-center text-[9px] font-light px-0.5 rounded-full leading-none"
+                style={{ backgroundColor: "var(--gold)", color: "#fff" }}
+              >
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
+          </button>
+        </div>
         <nav>
           <ul className="flex items-center justify-between pt-1 pb-0.5">
             {navLinks.map((link) => (
@@ -94,6 +115,23 @@ export function Navbar() {
             ))}
           </ul>
         </nav>
+
+        {/* Cart icon — desktop */}
+        <button
+          onClick={openCart}
+          className="relative flex-shrink-0 flex items-center justify-center p-2 ml-2 transition-opacity hover:opacity-70"
+          aria-label={`Open cart${cartCount > 0 ? `, ${cartCount} items` : ""}`}
+        >
+          <ShoppingBag size={20} style={{ color: "var(--forest)" }} />
+          {cartCount > 0 && (
+            <span
+              className="absolute -top-0.5 -right-0.5 min-w-[17px] h-[17px] flex items-center justify-center text-[9px] font-light px-0.5 rounded-full leading-none transition-all duration-300"
+              style={{ backgroundColor: "var(--gold)", color: "#fff" }}
+            >
+              {cartCount > 99 ? "99+" : cartCount}
+            </span>
+          )}
+        </button>
       </div>
     </header>
   )
