@@ -4,6 +4,8 @@ import BlogForm from "@/components/blog/BlogForm"
 import BlogFeed from "@/components/blog/BlogFeed"
 import GroupsSidebar from "@/components/groups/GroupsSidebar"
 import AdminCreateGroupModal from "@/components/groups/AdminCreateGroupModal"
+import LoginModal from "@/components/auth/LoginModal"
+import { useAuth } from "@/context/AuthContext"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -13,10 +15,28 @@ const fadeInUp = {
 export default function Groups() {
   const [adminModalOpen, setAdminModalOpen] = useState(false)
   const [composeOpen, setComposeOpen] = useState(false)
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
   const [selectedMedia, setSelectedMedia] = useState<{ file: File; preview: string; type: "image" | "video" | "gif" } | null>(null)
   const pictureInputRef = React.useRef<HTMLInputElement>(null)
   const videoInputRef = React.useRef<HTMLInputElement>(null)
   const gifInputRef = React.useRef<HTMLInputElement>(null)
+  const { user, isConfigured: authConfigured } = useAuth()
+
+  const openCompose = () => {
+    if (authConfigured && !user) {
+      setLoginModalOpen(true)
+    } else {
+      setComposeOpen(true)
+    }
+  }
+
+  // Auto-open compose after successful Google sign-in
+  React.useEffect(() => {
+    if (user && loginModalOpen) {
+      setLoginModalOpen(false)
+      setComposeOpen(true)
+    }
+  }, [user, loginModalOpen])
 
   const handleFileSelect = (file: File | null, mediaType: "image" | "video" | "gif") => {
     if (!file) return
@@ -106,7 +126,7 @@ export default function Groups() {
                     A
                   </div>
                   <button
-                    onClick={() => setComposeOpen(true)}
+                    onClick={openCompose}
                     className="flex-1 text-left text-sm font-bold tracking-wider py-3 px-4 border-2 transition-all hover:shadow-lg"
                     style={{
                       borderColor: "var(--lavender)",
@@ -120,7 +140,7 @@ export default function Groups() {
                     ✨ Share something…
                   </button>
                   <button
-                    onClick={() => setComposeOpen(true)}
+                    onClick={openCompose}
                     className="flex-shrink-0 text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-2 border-2 transition-all hover:shadow-md"
                     style={{
                       borderColor: "var(--gold)",
@@ -131,7 +151,7 @@ export default function Groups() {
                     + Media
                   </button>
                   <button
-                    onClick={() => setComposeOpen(true)}
+                    onClick={openCompose}
                     className="flex-shrink-0 text-[10px] font-light tracking-[0.14em] uppercase px-5 py-2 transition-all hover:opacity-80"
                     style={{ backgroundColor: "var(--forest)", color: "#fff" }}
                   >
@@ -243,7 +263,7 @@ export default function Groups() {
                     </div>
                   )}
 
-                  <BlogForm />
+                  <BlogForm user={user} />
                 </div>
               )}
             </div>
@@ -263,6 +283,17 @@ export default function Groups() {
       {/* Admin Modal */}
       {adminModalOpen && (
         <AdminCreateGroupModal onClose={() => setAdminModalOpen(false)} />
+      )}
+
+      {/* Login Modal */}
+      {loginModalOpen && (
+        <LoginModal
+          onClose={() => {
+            setLoginModalOpen(false)
+            if (user) setComposeOpen(true)
+          }}
+          reason="Sign in to share your hair care journey with the community."
+        />
       )}
     </div>
   )

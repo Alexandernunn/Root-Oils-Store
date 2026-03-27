@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app"
 import { getAnalytics } from "firebase/analytics"
 import { getFirestore } from "firebase/firestore"
+import { getAuth, GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
   apiKey:            import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,9 +15,11 @@ const firebaseConfig = {
 
 const isConfigured = Boolean(firebaseConfig.projectId && firebaseConfig.apiKey && firebaseConfig.appId)
 
-const app = isConfigured
+export const firebaseApp = isConfigured
   ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApp())
   : null
 
-export const analytics = (isConfigured && app) ? getAnalytics(app) : null
-export const db = (isConfigured && app) ? getFirestore(app) : null
+export const analytics = (isConfigured && firebaseApp) ? getAnalytics(firebaseApp) : null
+export const db = (isConfigured && firebaseApp) ? getFirestore(firebaseApp) : null
+export const auth = (isConfigured && firebaseApp) ? getAuth(firebaseApp) : null
+export const googleProvider = isConfigured ? new GoogleAuthProvider() : null

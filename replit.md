@@ -1,5 +1,14 @@
 # Workspace
 
+## Amani Roots — Firebase Auth (Google Sign-In)
+- `artifacts/amani-roots/src/lib/firebase.ts` — exports `auth` and `googleProvider`
+- `artifacts/amani-roots/src/context/AuthContext.tsx` — `AuthProvider` + `useAuth` hook (user, signInWithGoogle, signOut)
+- `artifacts/amani-roots/src/components/auth/LoginModal.tsx` — branded Google sign-in modal
+- Navbar shows Sign In button / user avatar (desktop); clicking avatar signs out
+- Groups page: clicking compose buttons prompts sign-in if not logged in; auto-opens compose after sign-in
+- BlogForm: when signed in, shows user name/photo instead of manual author input; saves uid + photoURL to Firestore
+- **Requires**: Firebase console → Authentication → Enable Google provider + add domain to Authorized Domains
+
 ## Overview
 
 pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.

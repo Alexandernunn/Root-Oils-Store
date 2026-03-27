@@ -3,12 +3,14 @@ import { Link } from "wouter"
 import { ShoppingBag } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/context/CartContext"
+import { useAuth } from "@/context/AuthContext"
 
 const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const { cartCount, openCart } = useCart()
+  const { user, signInWithGoogle, signOut, isConfigured } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -115,6 +117,34 @@ export function Navbar() {
             ))}
           </ul>
         </nav>
+
+        {/* Auth button — desktop */}
+        {isConfigured && (
+          user ? (
+            <button
+              onClick={signOut}
+              className="flex-shrink-0 flex items-center gap-2 transition-opacity hover:opacity-60"
+              title={`Signed in as ${user.displayName}`}
+            >
+              {user.photoURL ? (
+                <img src={user.photoURL} alt={user.displayName ?? ""} className="w-7 h-7 rounded-full" />
+              ) : (
+                <div className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold"
+                  style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}>
+                  {(user.displayName ?? "A")[0]?.toUpperCase()}
+                </div>
+              )}
+            </button>
+          ) : (
+            <button
+              onClick={signInWithGoogle}
+              className="flex-shrink-0 text-[9px] font-light tracking-[0.12em] uppercase px-3 py-1.5 border transition-all hover:opacity-70"
+              style={{ borderColor: "var(--sage)", color: "var(--text)" }}
+            >
+              Sign In
+            </button>
+          )
+        )}
 
         {/* Cart icon — desktop */}
         <button

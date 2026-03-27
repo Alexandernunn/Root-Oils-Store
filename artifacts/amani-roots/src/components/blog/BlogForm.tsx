@@ -1,19 +1,26 @@
 import React, { useState } from "react"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { db } from "@/lib/firebase"
+import { type User } from "firebase/auth"
 
-export default function BlogForm() {
-  const [authorName, setAuthorName] = useState("")
+interface BlogFormProps {
+  user?: User | null
+}
+
+export default function BlogForm({ user }: BlogFormProps) {
   const [body, setBody] = useState("")
+  const [manualName, setManualName] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
+
+  const authorName = user?.displayName ?? manualName
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!authorName.trim() || !body.trim()) return
     if (!db) {
-      setError("Blog is not configured yet.")
+      console.error("Firestore not configured")
       return
     }
 
@@ -24,14 +31,15 @@ export default function BlogForm() {
         authorName: authorName.trim(),
         body: body.trim(),
         createdAt: serverTimestamp(),
+        uid: user?.uid ?? null,
+        photoURL: user?.photoURL ?? null,
       })
-      setAuthorName("")
       setBody("")
+      setManualName("")
       setSuccess(true)
       setTimeout(() => setSuccess(false), 4000)
     } catch (err) {
-      setError("Something went wrong. Please try again.")
-      console.error(err)
+      console.error("Error posting:", err)
     } finally {
       setSubmitting(false)
     }
@@ -39,27 +47,46 @@ export default function BlogForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-[680px] mx-auto">
-      <div className="mb-6">
-        <label
-          htmlFor="authorName"
-          className="block text-[10px] font-bold tracking-[0.15em] uppercase mb-3"
-          style={{ color: "var(--lavender-deep)", letterSpacing: "0.08em" }}
-        >
-          Author Name
-        </label>
-        <input
-          id="authorName"
-          type="text"
-          value={authorName}
-          onChange={e => setAuthorName(e.target.value)}
-          placeholder="Your name"
-          required
-          className="w-full bg-transparent border-2 border-b px-3 py-3 text-sm font-light tracking-wide outline-none transition-colors placeholder:text-text-muted/50"
-          style={{ borderColor: "var(--lavender)", color: "var(--text)" }}
-          onFocus={(e) => e.target.style.borderColor = "var(--forest)"}
-          onBlur={(e) => e.target.style.borderColor = "var(--lavender)"}
-        />
-      </div>
+      {/* Author — auto-filled when signed in */}
+      {user ? (
+        <div className="flex items-center gap-3 mb-6 px-3 py-2.5 border-2" style={{ borderColor: "var(--lavender)" }}>
+          {user.photoURL ? (
+            <img src={user.photoURL} alt={user.displayName ?? ""} className="w-8 h-8 rounded-full flex-shrink-0" />
+          ) : (
+            <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold"
+              style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}>
+              {(user.displayName ?? "A")[0]?.toUpperCase()}
+            </div>
+          )}
+          <p className="text-sm font-light" style={{ color: "var(--text)" }}>{user.displayName}</p>
+          <span className="ml-auto text-[9px] font-light tracking-[0.12em] uppercase px-2 py-0.5"
+            style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}>
+            Signed In
+          </span>
+        </div>
+      ) : (
+        <div className="mb-6">
+          <label
+            htmlFor="authorName"
+            className="block text-[10px] font-bold tracking-[0.15em] uppercase mb-3"
+            style={{ color: "var(--lavender-deep)", letterSpacing: "0.08em" }}
+          >
+            Author Name
+          </label>
+          <input
+            id="authorName"
+            type="text"
+            value={manualName}
+            onChange={e => setManualName(e.target.value)}
+            placeholder="Your name"
+            required
+            className="w-full bg-transparent border-2 border-b px-3 py-3 text-sm font-light tracking-wide outline-none transition-colors placeholder:text-text-muted/50"
+            style={{ borderColor: "var(--lavender)", color: "var(--text)" }}
+            onFocus={(e) => e.target.style.borderColor = "var(--forest)"}
+            onBlur={(e) => e.target.style.borderColor = "var(--lavender)"}
+          />
+        </div>
+      )}
 
       <div className="mb-8">
         <label
@@ -93,17 +120,12 @@ export default function BlogForm() {
       </button>
 
       {success && (
-        <p
-          className="mt-4 text-xs font-light tracking-wide"
-          style={{ color: "var(--sage)" }}
-        >
+        <p className="mt-4 text-xs font-light tracking-wide" style={{ color: "var(--sage)" }}>
           Your post has been shared with the community.
         </p>
       )}
       {error && (
-        <p className="mt-4 text-xs font-light tracking-wide text-red-400">
-          {error}
-        </p>
+        <p className="mt-4 text-xs font-light tracking-wide text-red-400">{error}</p>
       )}
     </form>
   )
