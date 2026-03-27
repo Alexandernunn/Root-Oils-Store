@@ -1,6 +1,7 @@
 [build]
   command   = "pnpm --filter @workspace/amani-roots run build"
   publish   = "artifacts/amani-roots/dist"
+  functions = "artifacts/amani-roots/netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -8,3 +9,15 @@
   # Tell Netlify's scanner to skip these keys so the build doesn't fail.
   SECRETS_SCAN_OMIT_KEYS = "VITE_FIREBASE_API_KEY,VITE_FIREBASE_APP_ID,VITE_FIREBASE_AUTH_DOMAIN,VITE_FIREBASE_MEASUREMENT_ID,VITE_FIREBASE_MESSAGING_SENDER_ID,VITE_FIREBASE_PROJECT_ID,VITE_FIREBASE_STORAGE_BUCKET"
   SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+
+# Rewrite /api/checkout → Netlify serverless function (cart code unchanged)
+[[redirects]]
+  from   = "/api/checkout"
+  to     = "/.netlify/functions/checkout"
+  status = 200
+
+# SPA fallback — all other routes serve index.html
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
