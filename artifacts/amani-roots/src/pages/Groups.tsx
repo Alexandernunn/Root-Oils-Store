@@ -100,7 +100,7 @@ export default function Groups() {
                 </div>
               ) : (
                 <div>
-                  <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center justify-between mb-6">
                     <p
                       className="text-[9px] font-light tracking-[0.18em] uppercase"
                       style={{ color: "var(--sage)" }}
@@ -115,6 +115,32 @@ export default function Groups() {
                       Cancel
                     </button>
                   </div>
+
+                  {/* Media Upload Buttons */}
+                  <div className="flex gap-3 mb-6">
+                    <button
+                      type="button"
+                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-80"
+                      style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                    >
+                      <span>🖼️</span> Picture
+                    </button>
+                    <button
+                      type="button"
+                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-80"
+                      style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                    >
+                      <span>🎥</span> Video
+                    </button>
+                    <button
+                      type="button"
+                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-80"
+                      style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                    >
+                      <span>🎬</span> GIF
+                    </button>
+                  </div>
+
                   <BlogForm />
                 </div>
               )}
