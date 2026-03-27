@@ -69,6 +69,21 @@ const stagger = {
 
 export default function Shop() {
   const { addToCart } = useCart()
+  const [selectedProduct, setSelectedProduct] = React.useState<typeof products[0] | null>(null)
+
+  const handleAddToCart = (product: typeof products[0]) => {
+    try {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        priceId: product.priceId,
+        image: product.image,
+      })
+    } catch (err) {
+      console.error("Error adding to cart:", err)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-bg text-text">
@@ -118,11 +133,9 @@ export default function Shop() {
                 variants={fadeInUp}
                 className="group flex flex-col"
               >
-                <a
-                  href={product.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block relative overflow-hidden bg-bg-cream mb-5"
+                <div
+                  onClick={() => setSelectedProduct(product)}
+                  className="block relative overflow-hidden bg-bg-cream mb-5 cursor-pointer"
                   style={{ boxShadow: 'var(--shadow-green)' }}
                 >
                   {product.badge && (
@@ -144,7 +157,7 @@ export default function Shop() {
                       loading="lazy"
                     />
                   </div>
-                </a>
+                </div>
 
                 <div className="flex flex-col flex-grow">
                   <h3 className="font-heading text-xl md:text-2xl font-light tracking-wide leading-snug mb-2" style={{ color: 'var(--text)' }}>
@@ -158,13 +171,7 @@ export default function Shop() {
                       ${product.price.toFixed(2)}
                     </span>
                     <button
-                      onClick={() => addToCart({
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        priceId: product.priceId,
-                        image: product.image,
-                      })}
+                      onClick={() => handleAddToCart(product)}
                       className="text-[10px] uppercase tracking-[0.15em] font-light px-4 py-2 transition-all duration-300 hover:opacity-80 cursor-pointer"
                       style={{ backgroundColor: 'var(--forest)', color: '#fff' }}
                     >
@@ -197,6 +204,87 @@ export default function Shop() {
           </motion.div>
         </div>
       </section>
+
+      {/* Product Modal */}
+      {selectedProduct && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(26,23,20,0.5)" }}
+          onClick={() => setSelectedProduct(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-2xl overflow-hidden"
+            style={{ backgroundColor: "var(--bg)", boxShadow: "var(--shadow-green-lg)" }}
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedProduct(null)}
+              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center text-lg font-light transition-opacity hover:opacity-60"
+              style={{ color: "var(--text-muted)" }}
+            >
+              ✕
+            </button>
+
+            {/* Image Section */}
+            <div
+              className="w-full overflow-hidden"
+              style={{ aspectRatio: "1/1", backgroundColor: "var(--bg-cream)" }}
+            >
+              <img
+                src={selectedProduct.image}
+                alt={selectedProduct.name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+
+            {/* Info Section */}
+            <div className="p-8">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h2 className="font-heading text-3xl font-light tracking-wide mb-2" style={{ color: "var(--text)" }}>
+                    {selectedProduct.name}
+                  </h2>
+                  {selectedProduct.badge && (
+                    <span
+                      className="inline-block text-[9px] uppercase tracking-[0.15em] font-light px-2 py-1"
+                      style={{
+                        backgroundColor: selectedProduct.badge === "Sale" ? "var(--gold)" : "var(--mint)",
+                        color: selectedProduct.badge === "Sale" ? "#fff" : "var(--forest)",
+                      }}
+                    >
+                      {selectedProduct.badge}
+                    </span>
+                  )}
+                </div>
+                <span className="font-body font-light text-xl tracking-wide" style={{ color: "var(--forest)" }}>
+                  ${selectedProduct.price.toFixed(2)}
+                </span>
+              </div>
+
+              <p className="text-sm font-light leading-[1.9] tracking-wide mb-8" style={{ color: "var(--text-muted)" }}>
+                {selectedProduct.description}
+              </p>
+
+              <button
+                onClick={() => {
+                  handleAddToCart(selectedProduct)
+                  setSelectedProduct(null)
+                }}
+                className="w-full text-sm font-light tracking-[0.15em] uppercase py-3 transition-all duration-300 hover:opacity-80"
+                style={{ backgroundColor: "var(--forest)", color: "#fff" }}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   )
 }
