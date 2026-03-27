@@ -253,12 +253,12 @@ export default function Groups() {
 function GroupFeedWrapper() {
   return (
     <div>
-      <p
-        className="text-[9px] font-light tracking-[0.18em] uppercase mb-6"
-        style={{ color: "var(--sage)" }}
+      <h3
+        className="text-lg font-bold tracking-[0.08em] uppercase mb-6"
+        style={{ color: "var(--lavender-deep)" }}
       >
-        — Community Posts
-      </p>
+        🌱 Community Posts
+      </h3>
       <BlogFeed />
     </div>
   )

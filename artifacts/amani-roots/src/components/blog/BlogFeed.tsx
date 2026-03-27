@@ -32,10 +32,10 @@ function getInitials(name: string): string {
 }
 
 const AVATAR_COLORS = [
-  { bg: "#D6E8DC", fg: "#2F5F48" },
-  { bg: "#EDE8F5", fg: "#6B4E9A" },
-  { bg: "#F7F0E3", fg: "#C9A96E" },
-  { bg: "#EEF4F0", fg: "#7A9E87" },
+  { bg: "linear-gradient(135deg, #D6E8DC, #b8d8c4)", fg: "#2F5F48", border: "#7A9E87" },
+  { bg: "linear-gradient(135deg, #EDE8F5, #d8ccf0)", fg: "#6B4E9A", border: "#9B72C8" },
+  { bg: "linear-gradient(135deg, #F7F0E3, #eedfc0)", fg: "#C9A96E", border: "#C9A96E" },
+  { bg: "linear-gradient(135deg, #EEF4F0, #d6e8dc)", fg: "#7A9E87", border: "#7A9E87" },
 ]
 
 function avatarColor(name: string) {
@@ -96,34 +96,39 @@ export default function BlogFeed() {
   }
 
   return (
-    <div className="flex flex-col gap-0">
+    <div className="flex flex-col gap-4">
       {posts.map(post => {
         const colors = avatarColor(post.authorName)
         const initials = getInitials(post.authorName)
         return (
           <article
             key={post.id}
-            className="border-b py-5"
-            style={{ borderColor: "var(--border)" }}
+            className="border-l-[3px] border border-b p-5 transition-shadow hover:shadow-md"
+            style={{
+              borderLeftColor: "var(--forest)",
+              borderColor: "var(--sage)",
+              borderLeftWidth: "3px",
+              background: "linear-gradient(135deg, var(--bg-mist, #f4f8f5) 0%, rgba(155,114,200,0.04) 100%)",
+            }}
           >
             {/* Header row: avatar + author + timestamp */}
-            <div className="flex items-start gap-3 mb-3">
+            <div className="flex items-start gap-3 mb-4">
               <div
-                className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-light"
-                style={{ backgroundColor: colors.bg, color: colors.fg }}
+                className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold border-2"
+                style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
               >
                 {initials || "A"}
               </div>
               <div className="flex-1 min-w-0">
                 <p
-                  className="font-heading text-sm font-light tracking-wide leading-tight"
-                  style={{ color: "var(--text)" }}
+                  className="font-heading text-sm font-bold tracking-wide leading-tight"
+                  style={{ color: "var(--lavender-deep)" }}
                 >
                   {post.authorName}
                 </p>
                 <p
-                  className="text-[10px] font-light tracking-[0.08em]"
-                  style={{ color: "var(--text-muted)" }}
+                  className="text-[10px] font-light tracking-[0.1em] uppercase mt-0.5"
+                  style={{ color: "var(--gold)" }}
                 >
                   {formatDate(post.createdAt)}
                 </p>
@@ -132,39 +137,39 @@ export default function BlogFeed() {
 
             {/* Body */}
             <p
-              className="text-sm font-light leading-[1.85] tracking-wide whitespace-pre-wrap mb-4 pl-12"
-              style={{ color: "var(--text-muted)" }}
+              className="text-sm font-light leading-[1.9] tracking-wide whitespace-pre-wrap mb-5 pl-13"
+              style={{ color: "var(--text)", paddingLeft: "52px" }}
             >
               {post.body}
             </p>
 
             {/* Footer: likes / comments / views placeholders */}
-            <div className="flex items-center gap-5 pl-12">
+            <div className="flex items-center gap-5" style={{ paddingLeft: "52px" }}>
               <button
-                className="flex items-center gap-1.5 group"
+                className="flex items-center gap-1.5 group transition-all hover:scale-105"
                 aria-label="Like"
               >
                 <Heart
-                  size={13}
-                  className="transition-colors group-hover:text-red-400"
-                  style={{ color: "var(--text-muted)" }}
+                  size={14}
+                  className="transition-colors group-hover:fill-current"
+                  style={{ color: "var(--lavender)" }}
                 />
-                <span className="text-[10px] font-light" style={{ color: "var(--text-muted)" }}>0</span>
+                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--lavender-deep)" }}>0</span>
               </button>
               <button
-                className="flex items-center gap-1.5 group"
+                className="flex items-center gap-1.5 group transition-all hover:scale-105"
                 aria-label="Comments"
               >
                 <MessageCircle
-                  size={13}
+                  size={14}
                   className="transition-colors"
-                  style={{ color: "var(--text-muted)" }}
+                  style={{ color: "var(--forest)" }}
                 />
-                <span className="text-[10px] font-light" style={{ color: "var(--text-muted)" }}>0 Comments</span>
+                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--forest)" }}>0 Comments</span>
               </button>
               <div className="flex items-center gap-1.5 ml-auto">
-                <Eye size={13} style={{ color: "var(--text-muted)" }} />
-                <span className="text-[10px] font-light" style={{ color: "var(--text-muted)" }}>0 Views</span>
+                <Eye size={14} style={{ color: "var(--gold)" }} />
+                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--gold)" }}>0 Views</span>
               </div>
             </div>
           </article>
