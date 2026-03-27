@@ -85,6 +85,16 @@ export default function Shop() {
     }
   }
 
+  // Close modal on scroll
+  React.useEffect(() => {
+    if (!selectedProduct) return
+    const handleScroll = () => {
+      setSelectedProduct(null)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [selectedProduct])
+
   return (
     <div className="min-h-screen bg-bg text-text">
 
