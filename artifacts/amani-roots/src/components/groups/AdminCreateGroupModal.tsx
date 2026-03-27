@@ -17,7 +17,9 @@ export default function AdminCreateGroupModal({ onClose }: Props) {
 
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
+  const [mediaType, setMediaType] = useState<"image" | "video">("image")
   const [coverImage, setCoverImage] = useState("")
+  const [coverVideo, setCoverVideo] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [formError, setFormError] = useState("")
 
@@ -47,10 +49,24 @@ export default function AdminCreateGroupModal({ onClose }: Props) {
   async function handleGroupSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!name.trim()) return
+    if (mediaType === "image" && !coverImage.trim()) {
+      setFormError("Please provide an image URL.")
+      return
+    }
+    if (mediaType === "video" && !coverVideo.trim()) {
+      setFormError("Please provide a video URL.")
+      return
+    }
     setSubmitting(true)
     setFormError("")
     try {
-      await createGroup({ name, description, coverImage })
+      await createGroup({
+        name,
+        description,
+        coverImage: mediaType === "image" ? coverImage : undefined,
+        coverVideo: mediaType === "video" ? coverVideo : undefined,
+        mediaType,
+      })
       onClose()
     } catch {
       setFormError("Failed to create group. Please try again.")
@@ -170,19 +186,78 @@ export default function AdminCreateGroupModal({ onClose }: Props) {
               />
             </div>
 
+            {/* Media Type Selector */}
             <div className="mb-6">
-              <label className="block text-[9px] font-light tracking-[0.18em] uppercase mb-2" style={{ color: "var(--sage)" }}>
-                Cover Image URL
+              <label className="block text-[9px] font-light tracking-[0.18em] uppercase mb-3" style={{ color: "var(--sage)" }}>
+                Cover Media Type
               </label>
-              <input
-                type="url"
-                value={coverImage}
-                onChange={e => setCoverImage(e.target.value)}
-                placeholder="https://..."
-                className="w-full bg-transparent border-b px-0 py-2 text-sm font-light tracking-wide outline-none placeholder:opacity-40"
-                style={{ borderColor: "var(--border)", color: "var(--text)" }}
-              />
+              <div className="flex gap-3 mb-5">
+                <button
+                  type="button"
+                  onClick={() => setMediaType("image")}
+                  className="flex-1 py-2 px-3 text-[9px] font-light tracking-[0.12em] uppercase border transition-all"
+                  style={{
+                    borderColor: mediaType === "image" ? "var(--forest)" : "var(--border)",
+                    color: mediaType === "image" ? "var(--forest)" : "var(--text-muted)",
+                    backgroundColor: mediaType === "image" ? "rgba(47,95,72,0.08)" : "transparent",
+                  }}
+                >
+                  📷 Image
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMediaType("video")}
+                  className="flex-1 py-2 px-3 text-[9px] font-light tracking-[0.12em] uppercase border transition-all"
+                  style={{
+                    borderColor: mediaType === "video" ? "var(--forest)" : "var(--border)",
+                    color: mediaType === "video" ? "var(--forest)" : "var(--text-muted)",
+                    backgroundColor: mediaType === "video" ? "rgba(47,95,72,0.08)" : "transparent",
+                  }}
+                >
+                  🎬 Video
+                </button>
+              </div>
             </div>
+
+            {/* Image Input */}
+            {mediaType === "image" && (
+              <div className="mb-6">
+                <label className="block text-[9px] font-light tracking-[0.18em] uppercase mb-2" style={{ color: "var(--sage)" }}>
+                  Cover Image URL *
+                </label>
+                <input
+                  type="url"
+                  value={coverImage}
+                  onChange={e => setCoverImage(e.target.value)}
+                  placeholder="https://..."
+                  className="w-full bg-transparent border-b px-0 py-2 text-sm font-light tracking-wide outline-none placeholder:opacity-40 mb-2"
+                  style={{ borderColor: "var(--border)", color: "var(--text)" }}
+                />
+                <p className="text-[9px] font-light leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  Recommended: JPG or PNG, max 500KB, 800×600px for fast loading
+                </p>
+              </div>
+            )}
+
+            {/* Video Input */}
+            {mediaType === "video" && (
+              <div className="mb-6">
+                <label className="block text-[9px] font-light tracking-[0.18em] uppercase mb-2" style={{ color: "var(--sage)" }}>
+                  Cover Video URL *
+                </label>
+                <input
+                  type="url"
+                  value={coverVideo}
+                  onChange={e => setCoverVideo(e.target.value)}
+                  placeholder="https://..."
+                  className="w-full bg-transparent border-b px-0 py-2 text-sm font-light tracking-wide outline-none placeholder:opacity-40 mb-2"
+                  style={{ borderColor: "var(--border)", color: "var(--text)" }}
+                />
+                <p className="text-[9px] font-light leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  Recommended: MP4 format, max 2MB, under 30 seconds, 800×600px for optimal performance
+                </p>
+              </div>
+            )}
 
             {formError && (
               <p className="text-xs font-light mb-4" style={{ color: "#c0392b" }}>

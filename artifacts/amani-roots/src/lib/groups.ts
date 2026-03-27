@@ -18,7 +18,9 @@ export interface Group {
   id: string
   name: string
   description: string
-  coverImage: string
+  coverImage?: string
+  coverVideo?: string
+  mediaType: "image" | "video"
   memberCount: number
   createdAt: Timestamp | null
 }
@@ -45,16 +47,21 @@ export function subscribeGroups(
 export async function createGroup(data: {
   name: string
   description: string
-  coverImage: string
+  coverImage?: string
+  coverVideo?: string
+  mediaType: "image" | "video"
 }): Promise<void> {
   if (!db) throw new Error("Firebase is not configured.")
-  await addDoc(collection(db, "groups"), {
+  const groupData: Record<string, unknown> = {
     name: data.name.trim(),
     description: data.description.trim(),
-    coverImage: data.coverImage.trim(),
+    mediaType: data.mediaType,
     memberCount: 0,
     createdAt: serverTimestamp(),
-  })
+  }
+  if (data.coverImage) groupData.coverImage = data.coverImage.trim()
+  if (data.coverVideo) groupData.coverVideo = data.coverVideo.trim()
+  await addDoc(collection(db, "groups"), groupData)
 }
 
 export async function incrementMemberCount(groupId: string): Promise<void> {

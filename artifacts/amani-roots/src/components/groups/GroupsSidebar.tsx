@@ -124,17 +124,30 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
           <ul className="flex flex-col gap-4">
             {filtered.map(group => (
               <li key={group.id}>
-                {/* Cover image */}
-                {group.coverImage && (
+                {/* Cover media */}
+                {group.mediaType === "image" && group.coverImage && (
                   <div className="w-full h-28 overflow-hidden mb-3">
                     <img
                       src={group.coverImage}
                       alt={group.name}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </div>
                 )}
-                {!group.coverImage && (
+                {group.mediaType === "video" && group.coverVideo && (
+                  <div className="w-full h-28 overflow-hidden mb-3">
+                    <video
+                      src={group.coverVideo}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  </div>
+                )}
+                {!group.coverImage && !group.coverVideo && (
                   <div
                     className="w-full h-16 mb-3 flex items-center justify-center"
                     style={{ backgroundColor: "var(--mint)" }}
