@@ -43,7 +43,11 @@ function avatarColor(name: string) {
   return AVATAR_COLORS[idx] ?? AVATAR_COLORS[0]!
 }
 
-export default function BlogFeed() {
+interface BlogFeedProps {
+  searchQuery?: string
+}
+
+export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
 
@@ -64,6 +68,14 @@ export default function BlogFeed() {
     })
     return () => unsub()
   }, [])
+
+  const filteredPosts = posts.filter(post => {
+    const query = searchQuery.toLowerCase()
+    return (
+      post.authorName.toLowerCase().includes(query) ||
+      post.body.toLowerCase().includes(query)
+    )
+  })
 
   if (!db) {
     return (
@@ -95,9 +107,19 @@ export default function BlogFeed() {
     )
   }
 
+  if (filteredPosts.length === 0 && searchQuery) {
+    return (
+      <div className="pt-2">
+        <p className="text-xs font-light italic" style={{ color: "var(--text-muted)" }}>
+          No posts matching "{searchQuery}".
+        </p>
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-col gap-4">
-      {posts.map(post => {
+      {filteredPosts.map(post => {
         const colors = avatarColor(post.authorName)
         const initials = getInitials(post.authorName)
         return (

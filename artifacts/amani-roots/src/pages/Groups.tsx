@@ -262,15 +262,32 @@ export default function Groups() {
 }
 
 function GroupFeedWrapper() {
+  const [searchQuery, setSearchQuery] = useState("")
+
   return (
     <div>
-      <h3
-        className="text-lg font-bold tracking-[0.08em] uppercase mb-6"
-        style={{ color: "var(--lavender-deep)" }}
-      >
-        🌱 Community Posts
-      </h3>
-      <BlogFeed />
+      <div className="flex items-center justify-between mb-6 gap-4">
+        <h3
+          className="text-lg font-bold tracking-[0.08em] uppercase"
+          style={{ color: "var(--lavender-deep)" }}
+        >
+          🌱 Community Posts
+        </h3>
+        <input
+          type="text"
+          placeholder="Search posts…"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-1 max-w-xs text-sm font-light tracking-wide px-4 py-2 border-2 bg-transparent outline-none transition-colors"
+          style={{
+            borderColor: searchQuery ? "var(--lavender)" : "var(--sage)",
+            color: "var(--text)",
+          }}
+          onFocus={(e) => e.target.style.borderColor = "var(--lavender)"}
+          onBlur={(e) => e.target.style.borderColor = searchQuery ? "var(--lavender)" : "var(--sage)"}
+        />
+      </div>
+      <BlogFeed searchQuery={searchQuery} />
     </div>
   )
 }
