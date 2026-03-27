@@ -39,11 +39,11 @@ export default function BlogForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-[680px] mx-auto">
-      <div className="mb-5">
+      <div className="mb-6">
         <label
           htmlFor="authorName"
-          className="block text-[9px] font-light tracking-[0.18em] uppercase mb-2"
-          style={{ color: "var(--sage)" }}
+          className="block text-[10px] font-bold tracking-[0.15em] uppercase mb-3"
+          style={{ color: "var(--lavender-deep)", letterSpacing: "0.08em" }}
         >
           Author Name
         </label>
@@ -54,16 +54,18 @@ export default function BlogForm() {
           onChange={e => setAuthorName(e.target.value)}
           placeholder="Your name"
           required
-          className="w-full bg-transparent border-b px-0 py-2 text-sm font-light tracking-wide outline-none transition-colors placeholder:text-text-muted/50 focus:border-[var(--sage)]"
-          style={{ borderColor: "var(--border)", color: "var(--text)" }}
+          className="w-full bg-transparent border-2 border-b px-3 py-3 text-sm font-light tracking-wide outline-none transition-colors placeholder:text-text-muted/50"
+          style={{ borderColor: "var(--lavender)", color: "var(--text)" }}
+          onFocus={(e) => e.target.style.borderColor = "var(--forest)"}
+          onBlur={(e) => e.target.style.borderColor = "var(--lavender)"}
         />
       </div>
 
-      <div className="mb-7">
+      <div className="mb-8">
         <label
           htmlFor="body"
-          className="block text-[9px] font-light tracking-[0.18em] uppercase mb-2"
-          style={{ color: "var(--sage)" }}
+          className="block text-[10px] font-bold tracking-[0.15em] uppercase mb-3"
+          style={{ color: "var(--lavender-deep)", letterSpacing: "0.08em" }}
         >
           Post
         </label>
@@ -74,18 +76,20 @@ export default function BlogForm() {
           placeholder="Share your hair care journey, tips, or thoughts…"
           required
           rows={5}
-          className="w-full bg-transparent border px-4 py-3 text-sm font-light leading-[1.8] tracking-wide outline-none resize-none transition-colors placeholder:text-text-muted/50 focus:border-[var(--sage)]"
-          style={{ borderColor: "var(--border)", color: "var(--text)" }}
+          className="w-full bg-transparent border-2 px-4 py-3 text-sm font-light leading-[1.8] tracking-wide outline-none resize-none transition-colors placeholder:text-text-muted/50"
+          style={{ borderColor: "var(--lavender)", color: "var(--text)" }}
+          onFocus={(e) => e.target.style.borderColor = "var(--forest)"}
+          onBlur={(e) => e.target.style.borderColor = "var(--lavender)"}
         />
       </div>
 
       <button
         type="submit"
         disabled={submitting}
-        className="text-xs font-body font-light tracking-[0.15em] uppercase px-10 py-3.5 transition-all duration-300 hover:opacity-80 disabled:opacity-50"
+        className="text-xs font-bold tracking-[0.15em] uppercase px-10 py-3.5 transition-all duration-300 hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:hover:shadow-none disabled:hover:scale-100"
         style={{ backgroundColor: "var(--forest)", color: "#fff" }}
       >
-        {submitting ? "Posting…" : "Share Post →"}
+        {submitting ? "Posting…" : "✨ Share Post →"}
       </button>
 
       {success && (

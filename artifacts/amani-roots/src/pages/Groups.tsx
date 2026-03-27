@@ -122,50 +122,50 @@ export default function Groups() {
                 </div>
               ) : (
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <p
-                      className="text-[9px] font-light tracking-[0.18em] uppercase"
-                      style={{ color: "var(--sage)" }}
+                  <div className="flex items-center justify-between mb-8">
+                    <h3
+                      className="text-lg font-bold tracking-[0.15em] uppercase"
+                      style={{ color: "var(--lavender-deep)", letterSpacing: "0.08em" }}
                     >
-                      — Share Your Story
-                    </p>
+                      🌿 Share Your Story
+                    </h3>
                     <button
                       onClick={() => setComposeOpen(false)}
-                      className="text-[9px] font-light tracking-wide uppercase hover:opacity-60"
+                      className="text-xs font-light tracking-wide uppercase hover:opacity-60 transition-opacity"
                       style={{ color: "var(--text-muted)" }}
                     >
                       Cancel
                     </button>
                   </div>
 
-                  {/* Media Upload Buttons */}
-                  <div className="grid grid-cols-3 gap-3 mb-6">
+                  {/* Media Upload Buttons - Toggle Style */}
+                  <div className="grid grid-cols-3 gap-2 mb-8">
                     <button
                       type="button"
                       onClick={() => pictureInputRef.current?.click()}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-2 border text-[9px] sm:text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85 active:opacity-70"
-                      style={{ borderColor: "var(--mint)", backgroundColor: "rgba(214, 232, 220, 0.25)", color: "var(--forest)" }}
+                      className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
+                      style={{ borderColor: "var(--lavender)", backgroundColor: "linear-gradient(135deg, rgba(155, 114, 200, 0.15), rgba(155, 114, 200, 0.08))", color: "var(--lavender-deep)" }}
                     >
-                      <span>🖼️</span>
-                      <span className="hidden sm:inline">Picture</span>
+                      <span className="text-2xl">🖼️</span>
+                      <span>Picture</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => videoInputRef.current?.click()}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-2 border text-[9px] sm:text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85 active:opacity-70"
-                      style={{ borderColor: "var(--sage)", backgroundColor: "rgba(122, 158, 135, 0.15)", color: "var(--forest)" }}
+                      className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
+                      style={{ borderColor: "var(--forest)", backgroundColor: "linear-gradient(135deg, rgba(47, 95, 72, 0.12), rgba(47, 95, 72, 0.06))", color: "var(--forest)" }}
                     >
-                      <span>🎥</span>
-                      <span className="hidden sm:inline">Video</span>
+                      <span className="text-2xl">🎥</span>
+                      <span>Video</span>
                     </button>
                     <button
                       type="button"
                       onClick={() => gifInputRef.current?.click()}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-2 border text-[9px] sm:text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85 active:opacity-70"
-                      style={{ borderColor: "var(--lavender)", backgroundColor: "rgba(155, 114, 200, 0.12)", color: "var(--lavender-deep)" }}
+                      className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
+                      style={{ borderColor: "var(--gold)", backgroundColor: "linear-gradient(135deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.06))", color: "var(--gold)" }}
                     >
-                      <span>🎬</span>
-                      <span className="hidden sm:inline">GIF</span>
+                      <span className="text-2xl">🎬</span>
+                      <span>GIF</span>
                     </button>
 
                     {/* Hidden File Inputs */}
