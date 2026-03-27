@@ -100,14 +100,17 @@ export default function Groups() {
                   </div>
                   <button
                     onClick={() => setComposeOpen(true)}
-                    className="flex-1 text-left text-sm font-light tracking-wide py-2 px-3 border transition-colors"
+                    className="flex-1 text-left text-sm font-bold tracking-wider py-3 px-4 border-2 transition-all hover:shadow-lg"
                     style={{
-                      borderColor: "var(--border)",
-                      color: "var(--text-muted)",
-                      backgroundColor: "transparent",
+                      borderColor: "var(--lavender)",
+                      color: "var(--lavender-deep)",
+                      backgroundColor: "linear-gradient(135deg, rgba(155, 114, 200, 0.12) 0%, rgba(47, 95, 72, 0.1) 100%)",
+                      background: "linear-gradient(135deg, rgba(155, 114, 200, 0.12) 0%, rgba(47, 95, 72, 0.1) 100%)",
+                      fontWeight: "600",
+                      letterSpacing: "0.02em",
                     }}
                   >
-                    Share something…
+                    ✨ Share something…
                   </button>
                   <button
                     onClick={() => setComposeOpen(true)}
