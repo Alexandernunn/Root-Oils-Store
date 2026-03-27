@@ -13,6 +13,19 @@ const fadeInUp = {
 export default function Groups() {
   const [adminModalOpen, setAdminModalOpen] = useState(false)
   const [composeOpen, setComposeOpen] = useState(false)
+  const pictureInputRef = React.useRef<HTMLInputElement>(null)
+  const videoInputRef = React.useRef<HTMLInputElement>(null)
+  const gifInputRef = React.useRef<HTMLInputElement>(null)
+
+  const handleFileSelect = (file: File | null) => {
+    if (!file) return
+    const maxSize = file.type.startsWith("video") ? 5 * 1024 * 1024 : 2 * 1024 * 1024
+    if (file.size > maxSize) {
+      alert(`File too large. Max ${file.type.startsWith("video") ? "5MB" : "2MB"}`)
+      return
+    }
+    console.log("File selected:", file.name, file.type)
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "var(--bg)" }}>
@@ -117,28 +130,57 @@ export default function Groups() {
                   </div>
 
                   {/* Media Upload Buttons */}
-                  <div className="flex gap-3 mb-6">
+                  <div className="grid grid-cols-3 gap-3 mb-6">
                     <button
                       type="button"
-                      className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85"
+                      onClick={() => pictureInputRef.current?.click()}
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-2 border text-[9px] sm:text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85 active:opacity-70"
                       style={{ borderColor: "var(--mint)", backgroundColor: "rgba(214, 232, 220, 0.25)", color: "var(--forest)" }}
                     >
-                      <span>🖼️</span> Picture
+                      <span>🖼️</span>
+                      <span className="hidden sm:inline">Picture</span>
                     </button>
                     <button
                       type="button"
-                      className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85"
+                      onClick={() => videoInputRef.current?.click()}
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-2 border text-[9px] sm:text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85 active:opacity-70"
                       style={{ borderColor: "var(--sage)", backgroundColor: "rgba(122, 158, 135, 0.15)", color: "var(--forest)" }}
                     >
-                      <span>🎥</span> Video
+                      <span>🎥</span>
+                      <span className="hidden sm:inline">Video</span>
                     </button>
                     <button
                       type="button"
-                      className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85"
+                      onClick={() => gifInputRef.current?.click()}
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-2 border text-[9px] sm:text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85 active:opacity-70"
                       style={{ borderColor: "var(--lavender)", backgroundColor: "rgba(155, 114, 200, 0.12)", color: "var(--lavender-deep)" }}
                     >
-                      <span>🎬</span> GIF
+                      <span>🎬</span>
+                      <span className="hidden sm:inline">GIF</span>
                     </button>
+
+                    {/* Hidden File Inputs */}
+                    <input
+                      ref={pictureInputRef}
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null)}
+                    />
+                    <input
+                      ref={videoInputRef}
+                      type="file"
+                      accept="video/*"
+                      style={{ display: "none" }}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null)}
+                    />
+                    <input
+                      ref={gifInputRef}
+                      type="file"
+                      accept=".gif,image/gif"
+                      style={{ display: "none" }}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null)}
+                    />
                   </div>
 
                   <BlogForm />
