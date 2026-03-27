@@ -42,6 +42,13 @@ export default function Groups() {
         style={{ backgroundColor: "var(--bg-lavender)" }}
       >
         <div className="max-w-[1200px] mx-auto px-6 md:px-10 py-10 md:py-14">
+          <button
+            onClick={() => window.history.back()}
+            className="inline-flex items-center gap-2 text-xs font-light tracking-[0.1em] uppercase mb-6 transition-opacity hover:opacity-60"
+            style={{ color: "var(--sage)" }}
+          >
+            ← Back
+          </button>
           <motion.div
             initial="hidden"
             animate="visible"
