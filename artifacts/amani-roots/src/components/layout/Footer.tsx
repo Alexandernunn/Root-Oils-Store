@@ -14,20 +14,9 @@ export function Footer() {
             <h2 className="font-heading italic text-4xl mb-6 tracking-widest font-light" style={{ color: 'var(--mint)' }}>
               Amani Roots
             </h2>
-            <p className="text-xs font-light tracking-[0.05em] leading-relaxed max-w-[280px] mb-8" style={{ color: '#8A8580' }}>
+            <p className="text-xs font-light tracking-[0.05em] leading-relaxed max-w-[280px]" style={{ color: '#8A8580' }}>
               Artisanal botanical blends designed to nurture, protect, and celebrate your unique heritage. Cultivated from nature, made for you.
             </p>
-            <div className="space-y-2">
-              <a href="mailto:amanirootsoils@gmail.com" className="text-xs font-light tracking-[0.05em] transition-colors" style={{ color: '#8A8580' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--mint)')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#8A8580')}
-              >
-                amanirootsoils@gmail.com
-              </a>
-              <p className="text-xs font-light tracking-[0.05em]" style={{ color: '#8A8580' }}>
-                Texas, USA
-              </p>
-            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-8 md:flex md:justify-end md:gap-24">
@@ -72,6 +61,21 @@ export function Footer() {
                     onMouseEnter={e => (e.currentTarget.style.color = 'var(--mint)')}
                     onMouseLeave={e => (e.currentTarget.style.color = '#8A8580')}
                   >FAQ</Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <ul className="space-y-6">
+                <li>
+                  <a href="mailto:amanirootsoils@gmail.com" className="text-xs font-light tracking-[0.05em] transition-colors flex items-center gap-2" style={{ color: '#8A8580' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--mint)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = '#8A8580')}
+                  >
+                    <span>📧</span> amanirootsoils@gmail.com
+                  </a>
+                </li>
+                <li className="text-xs font-light tracking-[0.05em] flex items-center gap-2" style={{ color: '#8A8580' }}>
+                  <span>📍</span> Texas, USA
                 </li>
               </ul>
             </div>
