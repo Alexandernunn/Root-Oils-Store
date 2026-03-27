@@ -13,18 +13,24 @@ const fadeInUp = {
 export default function Groups() {
   const [adminModalOpen, setAdminModalOpen] = useState(false)
   const [composeOpen, setComposeOpen] = useState(false)
+  const [selectedMedia, setSelectedMedia] = useState<{ file: File; preview: string; type: "image" | "video" | "gif" } | null>(null)
   const pictureInputRef = React.useRef<HTMLInputElement>(null)
   const videoInputRef = React.useRef<HTMLInputElement>(null)
   const gifInputRef = React.useRef<HTMLInputElement>(null)
 
-  const handleFileSelect = (file: File | null) => {
+  const handleFileSelect = (file: File | null, mediaType: "image" | "video" | "gif") => {
     if (!file) return
     const maxSize = file.type.startsWith("video") ? 5 * 1024 * 1024 : 2 * 1024 * 1024
     if (file.size > maxSize) {
       alert(`File too large. Max ${file.type.startsWith("video") ? "5MB" : "2MB"}`)
       return
     }
-    console.log("File selected:", file.name, file.type)
+    const preview = URL.createObjectURL(file)
+    setSelectedMedia({ file, preview, type: mediaType })
+  }
+
+  const clearMedia = () => {
+    setSelectedMedia(null)
   }
 
   return (
@@ -165,23 +171,56 @@ export default function Groups() {
                       type="file"
                       accept="image/*"
                       style={{ display: "none" }}
-                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null)}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "image")}
                     />
                     <input
                       ref={videoInputRef}
                       type="file"
                       accept="video/*"
                       style={{ display: "none" }}
-                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null)}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "video")}
                     />
                     <input
                       ref={gifInputRef}
                       type="file"
                       accept=".gif,image/gif"
                       style={{ display: "none" }}
-                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null)}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "gif")}
                     />
                   </div>
+
+                  {/* Media Preview */}
+                  {selectedMedia && (
+                    <div className="mb-6 relative overflow-hidden" style={{ aspectRatio: "16/9", borderRadius: "4px", backgroundColor: "var(--bg-alt)", boxShadow: "var(--shadow-green)" }}>
+                      {selectedMedia.type === "image" || selectedMedia.type === "gif" ? (
+                        <img
+                          src={selectedMedia.preview}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <video
+                          src={selectedMedia.preview}
+                          className="w-full h-full object-cover"
+                          controls
+                          autoPlay
+                          loop
+                          muted
+                        />
+                      )}
+                      <button
+                        type="button"
+                        onClick={clearMedia}
+                        className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-light transition-all hover:opacity-70"
+                        style={{ backgroundColor: "rgba(26,23,20,0.7)", color: "#fff" }}
+                      >
+                        ✕
+                      </button>
+                      <p className="absolute bottom-2 left-2 text-[9px] font-light px-2 py-1 rounded" style={{ backgroundColor: "rgba(26,23,20,0.6)", color: "#fff" }}>
+                        {selectedMedia.file.name}
+                      </p>
+                    </div>
+                  )}
 
                   <BlogForm />
                 </div>
