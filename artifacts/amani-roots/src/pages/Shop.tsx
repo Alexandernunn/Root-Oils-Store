@@ -217,15 +217,16 @@ export default function Shop() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.3 }}
-            className="relative w-full max-w-2xl overflow-hidden"
+            className="relative w-full max-w-sm overflow-hidden"
             style={{ backgroundColor: "var(--bg)", boxShadow: "var(--shadow-green-lg)" }}
             onClick={e => e.stopPropagation()}
           >
             {/* Close Button */}
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center text-lg font-light transition-opacity hover:opacity-60"
-              style={{ color: "var(--text-muted)" }}
+              className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center text-2xl font-light transition-all hover:opacity-60 active:scale-90"
+              style={{ color: "var(--text)", backgroundColor: "rgba(255,255,255,0.1)" }}
+              aria-label="Close"
             >
               ✕
             </button>
@@ -244,15 +245,15 @@ export default function Shop() {
             </div>
 
             {/* Info Section */}
-            <div className="p-8">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h2 className="font-heading text-3xl font-light tracking-wide mb-2" style={{ color: "var(--text)" }}>
+            <div className="p-5">
+              <div className="flex items-start justify-between mb-3 gap-2">
+                <div className="flex-1">
+                  <h2 className="font-heading text-2xl font-light tracking-wide mb-1.5" style={{ color: "var(--text)" }}>
                     {selectedProduct.name}
                   </h2>
                   {selectedProduct.badge && (
                     <span
-                      className="inline-block text-[9px] uppercase tracking-[0.15em] font-light px-2 py-1"
+                      className="inline-block text-[8px] uppercase tracking-[0.12em] font-light px-1.5 py-0.5"
                       style={{
                         backgroundColor: selectedProduct.badge === "Sale" ? "var(--gold)" : "var(--mint)",
                         color: selectedProduct.badge === "Sale" ? "#fff" : "var(--forest)",
@@ -262,12 +263,12 @@ export default function Shop() {
                     </span>
                   )}
                 </div>
-                <span className="font-body font-light text-xl tracking-wide" style={{ color: "var(--forest)" }}>
+                <span className="font-body font-light text-lg tracking-wide flex-shrink-0" style={{ color: "var(--forest)" }}>
                   ${selectedProduct.price.toFixed(2)}
                 </span>
               </div>
 
-              <p className="text-sm font-light leading-[1.9] tracking-wide mb-8" style={{ color: "var(--text-muted)" }}>
+              <p className="text-xs font-light leading-[1.75] tracking-wide mb-5" style={{ color: "var(--text-muted)" }}>
                 {selectedProduct.description}
               </p>
 
@@ -276,7 +277,7 @@ export default function Shop() {
                   handleAddToCart(selectedProduct)
                   setSelectedProduct(null)
                 }}
-                className="w-full text-sm font-light tracking-[0.15em] uppercase py-3 transition-all duration-300 hover:opacity-80"
+                className="w-full text-xs font-light tracking-[0.12em] uppercase py-2.5 transition-all duration-300 hover:opacity-80"
                 style={{ backgroundColor: "var(--forest)", color: "#fff" }}
               >
                 Add to Cart
