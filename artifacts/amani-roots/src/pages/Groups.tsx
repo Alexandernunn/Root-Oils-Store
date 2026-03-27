@@ -90,7 +90,7 @@ export default function Groups() {
               style={{ borderColor: "var(--sage)", backgroundColor: "var(--bg-mist)", borderLeftColor: "var(--forest)", borderLeftWidth: "3px" }}
             >
               {!composeOpen ? (
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                   {/* Avatar placeholder */}
                   <div
                     className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-light"
@@ -111,6 +111,17 @@ export default function Groups() {
                     }}
                   >
                     ✨ Share something…
+                  </button>
+                  <button
+                    onClick={() => setComposeOpen(true)}
+                    className="flex-shrink-0 text-[10px] font-bold tracking-[0.12em] uppercase px-3 py-2 border-2 transition-all hover:shadow-md"
+                    style={{
+                      borderColor: "var(--gold)",
+                      backgroundColor: "linear-gradient(135deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.06))",
+                      color: "var(--gold)",
+                    }}
+                  >
+                    + Media
                   </button>
                   <button
                     onClick={() => setComposeOpen(true)}
