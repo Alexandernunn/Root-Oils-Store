@@ -107,7 +107,6 @@ export default function BlogFeed() {
             style={{
               borderLeftColor: "var(--forest)",
               borderColor: "var(--sage)",
-              borderLeftWidth: "3px",
               background: "linear-gradient(135deg, var(--bg-mist, #f4f8f5) 0%, rgba(155,114,200,0.04) 100%)",
             }}
           >
