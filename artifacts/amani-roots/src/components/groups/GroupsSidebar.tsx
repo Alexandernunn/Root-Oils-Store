@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { Search, Plus, Users } from "lucide-react"
-import { subscribeGroups, incrementMemberCount, type Group } from "@/lib/groups"
+import { subscribeGroups, type Group } from "@/lib/groups"
 import { db } from "@/lib/firebase"
+import { useAuth } from "@/context/AuthContext"
+import JoinModal from "./JoinModal"
 
 interface Props {
   onCreateGroup: () => void
@@ -10,9 +12,11 @@ interface Props {
 export default function GroupsSidebar({ onCreateGroup }: Props) {
   const [groups, setGroups] = useState<Group[]>([])
   const [search, setSearch] = useState("")
-  const [joined, setJoined] = useState<Set<string>>(new Set())
-  const [joiningId, setJoiningId] = useState<string | null>(null)
-  const [joinError, setJoinError] = useState<string | null>(null)
+  const [joinModalGroup, setJoinModalGroup] = useState<Group | null>(null)
+  const { memberProfile, refreshMemberProfile } = useAuth()
+
+  // Joined groups come from the persisted Firestore member profile
+  const joined = new Set(memberProfile?.joinedGroups ?? [])
 
   useEffect(() => {
     const unsub = subscribeGroups(setGroups)
@@ -22,20 +26,6 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
   const filtered = groups.filter(g =>
     g.name.toLowerCase().includes(search.toLowerCase())
   )
-
-  async function handleJoin(group: Group) {
-    if (joined.has(group.id) || joiningId) return
-    setJoiningId(group.id)
-    setJoinError(null)
-    try {
-      await incrementMemberCount(group.id)
-      setJoined(prev => new Set(prev).add(group.id))
-    } catch {
-      setJoinError("Could not join group. Please try again.")
-    } finally {
-      setJoiningId(null)
-    }
-  }
 
   return (
     <aside className="w-full flex flex-col gap-6">
@@ -70,16 +60,9 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
             {groups
               .filter(g => joined.has(g.id))
               .map(g => (
-                <li
-                  key={g.id}
-                  className="flex items-center gap-2 py-1"
-                >
+                <li key={g.id} className="flex items-center gap-2 py-1">
                   {g.coverImage ? (
-                    <img
-                      src={g.coverImage}
-                      alt={g.name}
-                      className="w-7 h-7 object-cover flex-shrink-0"
-                    />
+                    <img src={g.coverImage} alt={g.name} className="w-7 h-7 object-cover flex-shrink-0" />
                   ) : (
                     <div
                       className="w-7 h-7 flex items-center justify-center flex-shrink-0"
@@ -106,12 +89,6 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
           Suggested Groups
         </p>
 
-        {joinError && (
-          <p className="text-[10px] font-light mb-3 px-2 py-1.5" style={{ color: "#c0392b", backgroundColor: "#fdf3f3" }}>
-            {joinError}
-          </p>
-        )}
-
         {!db ? (
           <p className="text-xs font-light italic" style={{ color: "var(--text-muted)" }}>
             Firebase not configured.
@@ -127,24 +104,12 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
                 {/* Cover media */}
                 {group.mediaType === "image" && group.coverImage && (
                   <div className="w-full h-28 overflow-hidden mb-3">
-                    <img
-                      src={group.coverImage}
-                      alt={group.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={group.coverImage} alt={group.name} loading="lazy" className="w-full h-full object-cover" />
                   </div>
                 )}
                 {group.mediaType === "video" && group.coverVideo && (
                   <div className="w-full h-28 overflow-hidden mb-3">
-                    <video
-                      src={group.coverVideo}
-                      className="w-full h-full object-cover"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                    />
+                    <video src={group.coverVideo} className="w-full h-full object-cover" autoPlay loop muted playsInline />
                   </div>
                 )}
                 {!group.coverImage && !group.coverVideo && (
@@ -157,31 +122,23 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
                 )}
 
                 {/* Info */}
-                <p
-                  className="font-heading text-sm font-light tracking-wide mb-0.5"
-                  style={{ color: "var(--text)" }}
-                >
+                <p className="font-heading text-sm font-light tracking-wide mb-0.5" style={{ color: "var(--text)" }}>
                   {group.name}
                 </p>
-                <p
-                  className="text-[10px] font-light mb-3"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <p className="text-[10px] font-light mb-3" style={{ color: "var(--text-muted)" }}>
                   {group.memberCount} {group.memberCount === 1 ? "member" : "members"}
                 </p>
 
-                <button
-                  onClick={() => handleJoin(group)}
-                  disabled={joined.has(group.id) || joiningId === group.id}
-                  className="w-full text-[10px] font-light tracking-[0.12em] uppercase py-2 border transition-all hover:opacity-70 disabled:opacity-50"
-                  style={
-                    joined.has(group.id)
-                      ? { borderColor: "var(--sage)", color: "var(--sage)", backgroundColor: "transparent" }
-                      : { borderColor: "var(--forest)", color: "var(--forest)", backgroundColor: "transparent" }
-                  }
-                >
-                  {joined.has(group.id) ? "Joined ✓" : joiningId === group.id ? "Joining…" : "Join"}
-                </button>
+                {/* Join button — hidden once the user has joined this group */}
+                {!joined.has(group.id) && (
+                  <button
+                    onClick={() => setJoinModalGroup(group)}
+                    className="w-full text-[10px] font-light tracking-[0.12em] uppercase py-2 border transition-all hover:opacity-70"
+                    style={{ borderColor: "var(--forest)", color: "var(--forest)", backgroundColor: "transparent" }}
+                  >
+                    Join
+                  </button>
+                )}
               </li>
             ))}
           </ul>
@@ -200,6 +157,19 @@ export default function GroupsSidebar({ onCreateGroup }: Props) {
         <Plus size={13} />
         Create Group
       </button>
+
+      {/* Join Modal */}
+      {joinModalGroup && (
+        <JoinModal
+          groupId={joinModalGroup.id}
+          groupName={joinModalGroup.name}
+          onClose={() => setJoinModalGroup(null)}
+          onJoined={async () => {
+            setJoinModalGroup(null)
+            await refreshMemberProfile()
+          }}
+        />
+      )}
     </aside>
   )
 }
