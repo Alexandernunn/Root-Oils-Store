@@ -67,8 +67,8 @@ export default function Groups() {
 
             {/* Compose Box */}
             <div
-              className="border p-4 mb-6"
-              style={{ borderColor: "var(--border)", backgroundColor: "var(--bg)" }}
+              className="border-l-2 border p-4 mb-6"
+              style={{ borderColor: "var(--sage)", backgroundColor: "var(--bg-mist)", borderLeftColor: "var(--forest)", borderLeftWidth: "3px" }}
             >
               {!composeOpen ? (
                 <div className="flex items-center gap-3">
@@ -120,22 +120,22 @@ export default function Groups() {
                   <div className="flex gap-3 mb-6">
                     <button
                       type="button"
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-80"
-                      style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                      className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85"
+                      style={{ borderColor: "var(--mint)", backgroundColor: "rgba(214, 232, 220, 0.25)", color: "var(--forest)" }}
                     >
                       <span>🖼️</span> Picture
                     </button>
                     <button
                       type="button"
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-80"
-                      style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                      className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85"
+                      style={{ borderColor: "var(--sage)", backgroundColor: "rgba(122, 158, 135, 0.15)", color: "var(--forest)" }}
                     >
                       <span>🎥</span> Video
                     </button>
                     <button
                       type="button"
-                      className="flex-1 flex items-center justify-center gap-2 py-2 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-80"
-                      style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
+                      className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 border text-[10px] font-light tracking-[0.12em] uppercase transition-all hover:opacity-85"
+                      style={{ borderColor: "var(--lavender)", backgroundColor: "rgba(155, 114, 200, 0.12)", color: "var(--lavender-deep)" }}
                     >
                       <span>🎬</span> GIF
                     </button>
