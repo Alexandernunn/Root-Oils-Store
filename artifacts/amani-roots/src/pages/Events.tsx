@@ -48,7 +48,7 @@ const events = [
     namespace: "hair-care-course",
     calLink: "sifa-mondika-3a3k71/hair-care-course",
     label: "Hair Care Course",
-    duration: "60 min · Cal Video",
+    duration: "15 min · Cal Video",
     tag: "In-Depth Course",
     description:
       "An immersive course covering scalp science, botanical ingredients, and the art of building a lasting natural hair care ritual. Walk away with a personalised plan crafted around your hair type, lifestyle, and growth goals.",
