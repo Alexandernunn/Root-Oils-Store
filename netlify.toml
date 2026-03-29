@@ -1,7 +1,6 @@
 [build]
   command   = "pnpm --filter @workspace/amani-roots run build"
   publish   = "artifacts/amani-roots/dist"
-  functions = "artifacts/amani-roots/netlify/functions"
 
 [build.environment]
   NODE_VERSION = "20"
@@ -11,6 +10,7 @@
   SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
 
 [functions]
+  directory    = "artifacts/amani-roots/netlify/functions"
   node_bundler = "esbuild"
 
 # Rewrite /api/checkout → Netlify serverless function (cart code unchanged)
