@@ -22,7 +22,7 @@ const services = [
     namespace: "hair-scalp-consultation",
     calLink: "sifa-mondika-3a3k71/hair-scalp-consultation",
     label: "Hair & Scalp Consultation",
-    duration: "30 min",
+    duration: "10 min",
     description:
       "A personalized 1-on-1 session to assess your scalp health and build a care routine tailored to your hair goals.",
     tag: "Reserve Your Spot",
@@ -32,7 +32,7 @@ const services = [
     namespace: "hair-care-course",
     calLink: "sifa-mondika-3a3k71/hair-care-course",
     label: "Hair Care Course",
-    duration: "60 min",
+    duration: "30 min",
     description:
       "An in-depth course covering scalp science, botanical ingredients, and building a lasting natural hair care ritual.",
     tag: "Reserve Your Spot",
