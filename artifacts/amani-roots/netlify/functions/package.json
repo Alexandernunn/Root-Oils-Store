@@ -1,7 +1,0 @@
-{
-  "name": "amani-roots-functions",
-  "version": "1.0.0",
-  "dependencies": {
-    "@netlify/functions": "^5.1.5"
-  }
-}
