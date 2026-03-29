@@ -12,7 +12,6 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["stripe"]
 
 # Rewrite /api/checkout → Netlify serverless function (cart code unchanged)
 [[redirects]]

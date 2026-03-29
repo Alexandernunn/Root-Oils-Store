@@ -1,39 +1,26 @@
 import type { Handler, HandlerEvent } from "@netlify/functions"
-import Stripe from "stripe"
 
 export const handler: Handler = async (event: HandlerEvent) => {
   if (event.httpMethod !== "POST") {
-    return {
-      statusCode: 405,
-      body: JSON.stringify({ error: "Method not allowed" }),
-    }
+    return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) }
   }
 
   const secretKey = process.env["STRIPE_SECRET_KEY"]
   if (!secretKey) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "STRIPE_SECRET_KEY is not configured." }),
-    }
+    return { statusCode: 500, body: JSON.stringify({ error: "STRIPE_SECRET_KEY is not configured." }) }
   }
 
   let body: unknown
   try {
     body = JSON.parse(event.body ?? "{}")
   } catch {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "Invalid JSON body." }),
-    }
+    return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON body." }) }
   }
 
   const { items } = body as { items?: unknown }
 
   if (!Array.isArray(items) || items.length === 0) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "items must be a non-empty array." }),
-    }
+    return { statusCode: 400, body: JSON.stringify({ error: "items must be a non-empty array." }) }
   }
 
   for (const item of items) {
@@ -43,17 +30,11 @@ export const handler: Handler = async (event: HandlerEvent) => {
       typeof (item as Record<string, unknown>)["priceId"] !== "string" ||
       ((item as Record<string, unknown>)["priceId"] as string).trim().length === 0
     ) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Each item must have a non-empty string priceId." }),
-      }
+      return { statusCode: 400, body: JSON.stringify({ error: "Each item must have a non-empty string priceId." }) }
     }
     const qty = (item as Record<string, unknown>)["quantity"]
     if (qty !== undefined && (!Number.isInteger(qty) || (qty as number) < 1)) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Each item quantity must be a positive integer." }),
-      }
+      return { statusCode: 400, body: JSON.stringify({ error: "Each item quantity must be a positive integer." }) }
     }
   }
 
@@ -63,35 +44,45 @@ export const handler: Handler = async (event: HandlerEvent) => {
     event.headers["origin"] ??
     (event.headers["host"] ? `https://${event.headers["host"]}` : "https://amanirootsoils.com")
 
-  const successUrl = `${origin}/shop?checkout=success`
-  const cancelUrl = `${origin}/shop?checkout=cancel`
+  const params = new URLSearchParams()
+  params.append("mode", "payment")
+  params.append("success_url", `${origin}/shop?checkout=success`)
+  params.append("cancel_url", `${origin}/shop?checkout=cancel`)
+  params.append("shipping_options[0][shipping_rate]", "shr_1TFGmCE8MLgkmP6cq8iJ1OTp")
+
+  validItems.forEach((item, i) => {
+    params.append(`line_items[${i}][price]`, item.priceId)
+    params.append(`line_items[${i}][quantity]`, String(item.quantity ?? 1))
+  })
 
   try {
-    const stripe = new Stripe(secretKey)
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: validItems.map((item) => ({
-        price: item.priceId,
-        quantity: item.quantity ?? 1,
-      })),
-      shipping_options: [
-        { shipping_rate: "shr_1TFGmCE8MLgkmP6cq8iJ1OTp" },
-      ],
-      success_url: successUrl,
-      cancel_url: cancelUrl,
+    const res = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${secretKey}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: params.toString(),
     })
 
-    if (!session.url) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Stripe did not return a checkout URL. Please retry." }),
-      }
+    const data = (await res.json()) as Record<string, unknown>
+
+    if (!res.ok) {
+      const stripeErr = data["error"] as Record<string, unknown> | undefined
+      const message = typeof stripeErr?.["message"] === "string"
+        ? stripeErr["message"]
+        : "Stripe returned an error."
+      return { statusCode: 500, body: JSON.stringify({ error: message }) }
+    }
+
+    if (typeof data["url"] !== "string") {
+      return { statusCode: 500, body: JSON.stringify({ error: "Stripe did not return a checkout URL. Please retry." }) }
     }
 
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: session.url }),
+      body: JSON.stringify({ url: data["url"] }),
     }
   } catch (err: unknown) {
     return {
