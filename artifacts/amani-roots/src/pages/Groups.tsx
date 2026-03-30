@@ -12,6 +12,7 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } },
 }
 
+// 700 KB raw → ~933 KB base64 (×4/3), safely under Firestore's 1 MB document limit
 const IMAGE_RAW_LIMIT = 700 * 1024
 
 export type SelectedMedia = {
@@ -76,6 +77,7 @@ export default function Groups() {
   }
 
   const clearMedia = () => {
+    if (selectedMedia) URL.revokeObjectURL(selectedMedia.preview)
     setSelectedMedia(null)
   }
 

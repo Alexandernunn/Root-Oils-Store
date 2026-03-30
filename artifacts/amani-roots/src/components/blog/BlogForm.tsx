@@ -4,6 +4,7 @@ import { db } from "@/lib/firebase"
 import { type User } from "firebase/auth"
 import { type SelectedMedia } from "@/pages/Groups"
 
+// 700 KB raw → ~933 KB base64 (×4/3), safely under Firestore's 1 MB document limit
 const IMAGE_RAW_LIMIT = 700 * 1024
 
 interface BlogFormProps {
@@ -38,12 +39,8 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
 
     if (!authorName.trim() || !body.trim()) return
 
-    if (selectedMedia && selectedMedia.tooLargeToStore) {
-      setMediaError(
-        selectedMedia.type === "video"
-          ? "Remove the video before posting — videos can't be saved in posts yet."
-          : "Remove the oversized image or choose one under 700 KB before posting."
-      )
+    if (selectedMedia && selectedMedia.tooLargeToStore && selectedMedia.type !== "video") {
+      setMediaError("Remove the oversized image or choose one under 700 KB before posting.")
       return
     }
 
