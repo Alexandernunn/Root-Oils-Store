@@ -48,6 +48,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
   params.append("mode", "payment")
   params.append("success_url", `${origin}/shop?checkout=success`)
   params.append("cancel_url", `${origin}/shop?checkout=cancel`)
+  params.append("shipping_address_collection[allowed_countries][0]", "US")
   params.append("shipping_options[0][shipping_rate]", "shr_1TFGmCE8MLgkmP6cq8iJ1OTp")
 
   validItems.forEach((item, i) => {
