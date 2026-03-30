@@ -266,8 +266,8 @@ export default function Groups() {
                       {selectedMedia.tooLargeToStore && (
                         <p className="mt-2 text-[10px] font-light leading-relaxed px-1" style={{ color: "var(--gold)" }}>
                           {selectedMedia.type === "video"
-                            ? "Videos can be previewed but won't be saved in the post — video storage isn't supported yet."
-                            : `Image is over 700 KB and won't be saved in the post. Compress it or choose a smaller file.`}
+                            ? "Video preview only — videos can't be saved in posts yet. Remove it to post without media."
+                            : "This image is over 900 KB and can't be saved. Remove it to post text only, or choose a smaller image (under 900 KB)."}
                         </p>
                       )}
                     </div>

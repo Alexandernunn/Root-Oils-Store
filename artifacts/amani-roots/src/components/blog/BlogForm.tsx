@@ -27,12 +27,28 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
   const [manualName, setManualName] = useState("")
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [mediaError, setMediaError] = useState("")
 
-  const authorName = user?.displayName ?? manualName
+  const authorName = user
+    ? (user.displayName || user.email || "Member")
+    : manualName
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
     if (!authorName.trim() || !body.trim()) return
+
+    if (selectedMedia && selectedMedia.tooLargeToStore) {
+      setMediaError(
+        selectedMedia.type === "video"
+          ? "Remove the video before posting — videos can't be saved in posts yet."
+          : "Remove the oversized image or choose one under 900 KB before posting."
+      )
+      return
+    }
+
+    setMediaError("")
+
     if (!db) {
       console.error("Firestore not configured")
       return
@@ -85,11 +101,13 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
           ) : (
             <div className="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold"
               style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}>
-              {(user.displayName ?? "A")[0]?.toUpperCase()}
+              {(user.displayName || user.email || "M")[0]?.toUpperCase()}
             </div>
           )}
-          <p className="text-sm font-light" style={{ color: "var(--text)" }}>{user.displayName ?? user.email}</p>
-          <span className="ml-auto text-[9px] font-light tracking-[0.12em] uppercase px-2 py-0.5"
+          <p className="text-sm font-light truncate" style={{ color: "var(--text)" }}>
+            {user.displayName || user.email}
+          </p>
+          <span className="ml-auto flex-shrink-0 text-[9px] font-light tracking-[0.12em] uppercase px-2 py-0.5"
             style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}>
             Signed In
           </span>
@@ -139,6 +157,12 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
           onBlur={(e) => e.target.style.borderColor = "var(--lavender)"}
         />
       </div>
+
+      {mediaError && (
+        <p className="mb-4 text-[11px] font-light leading-relaxed px-1" style={{ color: "#c0392b" }}>
+          {mediaError}
+        </p>
+      )}
 
       <button
         type="submit"
