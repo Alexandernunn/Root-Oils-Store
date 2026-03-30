@@ -301,10 +301,6 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
                   {(postComments[post.id] ?? []).length} Comments
                 </span>
               </button>
-              <div className="flex items-center gap-1.5 ml-auto">
-                <Eye size={14} style={{ color: "var(--gold)" }} />
-                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--gold)" }}>0 Views</span>
-              </div>
             </div>
 
             {/* Comments section */}
