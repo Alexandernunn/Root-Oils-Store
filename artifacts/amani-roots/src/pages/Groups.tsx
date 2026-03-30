@@ -217,7 +217,7 @@ export default function Groups() {
                       type="button"
                       onClick={() => videoInputRef.current?.click()}
                       className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
-                      style={{ borderColor: selectedMedia?.type === "video" ? "var(--forest)" : "var(--forest)", backgroundColor: "linear-gradient(135deg, rgba(47, 95, 72, 0.12), rgba(47, 95, 72, 0.06))", color: "var(--forest)" }}
+                      style={{ borderColor: "var(--forest)", backgroundColor: "linear-gradient(135deg, rgba(47, 95, 72, 0.12), rgba(47, 95, 72, 0.06))", color: "var(--forest)" }}
                     >
                       <span className="text-2xl">🎥</span>
                       <span>Video</span>
