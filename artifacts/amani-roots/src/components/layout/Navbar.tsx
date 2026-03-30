@@ -4,13 +4,15 @@ import { ShoppingBag } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/context/CartContext"
 import { useAuth } from "@/context/AuthContext"
+import LoginModal from "@/components/auth/LoginModal"
 
 const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [loginModalOpen, setLoginModalOpen] = useState(false)
   const { cartCount, openCart } = useCart()
-  const { user, signInWithGoogle, signOut, isConfigured } = useAuth()
+  const { user, signOut, isConfigured } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -137,7 +139,7 @@ export function Navbar() {
             </button>
           ) : (
             <button
-              onClick={signInWithGoogle}
+              onClick={() => setLoginModalOpen(true)}
               className="flex-shrink-0 text-[9px] font-light tracking-[0.12em] uppercase px-3 py-1.5 border transition-all hover:opacity-70"
               style={{ borderColor: "var(--sage)", color: "var(--text)" }}
             >
@@ -163,6 +165,12 @@ export function Navbar() {
           )}
         </button>
       </div>
+
+      {loginModalOpen && (
+        <LoginModal
+          onClose={() => setLoginModalOpen(false)}
+        />
+      )}
     </header>
   )
 }
