@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react"
-import { collection, onSnapshot, orderBy, query, Timestamp, addDoc, getDocs, where } from "firebase/firestore"
+import { collection, onSnapshot, orderBy, query, Timestamp, addDoc, getDocs, updateDoc, doc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { Heart, MessageCircle, Eye } from "lucide-react"
+
+// Generate or retrieve session ID for tracking likes
+const getSessionId = () => {
+  let id = localStorage.getItem("amani_session_id")
+  if (!id) {
+    id = `user_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
+    localStorage.setItem("amani_session_id", id)
+  }
+  return id
+}
 
 interface Comment {
   id: string
@@ -60,26 +70,10 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
   const [postComments, setPostComments] = useState<Record<string, Comment[]>>({})
+  const [postLikes, setPostLikes] = useState<Record<string, string[]>>({})
   const [expandedPost, setExpandedPost] = useState<string | null>(null)
   const [commentText, setCommentText] = useState<Record<string, string>>({})
-
-  useEffect(() => {
-    if (!db) {
-      setLoading(false)
-      return
-    }
-    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"))
-    const unsub = onSnapshot(q, snapshot => {
-      const postList = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Post, "id">),
-      }))
-      setPosts(postList)
-      postList.forEach(post => loadComments(post.id))
-      setLoading(false)
-    })
-    return () => unsub()
-  }, [])
+  const sessionId = getSessionId()
 
   const loadComments = async (postId: string) => {
     if (!db) return
@@ -96,6 +90,35 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
       setPostComments(prev => ({ ...prev, [postId]: comments }))
     } catch (err) {
       console.error("Failed to load comments:", err)
+    }
+  }
+
+  const loadLikes = async (postId: string) => {
+    if (!db) return
+    try {
+      const postDoc = doc(db, "posts", postId)
+      const postSnap = await getDocs(collection(db, `posts`))
+      const post = postSnap.docs.find(d => d.id === postId)
+      if (post) {
+        setPostLikes(prev => ({ ...prev, [postId]: post.data().likes ?? [] }))
+      }
+    } catch (err) {
+      console.error("Failed to load likes:", err)
+    }
+  }
+
+  const handleLike = async (postId: string) => {
+    if (!db) return
+    try {
+      const postRef = doc(db, "posts", postId)
+      const likes = postLikes[postId] ?? []
+      const hasLiked = likes.includes(sessionId)
+      const newLikes = hasLiked ? likes.filter(id => id !== sessionId) : [...likes, sessionId]
+      
+      await updateDoc(postRef, { likes: newLikes })
+      setPostLikes(prev => ({ ...prev, [postId]: newLikes }))
+    } catch (err) {
+      console.error("Failed to update like:", err)
     }
   }
 
@@ -116,6 +139,27 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
       console.error("Failed to add comment:", err)
     }
   }
+
+  useEffect(() => {
+    if (!db) {
+      setLoading(false)
+      return
+    }
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"))
+    const unsub = onSnapshot(q, snapshot => {
+      const postList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Post, "id">),
+      }))
+      setPosts(postList)
+      postList.forEach(post => {
+        loadComments(post.id)
+        loadLikes(post.id)
+      })
+      setLoading(false)
+    })
+    return () => unsub()
+  }, [])
 
   const filteredPosts = posts.filter(post => {
     const query = searchQuery.toLowerCase()
@@ -229,15 +273,19 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
             {/* Footer: likes / comments / views placeholders */}
             <div className="flex items-center gap-5" style={{ paddingLeft: "52px" }}>
               <button
+                onClick={() => handleLike(post.id)}
                 className="flex items-center gap-1.5 group transition-all hover:scale-105"
                 aria-label="Like"
               >
                 <Heart
                   size={14}
-                  className="transition-colors group-hover:fill-current"
+                  className="transition-colors"
+                  fill={(postLikes[post.id] ?? []).includes(sessionId) ? "currentColor" : "none"}
                   style={{ color: "var(--lavender)" }}
                 />
-                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--lavender-deep)" }}>0</span>
+                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--lavender-deep)" }}>
+                  {(postLikes[post.id] ?? []).length}
+                </span>
               </button>
               <button
                 onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}
