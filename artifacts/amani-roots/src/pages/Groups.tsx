@@ -12,8 +12,7 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } },
 }
 
-const IMAGE_STORE_LIMIT_BASE64 = 900 * 1024
-const IMAGE_RAW_LIMIT = Math.floor(IMAGE_STORE_LIMIT_BASE64 * 0.75)
+const IMAGE_RAW_LIMIT = 700 * 1024
 
 export type SelectedMedia = {
   file: File
@@ -265,7 +264,7 @@ export default function Groups() {
                         <p className="mt-2 text-[10px] font-light leading-relaxed px-1" style={{ color: "var(--gold)" }}>
                           {selectedMedia.type === "video"
                             ? "Video preview only — videos can't be saved in posts yet. Remove it to post without media."
-                            : "This image is over 900 KB and can't be saved. Remove it to post text only, or choose a smaller image (under 900 KB)."}
+                            : "This image is over 700 KB and can't be saved. Remove it to post text only, or choose a smaller image (under 700 KB)."}
                         </p>
                       )}
                     </div>

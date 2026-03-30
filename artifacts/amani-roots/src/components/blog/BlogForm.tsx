@@ -4,8 +4,7 @@ import { db } from "@/lib/firebase"
 import { type User } from "firebase/auth"
 import { type SelectedMedia } from "@/pages/Groups"
 
-const IMAGE_STORE_LIMIT_BASE64 = 900 * 1024
-const IMAGE_RAW_LIMIT = Math.floor(IMAGE_STORE_LIMIT_BASE64 * 0.75)
+const IMAGE_RAW_LIMIT = 700 * 1024
 
 interface BlogFormProps {
   user?: User | null
@@ -43,7 +42,7 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
       setMediaError(
         selectedMedia.type === "video"
           ? "Remove the video before posting — videos can't be saved in posts yet."
-          : "Remove the oversized image or choose one under 900 KB before posting."
+          : "Remove the oversized image or choose one under 700 KB before posting."
       )
       return
     }
@@ -63,13 +62,7 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
       if (selectedMedia && !selectedMedia.tooLargeToStore) {
         const isImage = selectedMedia.type === "image" || selectedMedia.type === "gif"
         if (isImage && selectedMedia.file.size <= IMAGE_RAW_LIMIT) {
-          const encoded = await fileToBase64(selectedMedia.file)
-          if (encoded.length > IMAGE_STORE_LIMIT_BASE64) {
-            setMediaError("Image is too large to save (over 900 KB when encoded). Remove it or choose a smaller image.")
-            setSubmitting(false)
-            return
-          }
-          mediaUrl = encoded
+          mediaUrl = await fileToBase64(selectedMedia.file)
           mediaType = selectedMedia.type
         }
       }
