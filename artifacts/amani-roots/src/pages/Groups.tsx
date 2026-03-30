@@ -5,7 +5,6 @@ import BlogFeed from "@/components/blog/BlogFeed"
 import GroupsSidebar from "@/components/groups/GroupsSidebar"
 import AdminCreateGroupModal from "@/components/groups/AdminCreateGroupModal"
 import LoginModal from "@/components/auth/LoginModal"
-import { useAuth } from "@/context/AuthContext"
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 24 },
@@ -36,32 +35,10 @@ export default function Groups() {
   const pictureInputRef = React.useRef<HTMLInputElement>(null)
   const videoInputRef = React.useRef<HTMLInputElement>(null)
   const gifInputRef = React.useRef<HTMLInputElement>(null)
-  const { user, isConfigured: authConfigured } = useAuth()
 
   const openCompose = () => {
-    if (authConfigured && !user) {
-      setLoginModalOpen(true)
-    } else {
-      setComposeOpen(true)
-    }
+    setComposeOpen(true)
   }
-
-  React.useEffect(() => {
-    if (user && loginModalOpen) {
-      setLoginModalOpen(false)
-      setComposeOpen(true)
-    }
-  }, [user, loginModalOpen])
-
-  React.useEffect(() => {
-    if (user) {
-      const flag = localStorage.getItem("openComposeAfterAuth")
-      if (flag) {
-        localStorage.removeItem("openComposeAfterAuth")
-        setComposeOpen(true)
-      }
-    }
-  }, [user])
 
   const handleFileSelect = (file: File | null, mediaType: "image" | "video" | "gif") => {
     if (!file) return
@@ -273,7 +250,6 @@ export default function Groups() {
                   )}
 
                   <BlogForm
-                    user={user}
                     selectedMedia={selectedMedia}
                     onMediaClear={clearMedia}
                     onPostSuccess={() => setComposeOpen(false)}
