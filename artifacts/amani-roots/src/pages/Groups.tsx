@@ -127,7 +127,7 @@ export default function Groups() {
                     className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-light"
                     style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}
                   >
-                    {user ? (user.displayName ?? "A")[0]?.toUpperCase() : "A"}
+                    A
                   </div>
                   <button
                     onClick={openCompose}
@@ -278,9 +278,8 @@ export default function Groups() {
         <LoginModal
           onClose={() => {
             setLoginModalOpen(false)
-            if (user) setComposeOpen(true)
+            setComposeOpen(true)
           }}
-          reason="Sign in to share your hair care journey with the community."
         />
       )}
     </div>
