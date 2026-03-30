@@ -8,6 +8,8 @@ interface Post {
   authorName: string
   body: string
   createdAt: Timestamp | null
+  mediaUrl?: string | null
+  mediaType?: string | null
 }
 
 function formatDate(ts: Timestamp | null): string {
@@ -158,11 +160,25 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
 
             {/* Body */}
             <p
-              className="text-sm font-light leading-[1.9] tracking-wide whitespace-pre-wrap mb-5 pl-13"
+              className="text-sm font-light leading-[1.9] tracking-wide whitespace-pre-wrap mb-4 pl-13"
               style={{ color: "var(--text)", paddingLeft: "52px" }}
             >
               {post.body}
             </p>
+
+            {/* Attached media */}
+            {post.mediaUrl && (
+              <div className="mb-5 overflow-hidden rounded-sm" style={{ paddingLeft: "52px" }}>
+                {post.mediaType === "gif" || post.mediaType === "image" ? (
+                  <img
+                    src={post.mediaUrl}
+                    alt="Post image"
+                    className="w-full max-h-[360px] object-cover rounded-sm"
+                    loading="lazy"
+                  />
+                ) : null}
+              </div>
+            )}
 
             {/* Footer: likes / comments / views placeholders */}
             <div className="flex items-center gap-5" style={{ paddingLeft: "52px" }}>

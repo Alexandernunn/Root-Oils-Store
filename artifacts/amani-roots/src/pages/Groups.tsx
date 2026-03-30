@@ -12,11 +12,27 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } },
 }
 
+const IMAGE_STORE_LIMIT = 700 * 1024
+const VIDEO_STORE_LIMIT = 0
+
+export type SelectedMedia = {
+  file: File
+  preview: string
+  type: "image" | "video" | "gif"
+  tooLargeToStore: boolean
+}
+
+function formatBytes(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
+
 export default function Groups() {
   const [adminModalOpen, setAdminModalOpen] = useState(false)
   const [composeOpen, setComposeOpen] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
-  const [selectedMedia, setSelectedMedia] = useState<{ file: File; preview: string; type: "image" | "video" | "gif" } | null>(null)
+  const [selectedMedia, setSelectedMedia] = useState<SelectedMedia | null>(null)
   const pictureInputRef = React.useRef<HTMLInputElement>(null)
   const videoInputRef = React.useRef<HTMLInputElement>(null)
   const gifInputRef = React.useRef<HTMLInputElement>(null)
@@ -30,7 +46,6 @@ export default function Groups() {
     }
   }
 
-  // Auto-open compose after successful Google sign-in
   React.useEffect(() => {
     if (user && loginModalOpen) {
       setLoginModalOpen(false)
@@ -38,15 +53,29 @@ export default function Groups() {
     }
   }, [user, loginModalOpen])
 
+  React.useEffect(() => {
+    if (user) {
+      const flag = localStorage.getItem("openComposeAfterAuth")
+      if (flag) {
+        localStorage.removeItem("openComposeAfterAuth")
+        setComposeOpen(true)
+      }
+    }
+  }, [user])
+
   const handleFileSelect = (file: File | null, mediaType: "image" | "video" | "gif") => {
     if (!file) return
-    const maxSize = file.type.startsWith("video") ? 5 * 1024 * 1024 : 2 * 1024 * 1024
-    if (file.size > maxSize) {
-      alert(`File too large. Max ${file.type.startsWith("video") ? "5MB" : "2MB"}`)
+    const isVideo = mediaType === "video"
+    const rawMax = isVideo ? 50 * 1024 * 1024 : 10 * 1024 * 1024
+    if (file.size > rawMax) {
+      alert(`File too large. Max ${isVideo ? "50MB" : "10MB"} for upload.`)
       return
     }
+    const tooLargeToStore = isVideo
+      ? true
+      : file.size > IMAGE_STORE_LIMIT
     const preview = URL.createObjectURL(file)
-    setSelectedMedia({ file, preview, type: mediaType })
+    setSelectedMedia({ file, preview, type: mediaType, tooLargeToStore })
   }
 
   const clearMedia = () => {
@@ -118,12 +147,11 @@ export default function Groups() {
             >
               {!composeOpen ? (
                 <div className="flex items-center gap-2">
-                  {/* Avatar placeholder */}
                   <div
                     className="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-light"
                     style={{ backgroundColor: "var(--mint)", color: "var(--forest)" }}
                   >
-                    A
+                    {user ? (user.displayName ?? "A")[0]?.toUpperCase() : "A"}
                   </div>
                   <button
                     onClick={openCompose}
@@ -131,7 +159,6 @@ export default function Groups() {
                     style={{
                       borderColor: "var(--lavender)",
                       color: "var(--lavender-deep)",
-                      backgroundColor: "linear-gradient(135deg, rgba(155, 114, 200, 0.12) 0%, rgba(47, 95, 72, 0.1) 100%)",
                       background: "linear-gradient(135deg, rgba(155, 114, 200, 0.12) 0%, rgba(47, 95, 72, 0.1) 100%)",
                       fontWeight: "600",
                       letterSpacing: "0.02em",
@@ -168,7 +195,7 @@ export default function Groups() {
                       🌿 Share Your Story
                     </h3>
                     <button
-                      onClick={() => setComposeOpen(false)}
+                      onClick={() => { setComposeOpen(false); clearMedia() }}
                       className="text-xs font-light tracking-wide uppercase hover:opacity-60 transition-opacity"
                       style={{ color: "var(--text-muted)" }}
                     >
@@ -176,13 +203,13 @@ export default function Groups() {
                     </button>
                   </div>
 
-                  {/* Media Upload Buttons - Toggle Style */}
-                  <div className="grid grid-cols-3 gap-2 mb-8">
+                  {/* Media Upload Buttons */}
+                  <div className="grid grid-cols-3 gap-2 mb-4">
                     <button
                       type="button"
                       onClick={() => pictureInputRef.current?.click()}
                       className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
-                      style={{ borderColor: "var(--lavender)", backgroundColor: "linear-gradient(135deg, rgba(155, 114, 200, 0.15), rgba(155, 114, 200, 0.08))", color: "var(--lavender-deep)" }}
+                      style={{ borderColor: selectedMedia?.type === "image" ? "var(--forest)" : "var(--lavender)", backgroundColor: "linear-gradient(135deg, rgba(155, 114, 200, 0.15), rgba(155, 114, 200, 0.08))", color: "var(--lavender-deep)" }}
                     >
                       <span className="text-2xl">🖼️</span>
                       <span>Picture</span>
@@ -191,7 +218,7 @@ export default function Groups() {
                       type="button"
                       onClick={() => videoInputRef.current?.click()}
                       className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
-                      style={{ borderColor: "var(--forest)", backgroundColor: "linear-gradient(135deg, rgba(47, 95, 72, 0.12), rgba(47, 95, 72, 0.06))", color: "var(--forest)" }}
+                      style={{ borderColor: selectedMedia?.type === "video" ? "var(--forest)" : "var(--forest)", backgroundColor: "linear-gradient(135deg, rgba(47, 95, 72, 0.12), rgba(47, 95, 72, 0.06))", color: "var(--forest)" }}
                     >
                       <span className="text-2xl">🎥</span>
                       <span>Video</span>
@@ -200,70 +227,58 @@ export default function Groups() {
                       type="button"
                       onClick={() => gifInputRef.current?.click()}
                       className="flex flex-col items-center justify-center gap-2 py-4 px-3 border-2 text-[10px] font-bold tracking-[0.12em] uppercase transition-all hover:shadow-md"
-                      style={{ borderColor: "var(--gold)", backgroundColor: "linear-gradient(135deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.06))", color: "var(--gold)" }}
+                      style={{ borderColor: selectedMedia?.type === "gif" ? "var(--forest)" : "var(--gold)", backgroundColor: "linear-gradient(135deg, rgba(201, 169, 110, 0.12), rgba(201, 169, 110, 0.06))", color: "var(--gold)" }}
                     >
                       <span className="text-2xl">🎬</span>
                       <span>GIF</span>
                     </button>
 
-                    {/* Hidden File Inputs */}
-                    <input
-                      ref={pictureInputRef}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "image")}
-                    />
-                    <input
-                      ref={videoInputRef}
-                      type="file"
-                      accept="video/*"
-                      style={{ display: "none" }}
-                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "video")}
-                    />
-                    <input
-                      ref={gifInputRef}
-                      type="file"
-                      accept=".gif,image/gif"
-                      style={{ display: "none" }}
-                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "gif")}
-                    />
+                    <input ref={pictureInputRef} type="file" accept="image/*" style={{ display: "none" }}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "image")} />
+                    <input ref={videoInputRef} type="file" accept="video/*" style={{ display: "none" }}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "video")} />
+                    <input ref={gifInputRef} type="file" accept=".gif,image/gif" style={{ display: "none" }}
+                      onChange={e => handleFileSelect(e.target.files?.[0] ?? null, "gif")} />
                   </div>
 
                   {/* Media Preview */}
                   {selectedMedia && (
-                    <div className="mb-6 relative overflow-hidden" style={{ aspectRatio: "16/9", borderRadius: "4px", backgroundColor: "var(--bg-alt)", boxShadow: "var(--shadow-green)" }}>
-                      {selectedMedia.type === "image" || selectedMedia.type === "gif" ? (
-                        <img
-                          src={selectedMedia.preview}
-                          alt="Preview"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <video
-                          src={selectedMedia.preview}
-                          className="w-full h-full object-cover"
-                          controls
-                          autoPlay
-                          loop
-                          muted
-                        />
+                    <div className="mb-4">
+                      <div className="relative overflow-hidden" style={{ aspectRatio: "16/9", borderRadius: "4px", backgroundColor: "var(--bg-alt)" }}>
+                        {selectedMedia.type === "image" || selectedMedia.type === "gif" ? (
+                          <img src={selectedMedia.preview} alt="Preview" className="w-full h-full object-cover" />
+                        ) : (
+                          <video src={selectedMedia.preview} className="w-full h-full object-cover" controls autoPlay loop muted />
+                        )}
+                        <button
+                          type="button"
+                          onClick={clearMedia}
+                          className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center text-sm transition-all hover:opacity-70"
+                          style={{ backgroundColor: "rgba(26,23,20,0.7)", color: "#fff" }}
+                        >
+                          ✕
+                        </button>
+                        <p className="absolute bottom-2 left-2 text-[9px] font-light px-2 py-1 rounded" style={{ backgroundColor: "rgba(26,23,20,0.6)", color: "#fff" }}>
+                          {selectedMedia.file.name} · {formatBytes(selectedMedia.file.size)}
+                        </p>
+                      </div>
+
+                      {selectedMedia.tooLargeToStore && (
+                        <p className="mt-2 text-[10px] font-light leading-relaxed px-1" style={{ color: "var(--gold)" }}>
+                          {selectedMedia.type === "video"
+                            ? "Videos can be previewed but won't be saved in the post — video storage isn't supported yet."
+                            : `Image is over 700 KB and won't be saved in the post. Compress it or choose a smaller file.`}
+                        </p>
                       )}
-                      <button
-                        type="button"
-                        onClick={clearMedia}
-                        className="absolute top-2 right-2 w-7 h-7 rounded-full flex items-center justify-center text-sm font-light transition-all hover:opacity-70"
-                        style={{ backgroundColor: "rgba(26,23,20,0.7)", color: "#fff" }}
-                      >
-                        ✕
-                      </button>
-                      <p className="absolute bottom-2 left-2 text-[9px] font-light px-2 py-1 rounded" style={{ backgroundColor: "rgba(26,23,20,0.6)", color: "#fff" }}>
-                        {selectedMedia.file.name}
-                      </p>
                     </div>
                   )}
 
-                  <BlogForm user={user} />
+                  <BlogForm
+                    user={user}
+                    selectedMedia={selectedMedia}
+                    onMediaClear={clearMedia}
+                    onPostSuccess={() => setComposeOpen(false)}
+                  />
                 </div>
               )}
             </div>
@@ -280,12 +295,10 @@ export default function Groups() {
         </div>
       </div>
 
-      {/* Admin Modal */}
       {adminModalOpen && (
         <AdminCreateGroupModal onClose={() => setAdminModalOpen(false)} />
       )}
 
-      {/* Login Modal */}
       {loginModalOpen && (
         <LoginModal
           onClose={() => {

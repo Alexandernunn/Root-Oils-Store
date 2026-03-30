@@ -70,6 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signInWithEmailLink(auth, emailForSignIn, window.location.href)
           .then(() => {
             localStorage.removeItem("emailForSignIn")
+            localStorage.setItem("openComposeAfterAuth", "1")
             window.history.replaceState({}, "", window.location.pathname)
           })
           .catch((err: unknown) => console.error("Email link sign-in error:", err))
