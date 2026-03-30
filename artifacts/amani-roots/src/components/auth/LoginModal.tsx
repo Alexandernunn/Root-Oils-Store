@@ -5,10 +5,11 @@ import { db } from "@/lib/firebase"
 
 interface LoginModalProps {
   onClose: () => void
+  onSubmitSuccess?: () => void
   reason?: string
 }
 
-export default function LoginModal({ onClose }: LoginModalProps) {
+export default function LoginModal({ onClose, onSubmitSuccess }: LoginModalProps) {
   const [email, setEmail] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -26,6 +27,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
         })
       }
       setSubmitted(true)
+      onSubmitSuccess?.()
       setTimeout(onClose, 2000)
     } catch (err: unknown) {
       console.error("Email submission error:", err)
@@ -36,7 +38,7 @@ export default function LoginModal({ onClose }: LoginModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 pt-32"
       style={{ backgroundColor: "rgba(26,23,20,0.5)" }}
       onClick={onClose}
     >

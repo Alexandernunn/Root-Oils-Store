@@ -11,6 +11,7 @@ const BASE = typeof import.meta !== "undefined" ? import.meta.env.BASE_URL : "/"
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [loginModalOpen, setLoginModalOpen] = useState(false)
+  const [emailSubmitted, setEmailSubmitted] = useState(false)
   const { cartCount, openCart } = useCart()
   const { user, signOut, isConfigured } = useAuth()
 
@@ -137,7 +138,7 @@ export function Navbar() {
                 </div>
               )}
             </button>
-          ) : (
+          ) : !emailSubmitted ? (
             <button
               onClick={() => setLoginModalOpen(true)}
               className="flex-shrink-0 text-[9px] font-light tracking-[0.12em] uppercase px-3 py-1.5 border transition-all hover:opacity-70"
@@ -145,7 +146,7 @@ export function Navbar() {
             >
               Sign In
             </button>
-          )
+          ) : null}
         )}
 
         {/* Cart icon — desktop */}
@@ -169,6 +170,7 @@ export function Navbar() {
       {loginModalOpen && (
         <LoginModal
           onClose={() => setLoginModalOpen(false)}
+          onSubmitSuccess={() => setEmailSubmitted(true)}
         />
       )}
     </header>
