@@ -4,7 +4,8 @@ import { db } from "@/lib/firebase"
 import { type User } from "firebase/auth"
 import { type SelectedMedia } from "@/pages/Groups"
 
-const IMAGE_STORE_LIMIT = 900 * 1024
+const IMAGE_STORE_LIMIT_BASE64 = 900 * 1024
+const IMAGE_RAW_LIMIT = Math.floor(IMAGE_STORE_LIMIT_BASE64 * 0.75)
 
 interface BlogFormProps {
   user?: User | null
@@ -61,8 +62,14 @@ export default function BlogForm({ user, selectedMedia, onMediaClear, onPostSucc
 
       if (selectedMedia && !selectedMedia.tooLargeToStore) {
         const isImage = selectedMedia.type === "image" || selectedMedia.type === "gif"
-        if (isImage && selectedMedia.file.size <= IMAGE_STORE_LIMIT) {
-          mediaUrl = await fileToBase64(selectedMedia.file)
+        if (isImage && selectedMedia.file.size <= IMAGE_RAW_LIMIT) {
+          const encoded = await fileToBase64(selectedMedia.file)
+          if (encoded.length > IMAGE_STORE_LIMIT_BASE64) {
+            setMediaError("Image is too large to save (over 900 KB when encoded). Remove it or choose a smaller image.")
+            setSubmitting(false)
+            return
+          }
+          mediaUrl = encoded
           mediaType = selectedMedia.type
         }
       }

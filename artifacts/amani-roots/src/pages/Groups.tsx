@@ -12,7 +12,8 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } },
 }
 
-const IMAGE_STORE_LIMIT = 900 * 1024
+const IMAGE_STORE_LIMIT_BASE64 = 900 * 1024
+const IMAGE_RAW_LIMIT = Math.floor(IMAGE_STORE_LIMIT_BASE64 * 0.75)
 
 export type SelectedMedia = {
   file: File
@@ -70,9 +71,7 @@ export default function Groups() {
       alert(`File too large. Max ${isVideo ? "50MB" : "10MB"} for upload.`)
       return
     }
-    const tooLargeToStore = isVideo
-      ? true
-      : file.size > IMAGE_STORE_LIMIT
+    const tooLargeToStore = isVideo ? true : file.size > IMAGE_RAW_LIMIT
     const preview = URL.createObjectURL(file)
     setSelectedMedia({ file, preview, type: mediaType, tooLargeToStore })
   }
