@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react"
-import { collection, onSnapshot, orderBy, query, Timestamp } from "firebase/firestore"
+import { collection, onSnapshot, orderBy, query, Timestamp, addDoc, getDocs, where } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { Heart, MessageCircle, Eye } from "lucide-react"
+
+interface Comment {
+  id: string
+  author: string
+  text: string
+  createdAt: Timestamp | null
+}
 
 interface Post {
   id: string
@@ -52,6 +59,9 @@ interface BlogFeedProps {
 export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
   const [posts, setPosts] = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
+  const [postComments, setPostComments] = useState<Record<string, Comment[]>>({})
+  const [expandedPost, setExpandedPost] = useState<string | null>(null)
+  const [commentText, setCommentText] = useState<Record<string, string>>({})
 
   useEffect(() => {
     if (!db) {
@@ -60,16 +70,52 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
     }
     const q = query(collection(db, "posts"), orderBy("createdAt", "desc"))
     const unsub = onSnapshot(q, snapshot => {
-      setPosts(
-        snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...(doc.data() as Omit<Post, "id">),
-        }))
-      )
+      const postList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...(doc.data() as Omit<Post, "id">),
+      }))
+      setPosts(postList)
+      postList.forEach(post => loadComments(post.id))
       setLoading(false)
     })
     return () => unsub()
   }, [])
+
+  const loadComments = async (postId: string) => {
+    if (!db) return
+    try {
+      const commentsCollection = collection(db, `posts/${postId}/comments`)
+      const q = query(commentsCollection, orderBy("createdAt", "asc"))
+      const snapshot = await getDocs(q)
+      const comments = snapshot.docs.map(doc => ({
+        id: doc.id,
+        author: doc.data().author ?? "Member",
+        text: doc.data().text ?? "",
+        createdAt: doc.data().createdAt ?? null,
+      }))
+      setPostComments(prev => ({ ...prev, [postId]: comments }))
+    } catch (err) {
+      console.error("Failed to load comments:", err)
+    }
+  }
+
+  const handleAddComment = async (postId: string) => {
+    const text = commentText[postId]?.trim()
+    if (!text || !db) return
+    
+    try {
+      const commentsCollection = collection(db, `posts/${postId}/comments`)
+      await addDoc(commentsCollection, {
+        author: "Member",
+        text,
+        createdAt: new Date(),
+      })
+      setCommentText(prev => ({ ...prev, [postId]: "" }))
+      await loadComments(postId)
+    } catch (err) {
+      console.error("Failed to add comment:", err)
+    }
+  }
 
   const filteredPosts = posts.filter(post => {
     const query = searchQuery.toLowerCase()
@@ -194,6 +240,7 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
                 <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--lavender-deep)" }}>0</span>
               </button>
               <button
+                onClick={() => setExpandedPost(expandedPost === post.id ? null : post.id)}
                 className="flex items-center gap-1.5 group transition-all hover:scale-105"
                 aria-label="Comments"
               >
@@ -202,13 +249,61 @@ export default function BlogFeed({ searchQuery = "" }: BlogFeedProps) {
                   className="transition-colors"
                   style={{ color: "var(--forest)" }}
                 />
-                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--forest)" }}>0 Comments</span>
+                <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--forest)" }}>
+                  {(postComments[post.id] ?? []).length} Comments
+                </span>
               </button>
               <div className="flex items-center gap-1.5 ml-auto">
                 <Eye size={14} style={{ color: "var(--gold)" }} />
                 <span className="text-[10px] font-bold tracking-wide" style={{ color: "var(--gold)" }}>0 Views</span>
               </div>
             </div>
+
+            {/* Comments section */}
+            {expandedPost === post.id && (
+              <div className="mt-6 border-t pt-4" style={{ borderColor: "var(--sage)", paddingLeft: "52px" }}>
+                {/* Display existing comments */}
+                <div className="mb-4 space-y-3">
+                  {(postComments[post.id] ?? []).map(comment => (
+                    <div key={comment.id} className="text-sm">
+                      <p className="font-bold text-xs" style={{ color: "var(--forest)" }}>
+                        {comment.author}
+                      </p>
+                      <p className="text-xs font-light mt-1" style={{ color: "var(--text)" }}>
+                        {comment.text}
+                      </p>
+                      <p className="text-[9px] font-light mt-1" style={{ color: "var(--gold)" }}>
+                        {formatDate(comment.createdAt)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Comment input */}
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={commentText[post.id] ?? ""}
+                    onChange={e => setCommentText(prev => ({ ...prev, [post.id]: e.target.value }))}
+                    onKeyPress={e => {
+                      if (e.key === "Enter") handleAddComment(post.id)
+                    }}
+                    placeholder="Add a comment..."
+                    className="flex-1 bg-transparent border-b-2 px-0 py-2 text-xs font-light outline-none transition-colors"
+                    style={{ borderColor: "var(--lavender)", color: "var(--text)" }}
+                    onFocus={e => (e.target.style.borderColor = "var(--forest)")}
+                    onBlur={e => (e.target.style.borderColor = "var(--lavender)")}
+                  />
+                  <button
+                    onClick={() => handleAddComment(post.id)}
+                    className="text-xs font-light tracking-wide px-3 py-1 transition-opacity hover:opacity-70"
+                    style={{ color: "var(--forest)" }}
+                  >
+                    Post
+                  </button>
+                </div>
+              </div>
+            )}
           </article>
         )
       })}
