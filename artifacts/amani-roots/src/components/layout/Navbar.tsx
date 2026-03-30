@@ -146,7 +146,7 @@ export function Navbar() {
             >
               Sign In
             </button>
-          ) : null}
+          ) : null
         )}
 
         {/* Cart icon — desktop */}
