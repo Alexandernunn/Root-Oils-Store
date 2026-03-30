@@ -12,8 +12,7 @@ const fadeInUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.2, 0, 0.2, 1] } },
 }
 
-const IMAGE_STORE_LIMIT = 700 * 1024
-const VIDEO_STORE_LIMIT = 0
+const IMAGE_STORE_LIMIT = 900 * 1024
 
 export type SelectedMedia = {
   file: File

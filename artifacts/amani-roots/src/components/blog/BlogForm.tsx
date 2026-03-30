@@ -4,7 +4,7 @@ import { db } from "@/lib/firebase"
 import { type User } from "firebase/auth"
 import { type SelectedMedia } from "@/pages/Groups"
 
-const IMAGE_STORE_LIMIT = 700 * 1024
+const IMAGE_STORE_LIMIT = 900 * 1024
 
 interface BlogFormProps {
   user?: User | null
